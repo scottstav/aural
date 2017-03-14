@@ -1,15 +1,14 @@
 package controller;
 
 /**
- * Possible implementation of a main controller
- * Perhaps this could be a super class that others inherit from.
+ * Possible implementation of a main controller Perhaps this could be a super
+ * class that others inherit from.
+ * 
  * @author Daniel Garcia
  *
  */
-public class Controller
-{
-   public Controller()
-   {
-      
-   }
+public class Controller {
+	public Controller() {
+
+	}
 }

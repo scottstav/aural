@@ -6,7 +6,6 @@ package controller;
  * @author Daniel Garcia
  *
  */
-public class LibrarySelectorController
-{
+public class LibrarySelectorController {
 
 }
