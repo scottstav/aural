@@ -1,9 +1,15 @@
 package launch;
 
 import java.io.IOException;
+
+import controller.Controller;
+import controller.RadioController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import view.MainView;
+import view.RadioView;
 import view.ViewType;
 
 /**
@@ -41,7 +47,8 @@ public class MasterController {
 
 		// load view appropriate to the give vType
 		if (vType == ViewType.RADIO_VIEW) {
-
+			RadioView view = new RadioView(new RadioController());
+			rootPane.setCenter(view);
 		} else if (vType == ViewType.LIBRARY_VIEW) {
 
 		} else if (vType == ViewType.PLAYBACK_VIEW) {
