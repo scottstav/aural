@@ -8,156 +8,162 @@ package aural;
  */
 public class SongEntry
 {
-   private int id;
-   private int trackId;
-   private int length;
-   
-   private String  location;
-   private String title;
-   private String artist;
-   private String album;
-   
-   public SongEntry()
-   {
-      setId(0);
-      setLocation("");
-      setTrackId(0);
-      setTitle("");
-      setartist("");
-      setAlbum("");
-      setLength(0);
-   }
-   
-   public SongEntry(int id, String location, int trackId,
-                    String title, String artist, String album, int length)
-   {
-      setId(id);
-      setLocation(location);
-      setTrackId(trackId);
-      setTitle(title);
-      setartist(artist);
-      setAlbum(album);
-      setLength(length);
-   }
+    private int id;
+    private int trackId;
+    private int length;
 
-   /**
-    * @return the id
-    */
-   public int getId()
-   {
-      return id;
-   }
+    private String location;
+    private String title;
+    private String artist;
+    private String album;
 
-   /**
-    * @param id the id to set
-    */
-   public void setId(int id)
-   {
-      this.id = id;
-   }
+    public SongEntry()
+    {
+        setId(0);
+        setLocation("");
+        setTrackId(0);
+        setTitle("");
+        setartist("");
+        setAlbum("");
+        setLength(0);
+    }
 
-   /**
-    * @return the trackId
-    */
-   public int getTrackId()
-   {
-      return trackId;
-   }
+    public SongEntry(int id, String location, int trackId, String title, String artist,
+            String album, int length)
+    {
+        setId(id);
+        setLocation(location);
+        setTrackId(trackId);
+        setTitle(title);
+        setartist(artist);
+        setAlbum(album);
+        setLength(length);
+    }
 
-   /**
-    * @param trackId the trackId to set
-    */
-   public void setTrackId(int trackId)
-   {
-      this.trackId = trackId;
-   }
+    /**
+     * @return the id
+     */
+    public int getId()
+    {
+        return id;
+    }
 
-   /**
-    * @return the title
-    */
-   public String getTitle()
-   {
-      return title;
-   }
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-   /**
-    * @param title the title to set
-    */
-   public void setTitle(String title)
-   {
-      this.title = title;
-   }
+    /**
+     * @return the trackId
+     */
+    public int getTrackId()
+    {
+        return trackId;
+    }
 
-   /**
-    * @return the location
-    */
-   public String getLocation()
-   {
-      return location;
-   }
+    /**
+     * @param trackId
+     *            the trackId to set
+     */
+    public void setTrackId(int trackId)
+    {
+        this.trackId = trackId;
+    }
 
-   /**
-    * @param location the location to set
-    */
-   public void setLocation(String location)
-   {
-      this.location = location;
-   }
+    /**
+     * @return the title
+     */
+    public String getTitle()
+    {
+        return title;
+    }
 
-   /**
-    * @return the album
-    */
-   public String getAlbum()
-   {
-      return album;
-   }
+    /**
+     * @param title
+     *            the title to set
+     */
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
 
-   /**
-    * @param album the album to set
-    */
-   public void setAlbum(String album)
-   {
-      this.album = album;
-   }
+    /**
+     * @return the location
+     */
+    public String getLocation()
+    {
+        return location;
+    }
 
-   /**
-    * @return the artist
-    */
-   public String getartist()
-   {
-      return artist;
-   }
+    /**
+     * @param location
+     *            the location to set
+     */
+    public void setLocation(String location)
+    {
+        this.location = location;
+    }
 
-   /**
-    * @param artist the artist to set
-    */
-   public void setartist(String artist)
-   {
-      this.artist = artist;
-   }
+    /**
+     * @return the album
+     */
+    public String getAlbum()
+    {
+        return album;
+    }
 
-   
-   /**
-    * @return the length
-    */
-   public int getLength()
-   {
-      return length;
-   }
-   
-   /**
-    * @return the length
-    */
-   public String getLengthFormatted()
-   {
-      return "" + length/60 + ":" + length%60;
-   }
+    /**
+     * @param album
+     *            the album to set
+     */
+    public void setAlbum(String album)
+    {
+        this.album = album;
+    }
 
-   /**
-    * @param length the length to set
-    */
-   public void setLength(int length)
-   {
-      this.length = length;
-   }
+    /**
+     * @return the artist
+     */
+    public String getartist()
+    {
+        return artist;
+    }
+
+    /**
+     * @param artist
+     *            the artist to set
+     */
+    public void setartist(String artist)
+    {
+        this.artist = artist;
+    }
+
+    /**
+     * @return the length
+     */
+    public int getLength()
+    {
+        return length;
+    }
+
+    /**
+     * @return the length
+     */
+    public String getLengthFormatted()
+    {
+        return "" + length / 60 + ":" + length % 60;
+    }
+
+    /**
+     * @param length
+     *            the length to set
+     */
+    public void setLength(int length)
+    {
+        this.length = length;
+    }
 }
