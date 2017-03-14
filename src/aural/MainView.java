@@ -7,6 +7,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class MainView extends BorderPane
@@ -42,6 +43,21 @@ public class MainView extends BorderPane
    private Button play;
    private Button next;
    private Button previous;
+
+   private VBox centerBox;
+   private HBox artistAlbumBox;
+   
+   private AuthorTable           authorTable;
+   private AuthorTableController authorTableController;
+   
+   private AlbumTable            albumTable;
+   private AlbumTableController  albumTableController;
+   
+   private SongTable             songTable;
+   private SongTableController   songTableController;
+   
+   private LibrarySelector           selector;
+   private LibrarySelectorController selectorController;
    
    private Controller controller;
    
@@ -55,8 +71,10 @@ public class MainView extends BorderPane
       
       createAndPlaceMenu();
       createAndPlacePlaybackBar();
+      createAndPlaceCenterBox();
+      createAndPlaceLeftPanel();
    }
-   
+
    private void createAndPlaceMenu()
    {
       menuBar = new MenuBar();
@@ -98,7 +116,7 @@ public class MainView extends BorderPane
       playBackBox = new HBox();
       play = new Button("Play");
       next = new Button("Next");
-      previous = new Button("Previous");
+      previous = new Button("Prev.");
       
       playBackBox.getChildren().addAll(previous, play, next);
       playBackBox.setSpacing(10);
@@ -106,5 +124,42 @@ public class MainView extends BorderPane
       topBox.getChildren().add(playBackBox);
    }
    
+   private void createAndPlaceCenterBox()
+   {
+      centerBox = new VBox();
+      
+      artistAlbumBox = new HBox();
+      
+      authorTableController = new AuthorTableController();
+      authorTable = new AuthorTable(authorTableController);
+      
+      albumTableController = new AlbumTableController();
+      albumTable = new AlbumTable(albumTableController);
+      
+      artistAlbumBox.getChildren().addAll(authorTable, albumTable);
+      HBox.setHgrow(artistAlbumBox.getChildren().get(0), Priority.ALWAYS);
+      HBox.setHgrow(artistAlbumBox.getChildren().get(1), Priority.ALWAYS);
+
+      
+      songTableController = new SongTableController();
+      songTable = new SongTable(songTableController);
+      
+      centerBox.getChildren().addAll(artistAlbumBox, songTable);
+      
+      setCenter(centerBox);
+   }
+   
+   private void createAndPlaceLeftPanel()
+   {
+      selectorController = new LibrarySelectorController();
+      selector = new LibrarySelector(selectorController);
+      
+      setLeft(selector);
+   }
+   
+   public HBox getArtistAlbumBox()
+   {
+      return artistAlbumBox;
+   }
    
 }
