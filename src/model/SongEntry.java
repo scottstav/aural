@@ -1,4 +1,4 @@
-package aural;
+package model;
 
 /**
  * Possible model for the SongEntry gathered from the database

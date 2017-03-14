@@ -1,5 +1,6 @@
-package aural;
+package view;
 
+import controller.LibrarySelectorController;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;

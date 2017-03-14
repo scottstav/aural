@@ -1,4 +1,4 @@
-package aural;
+package controller;
 
 /**
  * Empty so far, just a controller for any elements in the LibrarySelector

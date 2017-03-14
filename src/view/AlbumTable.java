@@ -1,7 +1,9 @@
-package aural;
+package view;
 
+import controller.AlbumTableController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import model.SongEntry;
 
 /**
  * TableView that displays all albums under currently selected artist.

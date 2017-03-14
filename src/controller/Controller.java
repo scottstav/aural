@@ -1,4 +1,4 @@
-package aural;
+package controller;
 
 /**
  * Possible implementation of a main controller
