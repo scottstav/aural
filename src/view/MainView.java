@@ -1,5 +1,10 @@
-package aural;
+package view;
 
+import controller.AlbumTableController;
+import controller.AuthorTableController;
+import controller.Controller;
+import controller.LibrarySelectorController;
+import controller.SongTableController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;

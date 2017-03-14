@@ -1,4 +1,4 @@
-package aural;
+package controller;
 
 /**
  * Possible controller for the AlbumTable

@@ -1,7 +1,9 @@
-package aural;
+package view;
 
+import controller.SongTableController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import model.SongEntry;
 
 /**
  * TableView containing the songs and their relevant information.

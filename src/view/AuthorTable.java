@@ -1,7 +1,9 @@
-package aural;
+package view;
 
+import controller.AuthorTableController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import model.SongEntry;
 
 /**
  * TableView displaying all authors
