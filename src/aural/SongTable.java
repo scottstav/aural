@@ -3,6 +3,11 @@ package aural;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * TableView containing the songs and their relevant information.
+ * @author Daniel Garcia
+ *
+ */
 public class SongTable extends TableView<SongEntry>
 {
    private SongTableController controller;
@@ -19,6 +24,9 @@ public class SongTable extends TableView<SongEntry>
       createColumns();
    }
    
+   /**
+    * Creates and places appropriate columns for the table.
+    */
    public void createColumns()
    {
       /*trackId = new TableColumn<SongEntry, Integer>("Track");

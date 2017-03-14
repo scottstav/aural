@@ -3,6 +3,11 @@ package aural;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * TableView displaying all authors
+ * @author Daniel Garcia
+ *
+ */
 public class AuthorTable extends TableView<SongEntry>
 {
    private TableColumn author;
@@ -15,6 +20,9 @@ public class AuthorTable extends TableView<SongEntry>
       createColumns();
    }
    
+   /**
+    * Creates and adds appropriate columns to the TableView
+    */
    private void createColumns()
    {
       author = new TableColumn("Author");

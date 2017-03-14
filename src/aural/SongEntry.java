@@ -1,5 +1,11 @@
 package aural;
 
+/**
+ * Possible model for the SongEntry gathered from the database
+ * 
+ * @author Daniel Garcia
+ *
+ */
 public class SongEntry
 {
    private int id;

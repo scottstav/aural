@@ -10,10 +10,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/**
+ * MainView that houses all other views in the application.
+ * Application is a Single Document Interface.
+ * 
+ * @author Daniel Garcia
+ *
+ */
 public class MainView extends BorderPane
 {
+   // Container for the MenuBar and PlayBack container
    private VBox topBox;
    
+   
+   // Items for the MenuBar 
    private MenuBar   menuBar;
    
    private Menu      fileMenu;
@@ -39,12 +49,16 @@ public class MainView extends BorderPane
    private MenuItem  executeScriptsItem;
    private MenuItem  selectDefaultItem;
    
+   // Items for the playBackBox, a box containing the playback buttons
    private HBox playBackBox;
    private Button play;
    private Button next;
    private Button previous;
 
+   // Container for the primary view
    private VBox centerBox;
+   
+   // Container for the Artist and Album views
    private HBox artistAlbumBox;
    
    private AuthorTable           authorTable;
@@ -75,6 +89,9 @@ public class MainView extends BorderPane
       createAndPlaceLeftPanel();
    }
 
+   /**
+    * Initializes and places all Menu items in their proper place
+    */
    private void createAndPlaceMenu()
    {
       menuBar = new MenuBar();
@@ -111,6 +128,9 @@ public class MainView extends BorderPane
       topBox.getChildren().add(menuBar);
    }
    
+   /**
+    * Initializes and places the playback bar in its proper place
+    */
    private void createAndPlacePlaybackBar()
    {
       playBackBox = new HBox();
@@ -124,6 +144,9 @@ public class MainView extends BorderPane
       topBox.getChildren().add(playBackBox);
    }
    
+   /**
+    * Initializes and places the centerBox and all its elements in their proper place
+    */
    private void createAndPlaceCenterBox()
    {
       centerBox = new VBox();
@@ -149,6 +172,9 @@ public class MainView extends BorderPane
       setCenter(centerBox);
    }
    
+   /**
+    * Creates and places the left panel.
+    */
    private void createAndPlaceLeftPanel()
    {
       selectorController = new LibrarySelectorController();
@@ -157,6 +183,10 @@ public class MainView extends BorderPane
       setLeft(selector);
    }
    
+   /**
+    *
+    * @return A references to the HBox containing the artist and album views
+    */
    public HBox getArtistAlbumBox()
    {
       return artistAlbumBox;

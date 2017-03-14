@@ -3,6 +3,11 @@ package aural;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * TableView that displays all albums under currently selected artist.
+ * @author Daniel Garcia
+ *
+ */
 public class AlbumTable extends TableView<SongEntry>
 {
    private TableColumn album;
@@ -15,6 +20,9 @@ public class AlbumTable extends TableView<SongEntry>
       createColumns();
    }
    
+   /**
+    * Creates and adds the appropriate columns to the tableview
+    */
    private void createColumns()
    {
       album = new TableColumn("Album");
