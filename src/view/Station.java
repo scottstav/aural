@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 
 public class Station extends VBox
 {
+	
     public Station(String name)
     {
         getChildren().addAll(new Label(name), new Button("Listen"));
@@ -15,4 +16,5 @@ public class Station extends VBox
         setSpacing(20.0);
         setAlignment(Pos.CENTER);
     }
+    
 }

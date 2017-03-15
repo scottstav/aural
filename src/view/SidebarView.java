@@ -1,9 +1,13 @@
 package view;
 
 import controller.SidebarController;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
+import launch.MasterController;
 import model.Playlist;
 
 /**
@@ -14,7 +18,7 @@ import model.Playlist;
  *
  */
 public class SidebarView extends VBox {
-	private Button personalLibray;
+	private Button personalLibrary;
 	private ComboBox<Playlist> playlists;
 	private Button radio;
 
@@ -30,7 +34,12 @@ public class SidebarView extends VBox {
 	 * appropriate container
 	 */
 	private void createAndPlaceElements() {
-		personalLibray = new Button("PersonaLibrary");
+		personalLibrary = new Button("PersonaLibrary");
+		personalLibrary.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	MasterController.getInstance().updateView(ViewType.LIBRARY_VIEW, null);
+		    }
+		});
 
 		playlists = new ComboBox<Playlist>();
 		
@@ -38,7 +47,12 @@ public class SidebarView extends VBox {
 		playlists.setValue(new Playlist());
 
 		radio = new Button("Radio");
+		radio.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	MasterController.getInstance().updateView(ViewType.RADIO_VIEW, null);
+		    }
+		});
 
-		getChildren().addAll(personalLibray, playlists, radio);
+		getChildren().addAll(personalLibrary, playlists, radio);
 	}
 }
