@@ -1,9 +1,10 @@
 package view;
 
-import controller.LibrarySelectorController;
+import controller.SidebarController;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
+import model.Playlist;
 
 /**
  * VBox containing all the necessary elements for the left panel on the main
@@ -12,15 +13,15 @@ import javafx.scene.layout.VBox;
  * @author Daniel Garcia
  *
  */
-public class LibrarySelector extends VBox {
+public class SidebarView extends VBox {
 	private Button personalLibray;
-	private ComboBox playlists;
+	private ComboBox<Playlist> playlists;
 	private Button radio;
 
-	private LibrarySelectorController controller;
+	private SidebarController controller;
 
-	public LibrarySelector(LibrarySelectorController controller) {
-		this.controller = controller;
+	public SidebarView(SidebarController sidebarController) {
+		this.controller = sidebarController;
 		createAndPlaceElements();
 	}
 
@@ -31,9 +32,10 @@ public class LibrarySelector extends VBox {
 	private void createAndPlaceElements() {
 		personalLibray = new Button("PersonaLibrary");
 
-		playlists = new ComboBox();
+		playlists = new ComboBox<Playlist>();
+		
 		// Set value so user knows what this ComboBox is for
-		playlists.setValue("Playlists");
+		playlists.setValue(new Playlist());
 
 		radio = new Button("Radio");
 
