@@ -1,39 +1,49 @@
 package model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import helliker.id3.MP3File;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * Possible model for the SongEntry gathered from the database
  * 
  * @author Daniel Garcia
  *
  */
-public class SongEntry {
+public class SongEntry  {
 	private int id;
 	private int trackId;
-	private int length;
+	
+	private long length;
 
-	private String location;
-	private String title;
-	private String artist;
-	private String album;
+	private SimpleStringProperty location = new SimpleStringProperty();
+	private SimpleStringProperty title = new SimpleStringProperty();
+	private SimpleStringProperty artist = new SimpleStringProperty();
+	private SimpleStringProperty album = new SimpleStringProperty();
 
+	
 	public SongEntry() {
 		setId(0);
 		setLocation("");
 		setTrackId(0);
-		setTitle("");
-		setartist("");
+		setTitle("this is a song");
+		setArtist("");
 		setAlbum("");
 		setLength(0);
 	}
 
-	public SongEntry(int id, String location, int trackId, String title, String artist, String album, int length) {
-		setId(id);
-		setLocation(location);
-		setTrackId(trackId);
-		setTitle(title);
-		setartist(artist);
-		setAlbum(album);
-		setLength(length);
+	public SongEntry(MP3File song)
+	{
+		this();
+		
+		setId(0);						// database?
+		setTrackId(0);					// database?
+		
+		setLength(song.getPlayingTime());
+		
 	}
 
 	/**
@@ -66,85 +76,48 @@ public class SongEntry {
 		this.trackId = trackId;
 	}
 
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * @param title
-	 *            the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/**
-	 * @return the location
-	 */
 	public String getLocation() {
-		return location;
+		return location.get();
 	}
 
-	/**
-	 * @param location
-	 *            the location to set
-	 */
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocation(String val) {
+		this.location.set(val);
 	}
 
-	/**
-	 * @return the album
-	 */
+	public String getTitle() {
+		return title.get();
+	}
+
+	public void setTitle(String val) {
+		this.title.set(val);;
+	}
+
+	public String getArtist() {
+		return artist.get();
+	}
+
+	public void setArtist(String val) {
+		this.artist.set(val);;
+	}
+
 	public String getAlbum() {
-		return album;
+		return album.get();
 	}
 
-	/**
-	 * @param album
-	 *            the album to set
-	 */
-	public void setAlbum(String album) {
-		this.album = album;
+	public void setAlbum(String val) {
+		this.album.set(val);
 	}
 
-	/**
-	 * @return the artist
-	 */
-	public String getartist() {
-		return artist;
-	}
-
-	/**
-	 * @param artist
-	 *            the artist to set
-	 */
-	public void setartist(String artist) {
-		this.artist = artist;
-	}
-
-	/**
-	 * @return the length
-	 */
-	public int getLength() {
+	public long getLength() {
 		return length;
 	}
 
-	/**
-	 * @return the length
-	 */
-	public String getLengthFormatted() {
-		return "" + length / 60 + ":" + length % 60;
+	public void setLength(long length) {
+		this.length = length;
 	}
 
-	/**
-	 * @param length
-	 *            the length to set
-	 */
-	public void setLength(int length) {
-		this.length = length;
+	public String toString() 
+	{
+		return getTitle();
 	}
 }
