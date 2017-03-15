@@ -1,5 +1,6 @@
 package view;
 
+import controller.PlaybackController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -10,7 +11,7 @@ public class PlaybackView extends HBox{
 	private Button next;
 	private Button previous;
 	
-	public PlaybackView(){
+	public PlaybackView(PlaybackController playbackController){
 		play = new Button("Play");
 		next = new Button("Next");
 		previous = new Button("Prev.");

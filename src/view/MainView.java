@@ -1,19 +1,10 @@
 package view;
 
-import controller.AlbumTableController;
-import controller.AuthorTableController;
-import controller.Controller;
-import controller.LibrarySelectorController;
+import controller.LibraryController;
 import controller.MenuController;
-import controller.SongTableController;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import controller.PlaybackController;
+import controller.SidebarController;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -29,23 +20,29 @@ public class MainView extends BorderPane {
 	private VBox topBox;
 
 
-	private MenuController controller;
+	private MenuController menuController;
+	private PlaybackController playbackController;
+	private SidebarController sidebarController;
+	private LibraryController libraryController;
 
-	public MainView(MenuController controller) {
+	public MainView() {
 
-		this.controller = controller;
+		menuController = new MenuController();
+		playbackController = new PlaybackController();
+		sidebarController = new SidebarController();
+		libraryController = new LibraryController();		
 
 		// playback and menu (top)
 		topBox = new VBox();
-		topBox.getChildren().add(new MenuView());
-		topBox.getChildren().add(new PlaybackView());
+		topBox.getChildren().add(new MenuView(menuController));
+		topBox.getChildren().add(new PlaybackView(playbackController));
 		setTop(topBox);
 
 		// library (center)
-		setCenter(new LibraryView());
+		setCenter(new LibraryView(libraryController));
 
-		// library selector (left menu)
-		setLeft(new LibrarySelector());	
+		// sidebar menu (left menu)
+		setLeft(new SidebarView(sidebarController));	
 		
 	}
 

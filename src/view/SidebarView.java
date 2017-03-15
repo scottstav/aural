@@ -1,7 +1,6 @@
 package view;
 
-import controller.LibrarySelectorController;
-
+import controller.SidebarController;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
@@ -14,14 +13,15 @@ import model.Playlist;
  * @author Daniel Garcia
  *
  */
-public class LibrarySelector extends VBox {
+public class SidebarView extends VBox {
 	private Button personalLibray;
 	private ComboBox<Playlist> playlists;
 	private Button radio;
 
-	private LibrarySelectorController controller;
+	private SidebarController controller;
 
-	public LibrarySelector() {
+	public SidebarView(SidebarController sidebarController) {
+		this.controller = sidebarController;
 		createAndPlaceElements();
 	}
 

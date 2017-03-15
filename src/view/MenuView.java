@@ -1,8 +1,26 @@
 package view;
 
+import java.io.File;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import controller.MenuController;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.Popup;
+import launch.MasterController;
 
 public class MenuView extends MenuBar{
 	private Menu fileMenu;
@@ -28,32 +46,128 @@ public class MenuView extends MenuBar{
 	private MenuItem executeScriptsItem;
 	private MenuItem selectDefaultItem;
 	
-	public MenuView() {
+	private MenuController controller;
+	
+	FileChooser fileChooser;
+	
+	public MenuView(MenuController c) {
+		
+		Logger logger = LogManager.getLogger();
+
+		
+		fileChooser  = new FileChooser();
+		
+		this.controller = c;
+		
 		fileMenu = new Menu("File");
 		quitItem = new MenuItem("Quit");
+		quitItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
+		
 		importItem = new MenuItem("Import Music");
+		importItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	fileChooser.setTitle("Select music files");
+		    	File selected_song = fileChooser.showOpenDialog(MasterController.getInstance().getPrimaryStage());
+		    	//controller.addSongToLibrary();
+		    }
+		});
 		createPlaylistItem = new MenuItem("Create PlayList");
+		createPlaylistItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	logger.info("show playlist popup");
+		    }
+		});
+		
 		fileMenu.getItems().addAll(quitItem, importItem, createPlaylistItem);
 
 		editMenu = new Menu("Edit");
+		
 		deleteItem = new MenuItem("Delete Selected Item(s)");
+		deleteItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
+		
 		keymapItem = new MenuItem("Keymap");
+		keymapItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
+		
 		preferencesItem = new MenuItem("Preferences");
+		preferencesItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
+		
 		editMenu.getItems().addAll(deleteItem, keymapItem, preferencesItem);
 
 		playbackMenu = new Menu("Playback");
 		playItem = new MenuItem("Play");
+		playItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		pauseItem = new MenuItem("Pause");
+		pauseItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		nextTrackItem = new MenuItem("Next Track");
+		nextTrackItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		previousTrackItem = new MenuItem("Previous Track");
+		previousTrackItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		shuffleItem = new MenuItem("Shuffle");
+		shuffleItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		repeatItem = new MenuItem("Repeat");
+		repeatItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		playbackMenu.getItems().addAll(playItem, pauseItem, nextTrackItem, previousTrackItem, shuffleItem, repeatItem);
 
 		scriptsMenu = new Menu("Scripts");
+		
 		importScriptsItem = new MenuItem("Import Scripts");
+		importScriptsItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		executeScriptsItem = new MenuItem("Execute Scripts");
+		executeScriptsItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		selectDefaultItem = new MenuItem("Select Default Scripts");
+		selectDefaultItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
 		scriptsMenu.getItems().addAll(importScriptsItem, executeScriptsItem, selectDefaultItem);
 
 		this.getMenus().addAll(fileMenu, editMenu, playbackMenu, scriptsMenu);

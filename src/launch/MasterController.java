@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import view.MainView;
 import view.RadioView;
 import view.ViewType;
@@ -26,6 +27,8 @@ public class MasterController {
 	private Object currentViewController = null;
 
 	private BorderPane rootPane;
+
+	private Stage primaryStage;
 
 	private MasterController() {
 		// create gateways
@@ -49,21 +52,16 @@ public class MasterController {
 		if (vType == ViewType.RADIO_VIEW) {
 			RadioView view = new RadioView(new RadioController());
 			rootPane.setCenter(view);
+			
 		} else if (vType == ViewType.LIBRARY_VIEW) {
 
 		} else if (vType == ViewType.PLAYBACK_VIEW) {
 
 		}
 
-		Parent view = null;
-		try {
-			view = loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		// attach view to application center of border pane
-		rootPane.setCenter(view);
+		rootPane.setCenter(new RadioView(null));
 
 		return true;
 	}
@@ -87,6 +85,14 @@ public class MasterController {
 
 	public void setRootPane(BorderPane rootPane) {
 		this.rootPane = rootPane;
+	}
+	
+	public Stage getPrimaryStage() {
+		return primaryStage;
+	}
+
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 	}
 
 }

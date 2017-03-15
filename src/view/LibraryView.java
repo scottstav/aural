@@ -2,6 +2,7 @@ package view;
 
 import controller.AlbumTableController;
 import controller.AuthorTableController;
+import controller.LibraryController;
 import controller.SongTableController;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -21,7 +22,7 @@ public class LibraryView extends VBox {
 	private SongTable songTable;
 	private SongTableController songTableController;
 	
-	public LibraryView() {
+	public LibraryView(LibraryController libraryController) {
 
 		artistAlbumBox = new HBox();
 

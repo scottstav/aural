@@ -49,11 +49,12 @@ public class Core extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// Setting up any objects that are easier to reference from this point.
-		controller = new MenuController();
-		mainView = new MainView(controller);
+		mainView = new MainView();
 		mainScene = new Scene(mainView, 1000, 1000);
 		
 		MasterController.getInstance().setRootPane((BorderPane) mainView);
+		MasterController.getInstance().setPrimaryStage(primaryStage);
+
 
 		// Setting the stage and showing it
 		primaryStage.setTitle("Aural");
