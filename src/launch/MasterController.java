@@ -48,13 +48,6 @@ public class MasterController {
 
 	}
 
-	/*
-	 *  get the saved profile object
-	 */
-	public Profile getProfile() {
-		return new Profile();
-	}
-
 	/**
 	 * 
 	 * update the application view
@@ -64,9 +57,7 @@ public class MasterController {
 	 * @return
 	 */
 	public boolean updateView(ViewType vType, Object data) {
-		FXMLLoader loader = null;
 		
-		// if we were at a detail view, we need to check if input has changed
 
 		// load view appropriate to the give vType
 		if (vType == ViewType.RADIO_VIEW) {
@@ -120,6 +111,13 @@ public class MasterController {
 
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+	}
+	
+	/*
+	 *  get the saved profile object
+	 */
+	public Profile getProfile() {
+		return new Profile();
 	}
 
 }
