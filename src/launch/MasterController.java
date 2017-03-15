@@ -1,22 +1,25 @@
 package launch;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controller.Controller;
 import controller.LibraryController;
 import controller.PreferencesViewController;
 import controller.RadioController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import helliker.id3.CorruptHeaderException;
+import helliker.id3.ID3v2FormatException;
+import helliker.id3.MP3File;
+import helliker.id3.NoMPEGFramesException;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Profile;
+import model.SongEntry;
 import view.LibraryView;
-import view.MainView;
 import view.PreferencesView;
 import view.RadioView;
 import view.ViewType;
@@ -48,13 +51,6 @@ public class MasterController {
 
 	}
 
-	/*
-	 *  get the saved profile object
-	 */
-	public Profile getProfile() {
-		return new Profile();
-	}
-
 	/**
 	 * 
 	 * update the application view
@@ -64,9 +60,7 @@ public class MasterController {
 	 * @return
 	 */
 	public boolean updateView(ViewType vType, Object data) {
-		FXMLLoader loader = null;
 		
-		// if we were at a detail view, we need to check if input has changed
 
 		// load view appropriate to the give vType
 		if (vType == ViewType.RADIO_VIEW) {
@@ -80,8 +74,15 @@ public class MasterController {
 
 		} else if (vType == ViewType.IMPORT_MUSIC) {
 			logger.info("adding music to library...");
-			//libraryController.addSong();
+			try {
+				libraryController.addSong((File) data);
+			} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			LibraryView view = new LibraryView(libraryController);
+			rootPane.setCenter(view);
 
 		} else if (vType == ViewType.PREFERENCES_VIEW) {
 			Stage stage = new Stage();
@@ -120,6 +121,21 @@ public class MasterController {
 
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+	}
+	
+	/*
+	 *  get the saved profile object
+	 */
+	public Profile getProfile() {
+		return new Profile();
+	}
+
+	/*
+	 *  communicates with the song database
+	 */
+	public ObservableList<SongEntry> getSongs() {
+		// TODO Auto-generated method stub
+		return libraryController.getSongs();
 	}
 
 }
