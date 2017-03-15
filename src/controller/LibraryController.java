@@ -6,10 +6,6 @@ package controller;
  * @author Daniel Garcia
  *
  */
-public class SongTableController
-{
-    public SongTableController()
-    {
+public class LibraryController {
 
-    }
 }
