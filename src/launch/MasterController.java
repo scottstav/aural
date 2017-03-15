@@ -46,10 +46,12 @@ public class MasterController
         if (vType == ViewType.RADIO_VIEW)
         {
 
-        } else if (vType == ViewType.LIBRARY_VIEW)
+        }
+        else if (vType == ViewType.LIBRARY_VIEW)
         {
 
-        } else if (vType == ViewType.PLAYBACK_VIEW)
+        }
+        else if (vType == ViewType.PLAYBACK_VIEW)
         {
 
         }
@@ -58,7 +60,8 @@ public class MasterController
         try
         {
             view = loader.load();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }

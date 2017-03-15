@@ -205,19 +205,23 @@ public class MainView extends BorderPane
         {
             setCenter(centerBox);
             return true;
-        } else if (vType == ViewType.KEYMAP_VIEW)
+        }
+        else if (vType == ViewType.KEYMAP_VIEW)
         {
             setCenter((KeyMapView) view);
             return true;
-        } else if (vType == ViewType.PREFERENCES_VIEW)
+        }
+        else if (vType == ViewType.PREFERENCES_VIEW)
         {
             setCenter((PreferencesView) view);
             return true;
-        } else if (vType == ViewType.RADIO_VIEW)
+        }
+        else if (vType == ViewType.RADIO_VIEW)
         {
             setCenter((RadioView) view);
             return true;
-        } else if (vType == ViewType.PLAYBACK_VIEW)
+        }
+        else if (vType == ViewType.PLAYBACK_VIEW)
         {
             // setCenter((RadioView) view);
             return true;
