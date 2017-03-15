@@ -1,5 +1,6 @@
 package controller;
 
-public class PlaybackController {
+public class PlaybackController
+{
 
 }

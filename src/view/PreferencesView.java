@@ -16,9 +16,11 @@ import javafx.scene.layout.VBox;
  */
 public class PreferencesView extends HBox
 {
-    private static final int labelSpacing = 65;
-    private static final int inputSpacing = 50;
-    private static final int totalSpacing = 20;
+    private static final double labelSpacing = 65.0;
+    private static final double inputSpacing = 50.0;
+    private static final double topSpacing   = 40.0;
+    private static final double totalSpacing = 400.0;
+
     private VBox labelBox;
     private VBox inputBox;
 
@@ -36,8 +38,10 @@ public class PreferencesView extends HBox
     public PreferencesView(PreferencesViewController preferencesViewController)
     {
         createAndPlaceView();
+        setStyle("-fx-border-style: solid inside;" + "-fx-border-width: 10;"
+                + "-fx-border-color: lightblue;");
     }
-    
+
     private void createAndPlaceView()
     {
         labelBox = new VBox();
@@ -46,17 +50,25 @@ public class PreferencesView extends HBox
         fontSize = new Label("Font Size");
         labelBox.getChildren().addAll(screenSize, defaultVolume, fontSize);
         labelBox.setSpacing(labelSpacing);
-        
+        /*
+         * labelBox.setStyle("-fx-border-style: solid inside;"+
+         * "-fx-border-width: 5;");
+         */
+
         inputBox = new VBox();
         screenSizeInput = new TextField();
         defaultVolumeInput = new TextField();
         fontSizeInput = new TextField();
         inputBox.getChildren().addAll(screenSizeInput, defaultVolumeInput, fontSizeInput);
         inputBox.setSpacing(inputSpacing);
-        
+        /*
+         * inputBox.setStyle("-fx-border-style: solid inside;"+
+         * "-fx-border-width: 5;");
+         */
+
         getChildren().addAll(labelBox, inputBox);
         setAlignment(Pos.CENTER);
         setSpacing(totalSpacing);
-        setPadding(new Insets(totalSpacing, 0, 0, 0));
+        setPadding(new Insets(topSpacing, 0, 0, 0));
     }
 }

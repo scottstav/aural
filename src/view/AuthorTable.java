@@ -11,22 +11,26 @@ import model.SongEntry;
  * @author Daniel Garcia
  *
  */
-public class AuthorTable extends TableView<SongEntry> {
-	private TableColumn author;
+public class AuthorTable extends TableView<SongEntry>
+{
+    private TableColumn author;
 
-	private AuthorTableController controller;
+    private AuthorTableController controller;
 
-	public AuthorTable(AuthorTableController controller) {
-		this.controller = controller;
-		createColumns();
-	}
+    public AuthorTable(AuthorTableController controller)
+    {
+        this.controller = controller;
+        createColumns();
+    }
 
-	/**
-	 * Creates and adds appropriate columns to the TableView
-	 */
-	private void createColumns() {
-		author = new TableColumn("Author");
-		getColumns().add(author);
-		author.setMinWidth(200);
-	}
+    /**
+     * Creates and adds appropriate columns to the TableView
+     */
+    private void createColumns()
+    {
+        author = new TableColumn("Author");
+        author.setMinWidth(200);
+        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        getColumns().add(author);
+    }
 }

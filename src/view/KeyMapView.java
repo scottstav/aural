@@ -29,11 +29,11 @@ public class KeyMapView extends TableView<KeyMap>
     {
         key = new TableColumn("Key");
         function = new TableColumn("Function");
-        
-        //configure columns so that they each take up half of the table
+
+        // configure columns so that they each take up half of the table
         key.prefWidthProperty().bind(widthProperty().multiply(0.5));
         function.prefWidthProperty().bind(widthProperty().multiply(0.5));
-        
+
         getColumns().addAll(key, function);
     }
 }

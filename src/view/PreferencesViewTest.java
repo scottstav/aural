@@ -16,7 +16,8 @@ public class PreferencesViewTest extends Application
     public void start(Stage primaryStage) throws Exception
     {
         primaryStage.setTitle("Preferences View Test");
-        primaryStage.setScene(new Scene(new PreferencesView(new PreferencesViewController()), 500, 500));
+        primaryStage.setScene(new Scene(
+                new PreferencesView(new PreferencesViewController()), 500, 500));
         primaryStage.show();
     }
 }

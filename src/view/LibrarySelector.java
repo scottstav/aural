@@ -12,31 +12,35 @@ import javafx.scene.layout.VBox;
  * @author Daniel Garcia
  *
  */
-public class LibrarySelector extends VBox {
-	private Button personalLibray;
-	private ComboBox playlists;
-	private Button radio;
+public class LibrarySelector extends VBox
+{
+    private Button   personalLibray;
+    private ComboBox playlists;
+    private Button   radio;
 
-	private LibrarySelectorController controller;
+    private LibrarySelectorController controller;
 
-	public LibrarySelector(LibrarySelectorController controller) {
-		this.controller = controller;
-		createAndPlaceElements();
-	}
+    public LibrarySelector(LibrarySelectorController controller)
+    {
+        this.controller = controller;
+        createAndPlaceElements();
+        setSpacing(10);
+    }
 
-	/**
-	 * Initializes any objects that are needed and places them in the
-	 * appropriate container
-	 */
-	private void createAndPlaceElements() {
-		personalLibray = new Button("PersonaLibrary");
+    /**
+     * Initializes any objects that are needed and places them in the
+     * appropriate container
+     */
+    private void createAndPlaceElements()
+    {
+        personalLibray = new Button("PersonaLibrary");
 
-		playlists = new ComboBox();
-		// Set value so user knows what this ComboBox is for
-		playlists.setValue("Playlists");
+        playlists = new ComboBox();
+        // Set value so user knows what this ComboBox is for
+        playlists.setValue("Playlists");
 
-		radio = new Button("Radio");
+        radio = new Button("Radio");
 
-		getChildren().addAll(personalLibray, playlists, radio);
-	}
+        getChildren().addAll(personalLibray, playlists, radio);
+    }
 }

@@ -11,22 +11,26 @@ import model.SongEntry;
  * @author Daniel Garcia
  *
  */
-public class AlbumTable extends TableView<SongEntry> {
-	private TableColumn album;
+public class AlbumTable extends TableView<SongEntry>
+{
+    private TableColumn album;
 
-	private AlbumTableController controller;
+    private AlbumTableController controller;
 
-	public AlbumTable(AlbumTableController controller) {
-		this.controller = controller;
-		createColumns();
-	}
+    public AlbumTable(AlbumTableController controller)
+    {
+        this.controller = controller;
+        createColumns();
+    }
 
-	/**
-	 * Creates and adds the appropriate columns to the tableview
-	 */
-	private void createColumns() {
-		album = new TableColumn("Album");
-		getColumns().add(album);
-		album.setMinWidth(200);
-	}
+    /**
+     * Creates and adds the appropriate columns to the tableview
+     */
+    private void createColumns()
+    {
+        album = new TableColumn("Album");
+        album.setMinWidth(200);
+        setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        getColumns().add(album);
+    }
 }

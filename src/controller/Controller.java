@@ -7,8 +7,10 @@ package controller;
  * @author Daniel Garcia
  *
  */
-public class Controller {
-	public Controller() {
+public class Controller
+{
+    public Controller()
+    {
 
-	}
+    }
 }
