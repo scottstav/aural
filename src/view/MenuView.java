@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import controller.MenuController;
+import controller.PreferencesViewController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,12 +15,14 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 import launch.MasterController;
 
 public class MenuView extends MenuBar{
@@ -72,7 +75,7 @@ public class MenuView extends MenuBar{
 		    @Override public void handle(ActionEvent e) {
 		    	fileChooser.setTitle("Select music files");
 		    	File selected_song = fileChooser.showOpenDialog(MasterController.getInstance().getPrimaryStage());
-		    	//controller.addSongToLibrary();
+		    	MasterController.getInstance().updateView(ViewType.IMPORT_MUSIC, selected_song);
 		    }
 		});
 		createPlaylistItem = new MenuItem("Create PlayList");
@@ -103,7 +106,8 @@ public class MenuView extends MenuBar{
 		preferencesItem = new MenuItem("Preferences");
 		preferencesItem.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		        Platform.exit();
+		    	MasterController.getInstance().updateView(ViewType.PREFERENCES_VIEW, null);
+		    	
 		    }
 		});
 		

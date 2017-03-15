@@ -2,14 +2,22 @@ package launch;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import controller.Controller;
+import controller.LibraryController;
+import controller.PreferencesViewController;
 import controller.RadioController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Profile;
+import view.LibraryView;
 import view.MainView;
+import view.PreferencesView;
 import view.RadioView;
 import view.ViewType;
 
@@ -22,30 +30,42 @@ import view.ViewType;
  */
 public class MasterController {
 	private static MasterController instance = null;
+	
+	private Logger logger = LogManager.getLogger();
 
 	// keep current controller instance to compare when changing views
-	private Object currentViewController = null;
+	private LibraryController libraryController = null;
 
 	private BorderPane rootPane;
 
 	private Stage primaryStage;
+	
+	private Profile profile;
 
 	private MasterController() {
-		// create gateways
+		profile = getProfile();
+		libraryController = new LibraryController();
 
 	}
 
+	/*
+	 *  get the saved profile object
+	 */
+	public Profile getProfile() {
+		return new Profile();
+	}
+
 	/**
-	 * transition to new view in window's center area of border pane TODO: if
-	 * current view has changed then prompt to save
+	 * 
+	 * update the application view
 	 * 
 	 * @param vType
 	 * @param data
 	 * @return
 	 */
-	public boolean changeView(ViewType vType, Object data) {
+	public boolean updateView(ViewType vType, Object data) {
 		FXMLLoader loader = null;
-
+		
 		// if we were at a detail view, we need to check if input has changed
 
 		// load view appropriate to the give vType
@@ -54,14 +74,21 @@ public class MasterController {
 			rootPane.setCenter(view);
 			
 		} else if (vType == ViewType.LIBRARY_VIEW) {
+			logger.info("library called");
+			LibraryView view = new LibraryView(new LibraryController());
+			rootPane.setCenter(view);
 
-		} else if (vType == ViewType.PLAYBACK_VIEW) {
+		} else if (vType == ViewType.IMPORT_MUSIC) {
+			logger.info("adding music to library...");
+			//libraryController.addSong();
+			LibraryView view = new LibraryView(libraryController);
 
+		} else if (vType == ViewType.PREFERENCES_VIEW) {
+			Stage stage = new Stage();
+	    	Scene pref = new Scene(new PreferencesView(new PreferencesViewController(profile)));
+	        stage.setScene(pref);
+	        stage.show();
 		}
-
-
-		// attach view to application center of border pane
-		rootPane.setCenter(new RadioView(null));
 
 		return true;
 	}
