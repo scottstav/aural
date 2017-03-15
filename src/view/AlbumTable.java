@@ -28,5 +28,6 @@ public class AlbumTable extends TableView<SongEntry> {
 		album = new TableColumn("Album");
 		getColumns().add(album);
 		album.setMinWidth(200);
+		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 }

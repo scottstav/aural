@@ -28,5 +28,6 @@ public class AuthorTable extends TableView<SongEntry> {
 		author = new TableColumn("Author");
 		getColumns().add(author);
 		author.setMinWidth(200);
+	    setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 }
