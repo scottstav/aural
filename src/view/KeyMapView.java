@@ -1,7 +1,9 @@
-package aural;
+package view;
 
+import controller.KeyMapController;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import model.KeyMap;
 
 /**
  * View for mapping keys to functions

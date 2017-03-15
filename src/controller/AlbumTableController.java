@@ -1,4 +1,4 @@
-package aural;
+package controller;
 
 /**
  * Possible controller for the AlbumTable
@@ -6,7 +6,6 @@ package aural;
  * @author Daniel Garcia
  *
  */
-public class AlbumTableController
-{
+public class AlbumTableController {
 
 }

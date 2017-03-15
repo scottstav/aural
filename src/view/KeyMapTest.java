@@ -1,10 +1,11 @@
-package aural;
+package view;
 
+import controller.KeyMapController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class PreferencesViewTest extends Application
+public class KeyMapTest extends Application
 {
     public static void main(String[] args)
     {
@@ -14,8 +15,9 @@ public class PreferencesViewTest extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        primaryStage.setTitle("Preferences View Test");
-        primaryStage.setScene(new Scene(new PreferencesView(new PreferencesViewController()), 500, 500));
+        primaryStage.setTitle("KeyMap Test");
+        primaryStage
+                .setScene(new Scene(new KeyMapView(new KeyMapController()), 500, 500));
         primaryStage.show();
     }
 }

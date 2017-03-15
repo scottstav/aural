@@ -1,4 +1,4 @@
-package aural;
+package controller;
 
 /**
  * Possible controller for the AuthorTable
@@ -6,7 +6,6 @@ package aural;
  * @author Daniel Garcia
  *
  */
-public class AuthorTableController
-{
+public class AuthorTableController {
 
 }

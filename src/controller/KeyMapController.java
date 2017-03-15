@@ -1,4 +1,4 @@
-package aural;
+package controller;
 
 public class KeyMapController
 {

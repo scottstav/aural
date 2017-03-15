@@ -1,4 +1,4 @@
-package aural;
+package model;
 
 public class PreferencesModel
 {

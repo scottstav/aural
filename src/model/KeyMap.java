@@ -1,4 +1,4 @@
-package aural;
+package model;
 
 /**
  * Model upon which keys are going to be made.

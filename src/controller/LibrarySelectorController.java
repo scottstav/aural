@@ -1,4 +1,4 @@
-package aural;
+package controller;
 
 /**
  * Empty so far, just a controller for any elements in the LibrarySelector
@@ -6,7 +6,6 @@ package aural;
  * @author Daniel Garcia
  *
  */
-public class LibrarySelectorController
-{
+public class LibrarySelectorController {
 
 }
