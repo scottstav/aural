@@ -34,7 +34,7 @@ public class MasterController {
 	private Logger logger = LogManager.getLogger();
 
 	// keep current controller instance to compare when changing views
-	private Object currentViewController = null;
+	private LibraryController libraryController = null;
 
 	private BorderPane rootPane;
 
@@ -44,6 +44,7 @@ public class MasterController {
 
 	private MasterController() {
 		profile = getProfile();
+		libraryController = new LibraryController();
 
 	}
 
@@ -77,7 +78,10 @@ public class MasterController {
 			LibraryView view = new LibraryView(new LibraryController());
 			rootPane.setCenter(view);
 
-		} else if (vType == ViewType.PLAYBACK_VIEW) {
+		} else if (vType == ViewType.IMPORT_MUSIC) {
+			logger.info("adding music to library...");
+			//libraryController.addSong();
+			LibraryView view = new LibraryView(libraryController);
 
 		} else if (vType == ViewType.PREFERENCES_VIEW) {
 			Stage stage = new Stage();

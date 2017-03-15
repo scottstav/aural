@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-
 import javafx.collections.ObservableList;
 import model.Song;
 
@@ -17,7 +15,7 @@ public class LibraryController {
 	
 	public LibraryController() {
 		
-		library.add(new Song());
+		//library.add(new Song());
 		
 	}
 

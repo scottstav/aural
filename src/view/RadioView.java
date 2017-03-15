@@ -6,14 +6,11 @@ import controller.RadioController;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
-
 public class RadioView extends AnchorPane
 {
     private ArrayList<Station> stations;
     private FlowPane stationPane;
-    
-    private RadioController radioController;
-    
+        
     public RadioView(RadioController radioController)
     {
         createAndPlaceStations();
