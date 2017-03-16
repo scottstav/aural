@@ -3,7 +3,6 @@ package controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
