@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Album;
 import model.Artist;
 import model.Profile;
 import model.SongEntry;
@@ -144,6 +145,10 @@ public class MasterController {
 	 */
 	 public ObservableList<Artist> getArtists() {
 		 return libraryController.getArtists();
+	 }
+	 
+	 public ObservableList<Album> getAlbums() {
+		 return libraryController.getAlbums();
 	 }
 
 }

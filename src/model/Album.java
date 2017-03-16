@@ -7,7 +7,7 @@ public class Album
 	
 	private int id;
 	private int artist_id;
-	private SimpleStringProperty name;
+	private SimpleStringProperty name = new SimpleStringProperty();
 	
 	public Album() 
 	{
