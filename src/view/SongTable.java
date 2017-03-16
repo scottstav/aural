@@ -21,11 +21,10 @@ public class SongTable extends TableView<SongEntry> {
 	private TableColumn<SongEntry, String> title;
 	private TableColumn<SongEntry, String> artist;
 	private TableColumn<SongEntry, String> album;
-	private TableColumn<SongEntry, Integer> length;
+	private TableColumn<SongEntry, Long> length;
 
 	public SongTable(SongTableController controller) {
 		this.controller = controller;
-
 		createColumns();
 	}
 
@@ -45,7 +44,7 @@ public class SongTable extends TableView<SongEntry> {
 		title = new TableColumn<SongEntry, String>("Title");
 		artist = new TableColumn<SongEntry, String>("Artist");
 		album = new TableColumn<SongEntry, String>("Album");
-		length = new TableColumn<SongEntry, Integer>("Length");
+		length = new TableColumn<SongEntry, Long>("Length");
 
 		getColumns().add(trackId);
 		getColumns().add(title);
@@ -54,7 +53,12 @@ public class SongTable extends TableView<SongEntry> {
 		getColumns().add(length);
 		
 		title.setCellValueFactory(new PropertyValueFactory<SongEntry,String>("title"));
-		this.setItems(MasterController.getInstance().getSongs());
+		artist.setCellValueFactory(new PropertyValueFactory<SongEntry,String>("artist"));
+		album.setCellValueFactory(new PropertyValueFactory<SongEntry,String>("album"));
+		length.setCellValueFactory(new PropertyValueFactory<SongEntry,Long>("length"));
+		trackId.setCellValueFactory(new PropertyValueFactory<SongEntry,Integer>("id"));
+
+		this.setItems(controller.getSongs());
 		
 		
 	}

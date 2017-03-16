@@ -1,9 +1,10 @@
 package model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
+import java.io.File;
+
+import helliker.id3.ID3v1Tag;
+import helliker.id3.ID3v2Tag;
 import helliker.id3.MP3File;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -25,11 +26,12 @@ public class SongEntry  {
 	private SimpleStringProperty album = new SimpleStringProperty();
 
 	
-	public SongEntry() {
+	public SongEntry()
+	{
 		setId(0);
 		setLocation("");
 		setTrackId(0);
-		setTitle("this is a song");
+		setTitle("");
 		setArtist("");
 		setAlbum("");
 		setLength(0);
@@ -43,7 +45,51 @@ public class SongEntry  {
 		setTrackId(0);					// database?
 		
 		setLength(song.getPlayingTime());
-		
+		setLocation(song.getPath());
+		// check which type it is
+		try {
+	        if(song.id3v2Exists())
+	        {
+	        	// set member variables
+	            ID3v2Tag tag = new ID3v2Tag(new File(getLocation()), 0);
+	            System.out.print("Showing artist name: ");
+	            System.out.println(tag.getFrameDataString("TPE1"));
+	            setArtist(tag.getFrameDataString("TPE1"));
+	            System.out.print("Showing Album title: ");
+	            System.out.println(tag.getFrameDataString("TALB"));
+	            setAlbum(tag.getFrameDataString("TALB"));
+	            System.out.print("Showing song title: ");
+	            System.out.println(tag.getFrameDataString("TIT2"));
+	            setTitle(tag.getFrameDataString("TIT2"));
+	            System.out.print("Showing genre: ");
+	            System.out.println(tag.getFrameDataString("TCON"));
+	            System.out.print("Showing year: ");
+	            System.out.println(tag.getFrameDataString("TYER"));
+	        } else if(song.id3v1Exists())
+	        {
+	        	// set member variables if V1
+	        	ID3v1Tag tag = new ID3v1Tag(new File(getLocation()));
+	            System.out.print("Showing artist name: ");
+	            System.out.println(tag.getArtist());
+	            setArtist(tag.getArtist());
+	            System.out.print("Showing Album title: ");
+	            System.out.println(tag.getAlbum());
+	            setAlbum(tag.getAlbum());
+	            System.out.print("Showing song title: ");
+	            System.out.println(tag.getTitle());
+	            setTitle(tag.getTitle());
+	            System.out.print("Showing genre: ");
+	            System.out.println(tag.getGenre());
+	            System.out.print("Showing year: ");
+	            System.out.println(tag.getYear());
+	        }
+	    }
+	    catch (Exception e)
+	    {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+
 	}
 
 	/**
