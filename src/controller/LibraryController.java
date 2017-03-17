@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
@@ -11,6 +12,8 @@ import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import model.Album;
 import model.Artist;
 import model.SongEntry;
@@ -29,6 +32,7 @@ public class LibraryController {
 	private ObservableList<Album> albums = FXCollections.observableArrayList();
 	private ObservableList<SongEntry> fullLibrary = FXCollections.observableArrayList();
 
+	FilteredList<SongEntry> filteredData;
 	
 	public LibraryController() {
 		
@@ -44,29 +48,48 @@ public class LibraryController {
 		fullLibrary.add(song);
 		library.add(song);
 		tracks.add(song.getTrackId());
+	    artists.add(new Artist(song.getArtist(), 0, 0));
+        albums.add(new Album(song.getAlbum(), 0, 0));
+
+
+		/*
 		if(!artists.contains(new Artist(song.getArtist(), 0, 0)))
 		    artists.add(new Artist(song.getArtist(), 0, 0));
 		if(!albums.contains(new Album(song.getAlbum(), 0, 0)))
             albums.add(new Album(song.getAlbum(), 0, 0));
+        */
 		System.out.println("added to library");
+		
+		filteredData = new FilteredList<>(fullLibrary, p -> true);
 
 		
 	}
 	
 	public void filterByArtist(Artist filter) 
 	{
-		library = fullLibrary;
-		for(SongEntry song : library) 
-		{
-			if(song.getArtist() != filter.getName()) {
-				library.remove(song);
-			}
-		}
+		
+		filteredData.setPredicate(p -> {
+            // If filter text is empty, display all songs.
+            if (filter == null) {
+            	System.out.println("XXfilteringXX");
+                return true;
+            }
+
+
+            if (filter.getName().equals(p.getArtist())) {
+            	System.out.println("XXfilteringXX");
+
+                return true; // Filter matches artist.
+            }
+        	System.out.println("YYfilteringYY");
+
+            return false; // Does not match.
+        });
+		library.setAll(filteredData);
 	}
 		
 	/*public ObservableList<Integer> getTracks() {
 	    return tracks;
->>>>>>> 1d4c5ec605e0e7d55cb9a4ace92b2a95427c8421
 	}
 	
 	public void clearTracks() {
