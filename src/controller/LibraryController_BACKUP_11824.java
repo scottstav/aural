@@ -53,13 +53,24 @@ public class LibraryController {
 		
 	}
 	
-	/*public ObservableList<Integer> getTracks() {
+<<<<<<< HEAD
+	public ObservableList<Integer> getTracks() {
 	    return tracks;
 	}
 	
 	public void clearTracks() {
 	    tracks.clear();
-	}*/
+=======
+	public void filterByArtist(Artist filter) 
+	{
+		for(SongEntry song : library) 
+		{
+			if(song.getArtist() != filter.getName()) {
+				library.remove(song);
+			}
+		}
+>>>>>>> 1b744dd6d73f57255422af302df32ed53ec94033
+	}
 
 	public ObservableList<SongEntry> getSongs() {
 		return library;

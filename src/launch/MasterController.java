@@ -135,19 +135,15 @@ public class MasterController {
 	/*
 	 *  communicates with the song database
 	 */
-	public ObservableList<SongEntry> getSongs() {
-		return libraryController.getSongs();
+	public LibraryController getLibraryController() {
+		if (libraryController == null)
+		{
+			libraryController = new LibraryController();
+		}
+		
+		return libraryController;
 	}
 	
-	/*
-	 * 
-	 */
-	 public ObservableList<Artist> getArtists() {
-		 return libraryController.getArtists();
-	 }
-	 
-	 public ObservableList<Album> getAlbums() {
-		 return libraryController.getAlbums();
-	 }
-
+	
+	
 }

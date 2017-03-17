@@ -20,7 +20,7 @@ public class ArtistTableController {
 	
 	public ObservableList<Artist> getArtists() 
 	{
-		return MasterController.getInstance().getArtists();
+		return MasterController.getInstance().getLibraryController().getArtists();
 	}
 
 }
