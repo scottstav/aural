@@ -53,13 +53,13 @@ public class LibraryController {
 		
 	}
 	
-	/*public ObservableList<Integer> getTracks() {
+	public ObservableList<Integer> getTracks() {
 	    return tracks;
 	}
 	
 	public void clearTracks() {
 	    tracks.clear();
-	}*/
+	}
 
 	public ObservableList<SongEntry> getSongs() {
 		return library;

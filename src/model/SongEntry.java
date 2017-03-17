@@ -16,7 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class SongEntry  {
 	private int id;
-	private int track_id;
+	private int trackId;
 	
 	private long length;
 
@@ -71,7 +71,7 @@ public class SongEntry  {
                 //System.out.println(tag.getFrameDataString("TRCK"));
                 //System.out.println(trackString);
                 System.out.println(Integer.parseInt(trackString));
-                System.out.println("Again: " + track_id);
+                System.out.println("Again: " + trackId);
 	        }
 	        else if(song.id3v1Exists())
 	        {
@@ -119,15 +119,15 @@ public class SongEntry  {
 	 * @return the trackId
 	 */
 	public int getTrackId() {
-		return track_id;
+		return trackId;
 	}
 
 	/**
 	 * @param trackId
 	 *            the trackId to set
 	 */
-	public void setTrackId(int track_id) {
-		this.track_id = track_id;
+	public void setTrackId(int trackId) {
+		this.trackId = trackId;
 	}
 
 	public String getLocation() {
