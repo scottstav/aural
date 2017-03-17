@@ -20,7 +20,6 @@ public class Core extends Application {
 
 	private Scene mainScene;
 	private MainView mainView;
-	private MenuController controller;
 	private static Logger logger = LogManager.getLogger();
 	
 	public static Logger getLogger()

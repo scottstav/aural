@@ -10,6 +10,7 @@ import helliker.id3.NoMPEGFramesException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import launch.MasterController;
 import model.Album;
 import model.Artist;
 import model.SongEntry;
@@ -31,22 +32,22 @@ public class LibraryController {
 	FilteredList<SongEntry> filteredData;
 	
 	public LibraryController() {
-		
+		this.update();
+
 	}
 
-	public void addSong(File data) throws FileNotFoundException, 
-		NoMPEGFramesException, ID3v2FormatException, CorruptHeaderException, IOException 
+	public void update() 
 	{
 		// TODO Auto-generated method stub
-		MP3File file = new MP3File(data);
-		SongEntry song = new SongEntry(file);
-		System.out.println("created MP3");
-		fullLibrary.add(song);
-		library.add(song);
+
+		fullLibrary = FXCollections.observableArrayList( MasterController.getInstance().getGateway().getSongEntrys());
+		library = fullLibrary;
+		
+		/*
 		tracks.add(song.getTrackId());
 	    artists.add(new Artist(song.getArtist(), 0, 0));
         albums.add(new Album(song.getAlbum(), 0, 0));
-
+		*/
 
 		/*
 		if(!artists.contains(new Artist(song.getArtist(), 0, 0)))

@@ -12,11 +12,13 @@ import controller.RadioController;
 import gateway.SongGateway;
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
+import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Profile;
+import model.SongEntry;
 import view.LibraryView;
 import view.PreferencesView;
 import view.RadioView;
@@ -37,7 +39,7 @@ public class MasterController {
 	// keep current controller instance to compare when changing views
 	private LibraryController libraryController = null;
 	
-	private SongGateway gateway;
+	private SongGateway gateway = null;
 
 	private BorderPane rootPane;
 
@@ -48,9 +50,10 @@ public class MasterController {
 	private MasterController() {
 		
 		profile = getProfile();
-		libraryController = new LibraryController();
-		gateway = new SongGateway();
+		//libraryController = new LibraryController();
+		//gateway = new SongGateway();
 		
+		/*
 		// ### SCOTT TESTING STUFF HERE ###
 		try {
 			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/edvard-grieg-peer-gynt1-morning-mood.mp3"));
@@ -63,7 +66,7 @@ public class MasterController {
 			e.printStackTrace();
 		}
 		//###################################
-
+		*/
 	}
 
 	/**
@@ -89,12 +92,18 @@ public class MasterController {
 
 		} else if (vType == ViewType.IMPORT_MUSIC) {
 			logger.info("adding music to library...");
+			MP3File file;
 			try {
-				libraryController.addSong((File) data);
-			} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e) {
+				file = new MP3File((File) data);
+				SongEntry song = new SongEntry(file);
+				gateway.insertStuff(song);
+				libraryController.update();
+
+			} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e1.printStackTrace();
 			}
+			
 			
 			LibraryView view = new LibraryView(libraryController);
 			rootPane.setCenter(view);
@@ -155,6 +164,18 @@ public class MasterController {
 		}
 		
 		return libraryController;
+	}
+	
+	/*
+	 * do gateway stuff from everywhere using this method
+	 */
+	public SongGateway getGateway() {
+		if (gateway == null)
+		{
+			gateway = new SongGateway();
+		}
+		
+		return gateway;
 	}
 	
 	

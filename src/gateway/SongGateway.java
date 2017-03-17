@@ -193,7 +193,7 @@ public class SongGateway {
 			// don't need a parameterized query here since no user-provided
 			// input
 			// is being passed to the db server
-			String query = "select * " + " from author_table ";
+			String query = "select * " + " from songs";
 			st = conn.prepareStatement(query);
 
 			// execute the query and get the record data in the form of a
@@ -265,14 +265,18 @@ public class SongGateway {
 		Statement stmt = null;
 
 		Class.forName("org.h2.Driver");
+		
+		String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (path varchar(255), title varchar(255),"
+				+ " artist varchar(255), album varchar(255), length long, track_number int)";
 
 		// this creates a database in the users home directory
 		// if it already exists, it does nothing
-		// looks like ~/.aural.db
+		// looks like ~/.aural.mv.db
 		try {
 			conn = DriverManager.getConnection("jdbc:h2:~/.aural");
 			// create the songs table here
 			stmt = conn.createStatement();
+			stmt.execute(createTableSQL);
 
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
