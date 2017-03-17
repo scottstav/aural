@@ -22,6 +22,11 @@ public class Core extends Application {
 	private MainView mainView;
 	private MenuController controller;
 	private static Logger logger = LogManager.getLogger();
+	
+	public static Logger getLogger()
+	{
+	    return logger;
+	}
 
 	@Override
 	public void init() throws Exception {

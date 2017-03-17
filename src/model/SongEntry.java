@@ -165,6 +165,11 @@ public class SongEntry  {
 	public String getLength() {
 		return String.format("%d:%02d", length/60, length%60);
 	}
+	
+	public long getLengthInt()
+	{
+	    return length;
+	}
 
 	public void setLength(long length) {
 		this.length = length;
