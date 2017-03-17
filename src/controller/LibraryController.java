@@ -84,7 +84,6 @@ public class LibraryController {
 
 	public void filterByArtist(Artist filter) 
 	{
-		library = fullLibrary;
 		filteredSongs.setPredicate(p -> {
             // If filter text is empty, display all songs.
             if (filter == null) {
