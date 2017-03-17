@@ -96,7 +96,7 @@ public class MasterController {
 				file = new MP3File((File) data);
 				SongEntry song = new SongEntry(file);
 				gateway.insertStuff(song);
-				libraryController.update();
+				libraryController.initialize();
 
 			} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e1) {
 				// TODO Auto-generated catch block

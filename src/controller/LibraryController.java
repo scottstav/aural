@@ -1,15 +1,6 @@
 package controller;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
-import helliker.id3.CorruptHeaderException;
-import helliker.id3.ID3v2FormatException;
-import helliker.id3.MP3File;
-import helliker.id3.NoMPEGFramesException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -37,11 +28,11 @@ public class LibraryController {
 
 	
 	public LibraryController() {
-		this.update();
+		this.initialize();
 
 	}
 
-	public void update() 
+	public void initialize() 
 	{
 		// TODO Auto-generated method stub
 
@@ -55,7 +46,6 @@ public class LibraryController {
 		System.out.println("created MP3");
 		fullLibrary.add(song);
 		library.add(song);
->>>>>>> e8d52cb87315b80b3d09d76ed8c5c8e7253dbfab
 		tracks.add(song.getTrackId());
 	    artists.add(new Artist(song.getArtist(), 0, 0));
         albums.add(new Album(song.getAlbum(), 0, 0));
@@ -69,12 +59,8 @@ public class LibraryController {
 		if(!albums.contains(new Album(song.getAlbum(), 0, 0)))
             albums.add(new Album(song.getAlbum(), 0, 0));
         */
-		System.out.println("added to library");
 		
 		filteredSongs = new FilteredList<>(fullLibrary, p -> true);
-		filteredAlbums = new FilteredList<>(albums, p -> true);
-
-
 		
 	}
 	
@@ -104,7 +90,6 @@ public class LibraryController {
 
 	public void filterByArtist(Artist filter) 
 	{
-		library = fullLibrary;
 
 		filteredSongs.setPredicate(p -> {
             // If filter text is empty, display all songs.
@@ -120,7 +105,6 @@ public class LibraryController {
             return false; // Does not match.
         });
 		
-
 		library.setAll(filteredSongs);
 	}
 		
