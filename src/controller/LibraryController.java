@@ -1,19 +1,10 @@
 package controller;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
-import helliker.id3.CorruptHeaderException;
-import helliker.id3.ID3v2FormatException;
-import helliker.id3.MP3File;
-import helliker.id3.NoMPEGFramesException;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import launch.MasterController;
 import model.Album;
 import model.Artist;
 import model.SongEntry;
@@ -37,22 +28,24 @@ public class LibraryController {
 
 	
 	public LibraryController() {
-		
+		this.update();
+
 	}
 
-	public void addSong(File data) throws FileNotFoundException, 
-		NoMPEGFramesException, ID3v2FormatException, CorruptHeaderException, IOException 
+	public void update() 
 	{
 		// TODO Auto-generated method stub
-		MP3File file = new MP3File(data);
-		SongEntry song = new SongEntry(file);
-		System.out.println("created MP3");
-		fullLibrary.add(song);
-		library.add(song);
+
+		fullLibrary = FXCollections.observableArrayList( MasterController.getInstance().getGateway().getSongEntrys());
+		library = fullLibrary;
+		
+		/*
 		tracks.add(song.getTrackId());
 	    artists.add(new Artist(song.getArtist(), 0, 0));
         albums.add(new Album(song.getAlbum(), 0, 0));
-
+		*/
+		updateArtists();
+		updateAlbums();
 
 		/*
 		if(!artists.contains(new Artist(song.getArtist(), 0, 0)))
@@ -69,37 +62,58 @@ public class LibraryController {
 		
 	}
 	
+	private void updateAlbums() {
+		// put the albums in the album table based on the song table
+		Set<Album> albumset = new HashSet<>();
+		for(SongEntry song : library) 
+		{
+			Album album = new Album(song.getAlbum(), 0, 0);
+			albumset.add(album);
+		}
+		albums = FXCollections.observableArrayList(albumset);
+		
+	}
+
+	private void updateArtists() {
+		// put the artists in the artist table based on the song table
+		Set<Artist> artistset = new HashSet<>();
+		for(SongEntry song : library) 
+		{
+			Artist artist = new Artist(song.getArtist(), 0, 0);
+			artistset.add(artist);
+		}
+		artists = FXCollections.observableArrayList(artistset);
+		
+	}
+
 	public void filterByArtist(Artist filter) 
 	{
-		
+		library = fullLibrary;
 		filteredSongs.setPredicate(p -> {
             // If filter text is empty, display all songs.
             if (filter == null) {
-            	System.out.println("XXfilteringXX");
                 return true;
             }
 
-
             if (filter.getName().equals(p.getArtist())) {
-            	System.out.println("XXfilteringXX");
 
                 return true; // Filter matches artist.
             }
-        	System.out.println("YYfilteringYY");
 
             return false; // Does not match.
         });
 		
 		library.setAll(filteredSongs);
+
 	}
 		
-	/*public ObservableList<Integer> getTracks() {
+	public ObservableList<Integer> getTracks() {
 	    return tracks;
 	}
 	
 	public void clearTracks() {
 	    tracks.clear();
-	}*/
+	}
 
 	public ObservableList<SongEntry> getSongs() {
 		return library;

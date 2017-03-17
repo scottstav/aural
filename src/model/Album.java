@@ -34,6 +34,7 @@ public class Album
 		return this.name.get();
 	}
 	
+<<<<<<< HEAD
 	public int getArtistId(){
 		return this.artist_id;
 	}
@@ -45,5 +46,27 @@ public class Album
         Album a = (Album) obj;
         return getName().equals(a.getName());
     }
+=======
+	
+	public boolean equals(Object o)
+	{
+		Album album = (Album)o;
+		if(album.getName().equals(this.name.get())){
+			System.out.println("already exists");
+			return true;
+		}
+		System.out.println("DOESNT already exists");
+
+		return false;
+	}
+		 
+	@Override
+	public int hashCode() 
+	{
+		int hash = 3;
+		hash = 7 * hash + this.name.get().hashCode();
+		return hash;
+	}
+>>>>>>> master
 
 }

@@ -10,7 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import launch.MasterController;
 import model.Artist;
-import model.SongEntry;
 
 /**
  * TableView displaying all authors

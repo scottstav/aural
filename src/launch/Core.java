@@ -2,13 +2,12 @@ package launch;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import controller.Controller;
+
 import controller.MenuController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import launch.MasterController;
 import view.MainView;
 
 /**
@@ -21,8 +20,12 @@ public class Core extends Application {
 
 	private Scene mainScene;
 	private MainView mainView;
-	private MenuController controller;
 	private static Logger logger = LogManager.getLogger();
+	
+	public static Logger getLogger()
+	{
+	    return logger;
+	}
 
 	@Override
 	public void init() throws Exception {
