@@ -6,7 +6,6 @@ import controller.PlaybackController;
 import controller.SidebarController;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import launch.MasterController;
 
 /**
  * MainView that houses all other views in the application. Application is a

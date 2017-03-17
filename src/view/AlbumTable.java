@@ -5,8 +5,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Album;
-import model.Artist;
-import model.SongEntry;
 
 /**
  * TableView that displays all albums under currently selected artist.
