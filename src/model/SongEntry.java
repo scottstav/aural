@@ -16,7 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class SongEntry  {
 	private int id;
-	private int trackId;
+	private int track_id;
 	
 	private long length;
 
@@ -42,7 +42,6 @@ public class SongEntry  {
 		this();
 		
 		setId(0);						// database?
-		setTrackId(0);					// database?
 		
 		setLength(song.getPlayingTime());
 		setLocation(song.getPath());
@@ -65,7 +64,16 @@ public class SongEntry  {
 	            System.out.println(tag.getFrameDataString("TCON"));
 	            System.out.print("Showing year: ");
 	            System.out.println(tag.getFrameDataString("TYER"));
-	        } else if(song.id3v1Exists())
+	            String trackString = tag.getFrameDataString("TRCK");
+	            trackString = trackString.substring(0, trackString.indexOf('/'));
+	            setTrackId(Integer.parseInt(trackString));
+                System.out.print("Showing trackId: ");
+                //System.out.println(tag.getFrameDataString("TRCK"));
+                //System.out.println(trackString);
+                System.out.println(Integer.parseInt(trackString));
+                System.out.println("Again: " + track_id);
+	        }
+	        else if(song.id3v1Exists())
 	        {
 	        	// set member variables if V1
 	        	ID3v1Tag tag = new ID3v1Tag(new File(getLocation()));
@@ -111,15 +119,15 @@ public class SongEntry  {
 	 * @return the trackId
 	 */
 	public int getTrackId() {
-		return trackId;
+		return track_id;
 	}
 
 	/**
 	 * @param trackId
 	 *            the trackId to set
 	 */
-	public void setTrackId(int trackId) {
-		this.trackId = trackId;
+	public void setTrackId(int track_id) {
+		this.track_id = track_id;
 	}
 
 	public String getLocation() {
@@ -154,8 +162,8 @@ public class SongEntry  {
 		this.album.set(val);
 	}
 
-	public long getLength() {
-		return length;
+	public String getLength() {
+		return String.format("%d:%02d", length/60, length%60);
 	}
 
 	public void setLength(long length) {

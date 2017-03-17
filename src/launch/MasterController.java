@@ -136,7 +136,6 @@ public class MasterController {
 	 *  communicates with the song database
 	 */
 	public LibraryController getLibraryController() {
-		// TODO Auto-generated method stub
 		if (libraryController == null)
 		{
 			libraryController = new LibraryController();
@@ -144,6 +143,7 @@ public class MasterController {
 		
 		return libraryController;
 	}
+	
 	
 	
 }

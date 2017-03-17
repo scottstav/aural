@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Artist {
 	
 	private int id;
-	private int album_id;
+	public int album_id;
 	private SimpleStringProperty name = new SimpleStringProperty();
 	
 	public Artist() 
@@ -32,6 +32,14 @@ public class Artist {
 	public String getName()
 	{
 		return this.name.get();
+	}
+	
+	public boolean equals(Object obj)
+	{
+	    if(obj == null || getClass() != obj.getClass())
+            return false;
+	    Artist a = (Artist) obj;
+	    return getName().equals(a.getName());
 	}
 	
 	public String toString() {
