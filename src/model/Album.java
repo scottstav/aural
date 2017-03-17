@@ -37,9 +37,12 @@ public class Album
 	public boolean equals(Object o)
 	{
 		Album album = (Album)o;
-		if(album.getName().equals(this.name)){
+		if(album.getName().equals(this.name.get())){
+			System.out.println("already exists");
 			return true;
 		}
+		System.out.println("DOESNT already exists");
+
 		return false;
 	}
 		 
@@ -47,7 +50,7 @@ public class Album
 	public int hashCode() 
 	{
 		int hash = 3;
-		hash = 7 * hash + this.name.hashCode();
+		hash = 7 * hash + this.name.get().hashCode();
 		return hash;
 	}
 

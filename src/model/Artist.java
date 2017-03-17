@@ -37,7 +37,7 @@ public class Artist {
 	public boolean equals(Object o)
 	{
 		Artist artist = (Artist)o;
-		if(artist.getName().equals(this.name)){
+		if(artist.getName().equals(this.name.get())){
 			return true;
 		}
 		return false;
@@ -47,7 +47,7 @@ public class Artist {
 	public int hashCode() 
 	{
 		int hash = 3;
-		hash = 7 * hash + this.name.hashCode();
+		hash = 7 * hash + this.name.get().hashCode();
 		return hash;
 	}
 	

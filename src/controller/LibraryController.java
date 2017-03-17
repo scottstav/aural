@@ -93,24 +93,21 @@ public class LibraryController {
 
 	public void filterByArtist(Artist filter) 
 	{
-		
+		library = fullLibrary;
 		filteredData.setPredicate(p -> {
             // If filter text is empty, display all songs.
             if (filter == null) {
-            	System.out.println("XXfilteringXX");
                 return true;
             }
 
-
             if (filter.getName().equals(p.getArtist())) {
-            	System.out.println("XXfilteringXX");
 
                 return true; // Filter matches artist.
             }
-        	System.out.println("YYfilteringYY");
 
             return false; // Does not match.
         });
+		
 		library.setAll(filteredData);
 	}
 		
