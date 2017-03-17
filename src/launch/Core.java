@@ -2,13 +2,12 @@ package launch;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import controller.Controller;
+
 import controller.MenuController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import launch.MasterController;
 import view.MainView;
 
 /**

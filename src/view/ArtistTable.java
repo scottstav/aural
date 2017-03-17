@@ -1,16 +1,10 @@
 package view;
 
 import controller.ArtistTableController;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import launch.MasterController;
 import model.Artist;
-import model.SongEntry;
 
 /**
  * TableView displaying all authors
