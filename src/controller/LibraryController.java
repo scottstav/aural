@@ -40,6 +40,12 @@ public class LibraryController {
 		library = fullLibrary;
 		
 		/*
+=======
+		MP3File file = new MP3File(data);
+		SongEntry song = new SongEntry(file);
+		System.out.println("created MP3");
+		fullLibrary.add(song);
+		library.add(song);
 		tracks.add(song.getTrackId());
 	    artists.add(new Artist(song.getArtist(), 0, 0));
         albums.add(new Album(song.getAlbum(), 0, 0));
@@ -84,6 +90,7 @@ public class LibraryController {
 
 	public void filterByArtist(Artist filter) 
 	{
+
 		filteredSongs.setPredicate(p -> {
             // If filter text is empty, display all songs.
             if (filter == null) {
@@ -99,7 +106,6 @@ public class LibraryController {
         });
 		
 		library.setAll(filteredSongs);
-
 	}
 		
 	public ObservableList<Integer> getTracks() {
@@ -120,7 +126,6 @@ public class LibraryController {
 	}
 
 	public ObservableList<Artist> getArtists() {
-		// TODO Auto-generated method stub
 		return artists;
 	}
 	
@@ -130,7 +135,6 @@ public class LibraryController {
     }
 	
 	public ObservableList<Album> getAlbums() {
-		// TODO Auto-generated method stub
 		return albums;
 	}
 	

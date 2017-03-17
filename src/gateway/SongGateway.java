@@ -278,10 +278,104 @@ public class SongGateway {
 			stmt = conn.createStatement();
 			stmt.execute(createTableSQL);
 
+<<<<<<< HEAD
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
 		stmt = conn.createStatement();
+=======
+         //iterate over the result set using the next() method
+         //note: result set is not initially at first row. we have to manually move it to row 1
+         songList.clear();
+ 
+         while(rs.next())
+         {
+            SongEntry song = null;
+            try
+            {
+                song = new SongEntry(new MP3File(new File(rs.getString("path"))));
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            catch (NoMPEGFramesException e)
+            {
+                e.printStackTrace();
+            }
+            catch (ID3v2FormatException e)
+            {
+                e.printStackTrace();
+            }
+            catch (CorruptHeaderException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            songList.add(song);
+         }
+         
+      }
+      catch (SQLException e)
+      {
+         //should log this exception since something happened during the query execution
+         e.printStackTrace();
+      } 
+      finally
+      {
+         //be sure to close things properly if they are open, regardless of exception
+         try
+         {
+            if(rs != null)
+               rs.close();
+            if(st != null)
+               st.close();
+         }
+         catch (SQLException e)
+         {
+            //should probably log this also
+            e.printStackTrace();
+         }
+      }
+   }
+   
+   public ArrayList<SongEntry> getSongEntrys()
+   {
+      this.fetchStuff();
+      return songList;
+   }
+   
+   public void close()
+   {
+      try
+      {
+         conn.close();
+         logger.trace("Closed author database connection");
+      }
+      catch (SQLException e)
+      {
+         e.printStackTrace();
+      }
+   }
+   
+   public void connectToDB() throws IOException, SQLException
+   {
+      //read db credentials from properties file
+      Properties props = new Properties();
+      FileInputStream fis = null;
+        fis = new FileInputStream(System.getProperty("user.home")+"/db.properties");
+        props.load(fis);
+        fis.close();
+        
+        //create the datasource
+        MysqlDataSource ds = new MysqlDataSource();
+        ds.setURL(props.getProperty("MYSQL_DB_URL"));
+        ds.setUser(props.getProperty("MYSQL_DB_USERNAME"));
+        ds.setPassword(props.getProperty("MYSQL_DB_PASSWORD"));
+>>>>>>> e8d52cb87315b80b3d09d76ed8c5c8e7253dbfab
 
 	}
 }
