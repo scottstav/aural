@@ -26,7 +26,7 @@ public class LibraryController {
 	private ObservableList<SongEntry> library = FXCollections.observableArrayList();
 	private ObservableList<Artist> artists = FXCollections.observableArrayList();
 	private ObservableList<Album> albums = FXCollections.observableArrayList();
-	private ArrayList<SongEntry> fullLibrary = new ArrayList<SongEntry>();
+	private ObservableList<SongEntry> fullLibrary = FXCollections.observableArrayList();
 
 	
 	public LibraryController() {
@@ -51,6 +51,7 @@ public class LibraryController {
 	
 	public void filterByArtist(Artist filter) 
 	{
+		library = fullLibrary;
 		for(SongEntry song : library) 
 		{
 			if(song.getArtist() != filter.getName()) {

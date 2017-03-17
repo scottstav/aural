@@ -35,7 +35,7 @@ public class ArtistTable extends TableView<Artist> {
 		artist = new TableColumn<Artist, String>("Artist");
 		getColumns().add(artist);
 		artist.setCellValueFactory(new PropertyValueFactory<Artist,String>("name"));
-		/*this.setOnMousePressed(new EventHandler<MouseEvent>() {
+		this.setOnMousePressed(new EventHandler<MouseEvent>() {
 		    @Override 
 		    public void handle(MouseEvent event) {
 		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
@@ -51,7 +51,7 @@ public class ArtistTable extends TableView<Artist> {
 
 		        }
 		    }
-		});*/
+		});
 		this.setItems(controller.getArtists());
 
 
