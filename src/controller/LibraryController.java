@@ -39,7 +39,6 @@ public class LibraryController {
 	public void addSong(File data) throws FileNotFoundException, 
 		NoMPEGFramesException, ID3v2FormatException, CorruptHeaderException, IOException 
 	{
-		// TODO Auto-generated method stub
 		MP3File file = new MP3File(data);
 		SongEntry song = new SongEntry(file);
 		System.out.println("created MP3");
@@ -107,7 +106,6 @@ public class LibraryController {
 	}
 
 	public ObservableList<Artist> getArtists() {
-		// TODO Auto-generated method stub
 		return artists;
 	}
 	
@@ -117,7 +115,6 @@ public class LibraryController {
     }
 	
 	public ObservableList<Album> getAlbums() {
-		// TODO Auto-generated method stub
 		return albums;
 	}
 	

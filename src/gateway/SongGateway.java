@@ -241,27 +241,22 @@ public class SongGateway
             }
             catch (FileNotFoundException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             catch (NoMPEGFramesException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             catch (ID3v2FormatException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             catch (CorruptHeaderException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             catch (IOException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             songList.add(song);
@@ -315,7 +310,7 @@ public class SongGateway
       //read db credentials from properties file
       Properties props = new Properties();
       FileInputStream fis = null;
-        fis = new FileInputStream("db.properties");
+        fis = new FileInputStream(System.getProperty("user.home")+"/db.properties");
         props.load(fis);
         fis.close();
         

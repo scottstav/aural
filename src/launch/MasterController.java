@@ -47,7 +47,7 @@ public class MasterController {
 		libraryController = new LibraryController();
 		
 		// ### SCOTT TESTING STUFF HERE ###
-		try {
+		/*try {
 			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/edvard-grieg-peer-gynt1-morning-mood.mp3"));
 			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/edvard-grieg-peer-gynt1-morning-mood.mp3"));
 			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3"));
@@ -56,7 +56,7 @@ public class MasterController {
 		} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		//###################################
 
 	}
