@@ -32,7 +32,9 @@ public class LibraryController {
 	private ObservableList<Album> albums = FXCollections.observableArrayList();
 	private ObservableList<SongEntry> fullLibrary = FXCollections.observableArrayList();
 
-	FilteredList<SongEntry> filteredData;
+	FilteredList<SongEntry> filteredSongs;
+	FilteredList<Album> filteredAlbums;
+
 	
 	public LibraryController() {
 		this.update();
@@ -47,6 +49,13 @@ public class LibraryController {
 		library = fullLibrary;
 		
 		/*
+=======
+		MP3File file = new MP3File(data);
+		SongEntry song = new SongEntry(file);
+		System.out.println("created MP3");
+		fullLibrary.add(song);
+		library.add(song);
+>>>>>>> e8d52cb87315b80b3d09d76ed8c5c8e7253dbfab
 		tracks.add(song.getTrackId());
 	    artists.add(new Artist(song.getArtist(), 0, 0));
         albums.add(new Album(song.getAlbum(), 0, 0));
@@ -62,7 +71,9 @@ public class LibraryController {
         */
 		System.out.println("added to library");
 		
-		filteredData = new FilteredList<>(fullLibrary, p -> true);
+		filteredSongs = new FilteredList<>(fullLibrary, p -> true);
+		filteredAlbums = new FilteredList<>(albums, p -> true);
+
 
 		
 	}
@@ -94,7 +105,8 @@ public class LibraryController {
 	public void filterByArtist(Artist filter) 
 	{
 		library = fullLibrary;
-		filteredData.setPredicate(p -> {
+
+		filteredSongs.setPredicate(p -> {
             // If filter text is empty, display all songs.
             if (filter == null) {
                 return true;
@@ -108,7 +120,8 @@ public class LibraryController {
             return false; // Does not match.
         });
 		
-		library.setAll(filteredData);
+
+		library.setAll(filteredSongs);
 	}
 		
 	public ObservableList<Integer> getTracks() {
@@ -129,7 +142,6 @@ public class LibraryController {
 	}
 
 	public ObservableList<Artist> getArtists() {
-		// TODO Auto-generated method stub
 		return artists;
 	}
 	
@@ -139,7 +151,6 @@ public class LibraryController {
     }
 	
 	public ObservableList<Album> getAlbums() {
-		// TODO Auto-generated method stub
 		return albums;
 	}
 	
