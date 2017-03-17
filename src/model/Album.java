@@ -33,12 +33,22 @@ public class Album
 		return this.name.get();
 	}
 	
-	public boolean equals(Object obj)
-    {
-        if(obj == null || getClass() != obj.getClass())
-            return false;
-        Album a = (Album) obj;
-        return getName().equals(a.getName());
-    }
+	
+	public boolean equals(Object o)
+	{
+		Album album = (Album)o;
+		if(album.getName().equals(this.name)){
+			return true;
+		}
+		return false;
+	}
+		 
+	@Override
+	public int hashCode() 
+	{
+		int hash = 3;
+		hash = 7 * hash + this.name.hashCode();
+		return hash;
+	}
 
 }

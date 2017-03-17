@@ -3,6 +3,9 @@ package controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
@@ -48,6 +51,8 @@ public class LibraryController {
 	    artists.add(new Artist(song.getArtist(), 0, 0));
         albums.add(new Album(song.getAlbum(), 0, 0));
 		*/
+		updateArtists();
+		updateAlbums();
 
 		/*
 		if(!artists.contains(new Artist(song.getArtist(), 0, 0)))
@@ -62,6 +67,30 @@ public class LibraryController {
 		
 	}
 	
+	private void updateAlbums() {
+		// put the albums in the album table based on the song table
+		Set<Album> albumset = new HashSet<>();
+		for(SongEntry song : library) 
+		{
+			Album album = new Album(song.getAlbum(), 0, 0);
+			albumset.add(album);
+		}
+		albums = FXCollections.observableArrayList(albumset);
+		
+	}
+
+	private void updateArtists() {
+		// put the artists in the artist table based on the song table
+		Set<Artist> artistset = new HashSet<>();
+		for(SongEntry song : library) 
+		{
+			Artist artist = new Artist(song.getArtist(), 0, 0);
+			artistset.add(artist);
+		}
+		artists = FXCollections.observableArrayList(artistset);
+		
+	}
+
 	public void filterByArtist(Artist filter) 
 	{
 		
