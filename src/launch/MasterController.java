@@ -17,6 +17,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Album;
+import model.Artist;
 import model.Profile;
 import model.SongEntry;
 import view.LibraryView;
@@ -69,7 +71,7 @@ public class MasterController {
 			
 		} else if (vType == ViewType.LIBRARY_VIEW) {
 			logger.info("library called");
-			LibraryView view = new LibraryView(new LibraryController());
+			LibraryView view = new LibraryView(libraryController);
 			rootPane.setCenter(view);
 
 		} else if (vType == ViewType.IMPORT_MUSIC) {
@@ -137,5 +139,16 @@ public class MasterController {
 		// TODO Auto-generated method stub
 		return libraryController.getSongs();
 	}
+	
+	/*
+	 * 
+	 */
+	 public ObservableList<Artist> getArtists() {
+		 return libraryController.getArtists();
+	 }
+	 
+	 public ObservableList<Album> getAlbums() {
+		 return libraryController.getAlbums();
+	 }
 
 }
