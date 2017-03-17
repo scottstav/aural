@@ -135,20 +135,15 @@ public class MasterController {
 	/*
 	 *  communicates with the song database
 	 */
-	public ObservableList<SongEntry> getSongs() {
+	public LibraryController getLibraryController() {
 		// TODO Auto-generated method stub
-		return libraryController.getSongs();
+		if (libraryController == null)
+		{
+			libraryController = new LibraryController();
+		}
+		
+		return libraryController;
 	}
 	
-	/*
-	 * 
-	 */
-	 public ObservableList<Artist> getArtists() {
-		 return libraryController.getArtists();
-	 }
-	 
-	 public ObservableList<Album> getAlbums() {
-		 return libraryController.getAlbums();
-	 }
-
+	
 }
