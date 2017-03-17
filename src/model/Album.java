@@ -6,7 +6,7 @@ public class Album
 {
 	
 	private int id;
-	private int artist_id;
+	public int artist_id;
 	private SimpleStringProperty name = new SimpleStringProperty();
 	
 	public Album() 
@@ -32,5 +32,13 @@ public class Album
 	{
 		return this.name.get();
 	}
+	
+	public boolean equals(Object obj)
+    {
+        if(obj == null || getClass() != obj.getClass())
+            return false;
+        Album a = (Album) obj;
+        return getName().equals(a.getName());
+    }
 
 }

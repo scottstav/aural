@@ -136,7 +136,6 @@ public class MasterController {
 	 *  communicates with the song database
 	 */
 	public ObservableList<SongEntry> getSongs() {
-		// TODO Auto-generated method stub
 		return libraryController.getSongs();
 	}
 	

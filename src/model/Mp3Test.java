@@ -29,6 +29,8 @@ public class Mp3Test
                 System.out.println(tag.getFrameDataString("TCON"));
                 System.out.print("Showing year: ");
                 System.out.println(tag.getFrameDataString("TYER"));
+                System.out.print("Showing track number: ");
+                System.out.println(tag.getFrameDataString("TRCK"));
             }
         }
         catch (Exception e)
