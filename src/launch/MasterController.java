@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import controller.LibraryController;
 import controller.PreferencesViewController;
 import controller.RadioController;
+import gateway.SongGateway;
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.NoMPEGFramesException;
@@ -35,6 +36,8 @@ public class MasterController {
 
 	// keep current controller instance to compare when changing views
 	private LibraryController libraryController = null;
+	
+	private SongGateway gateway;
 
 	private BorderPane rootPane;
 
@@ -43,8 +46,10 @@ public class MasterController {
 	private Profile profile;
 
 	private MasterController() {
+		
 		profile = getProfile();
 		libraryController = new LibraryController();
+		gateway = new SongGateway();
 		
 		// ### SCOTT TESTING STUFF HERE ###
 		try {
