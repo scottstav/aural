@@ -28,11 +28,11 @@ public class LibraryController {
 
 	
 	public LibraryController() {
-		this.update();
+		this.initialize();
 
 	}
 
-	public void update() 
+	public void initialize() 
 	{
 		// TODO Auto-generated method stub
 
@@ -53,12 +53,8 @@ public class LibraryController {
 		if(!albums.contains(new Album(song.getAlbum(), 0, 0)))
             albums.add(new Album(song.getAlbum(), 0, 0));
         */
-		System.out.println("added to library");
 		
 		filteredSongs = new FilteredList<>(fullLibrary, p -> true);
-		filteredAlbums = new FilteredList<>(albums, p -> true);
-
-
 		
 	}
 	
