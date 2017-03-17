@@ -12,6 +12,7 @@ public class Album
 	public Album() 
 	{
 		this.name.set("");
+		this.artist_id = 0;
 		this.id = 0;
 		
 	}
@@ -31,6 +32,10 @@ public class Album
 	public String getName()
 	{
 		return this.name.get();
+	}
+	
+	public int getArtistId(){
+		return this.artist_id;
 	}
 	
 	public boolean equals(Object obj)
