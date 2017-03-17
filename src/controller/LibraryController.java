@@ -32,7 +32,9 @@ public class LibraryController {
 	private ObservableList<Album> albums = FXCollections.observableArrayList();
 	private ObservableList<SongEntry> fullLibrary = FXCollections.observableArrayList();
 
-	FilteredList<SongEntry> filteredData;
+	FilteredList<SongEntry> filteredSongs;
+	FilteredList<Album> filteredAlbums;
+
 	
 	public LibraryController() {
 		
@@ -60,7 +62,9 @@ public class LibraryController {
         */
 		System.out.println("added to library");
 		
-		filteredData = new FilteredList<>(fullLibrary, p -> true);
+		filteredSongs = new FilteredList<>(fullLibrary, p -> true);
+		filteredAlbums = new FilteredList<>(albums, p -> true);
+
 
 		
 	}
@@ -68,7 +72,7 @@ public class LibraryController {
 	public void filterByArtist(Artist filter) 
 	{
 		
-		filteredData.setPredicate(p -> {
+		filteredSongs.setPredicate(p -> {
             // If filter text is empty, display all songs.
             if (filter == null) {
             	System.out.println("XXfilteringXX");
@@ -85,7 +89,8 @@ public class LibraryController {
 
             return false; // Does not match.
         });
-		library.setAll(filteredData);
+		
+		library.setAll(filteredSongs);
 	}
 		
 	/*public ObservableList<Integer> getTracks() {
