@@ -21,7 +21,7 @@ public class AlbumTableController {
 	
 	public ObservableList<Album> getAlbums() 
 	{
-		return MasterController.getInstance().getAlbums();
+		return MasterController.getInstance().getLibraryController().getAlbums();
 	}
 
 }

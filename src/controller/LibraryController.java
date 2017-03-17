@@ -3,6 +3,8 @@ package controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
@@ -24,9 +26,8 @@ public class LibraryController {
 	private ObservableList<SongEntry> library = FXCollections.observableArrayList();
 	private ObservableList<Artist> artists = FXCollections.observableArrayList();
 	private ObservableList<Album> albums = FXCollections.observableArrayList();
+	private ArrayList<SongEntry> fullLibrary = new ArrayList<SongEntry>();
 
-
-;
 	
 	public LibraryController() {
 		
@@ -39,12 +40,23 @@ public class LibraryController {
 		MP3File file = new MP3File(data);
 		SongEntry song = new SongEntry(file);
 		System.out.println("created MP3");
+		fullLibrary.add(song);
 		library.add(song);
 		artists.add(new Artist(song.getArtist(), 0, 0));
 		albums.add(new Album(song.getAlbum(), 0, 0));
 		System.out.println("added to library");
 
 		
+	}
+	
+	public void filterByArtist(Artist filter) 
+	{
+		for(SongEntry song : library) 
+		{
+			if(song.getArtist() != filter.getName()) {
+				library.remove(song);
+			}
+		}
 	}
 
 	public ObservableList<SongEntry> getSongs() {
