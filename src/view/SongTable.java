@@ -1,9 +1,14 @@
 package view;
 
 import controller.SongTableController;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import launch.MasterController;
 import model.Artist;
 import model.SongEntry;
 
@@ -57,6 +62,37 @@ public class SongTable extends TableView<SongEntry> {
 		trackId.setCellValueFactory(new PropertyValueFactory<SongEntry,Integer>("trackId"));
 
 		this.setItems(controller.getSongs());
+		
+		this.setOnMousePressed(new EventHandler<MouseEvent>() {
+		    @Override 
+		    public void handle(MouseEvent event) {
+		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+		            Node node = ((Node) event.getTarget()).getParent();
+		            TableRow row;
+		            if (node instanceof TableRow) {
+		                row = (TableRow) node;
+		            } else {
+		                // clicking on text part
+		                row = (TableRow) node.getParent();
+		            }
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem());
+
+		            MasterController.getInstance().getPlaybackController().playSelection();
+
+		        } else if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+		            Node node = ((Node) event.getTarget()).getParent();
+		            TableRow row;
+		            if (node instanceof TableRow) {
+		                row = (TableRow) node;
+		            } else {
+		                // clicking on text part
+		                row = (TableRow) node.getParent();
+		            }
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem());;
+
+		        }
+		    }
+		});
 		
 		
 	}

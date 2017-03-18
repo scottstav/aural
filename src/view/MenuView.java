@@ -107,9 +107,10 @@ public class MenuView extends MenuBar{
 		playItem = new MenuItem("Play");
 		playItem.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		        Platform.exit();
+		    	 MasterController.getInstance().getPlaybackController().playSelection();
 		    }
 		});
+		
 		pauseItem = new MenuItem("Pause");
 		pauseItem.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
