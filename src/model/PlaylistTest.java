@@ -47,5 +47,20 @@ public class PlaylistTest
         }
         
         System.out.println(pl);
+        
+        try
+        {
+            path = "/home/daniel/Music/Radiohead - Kid A/06 Optimistic.mp3";
+            pl.getHead().insertNode(new PlaylistNode(new SongEntry(new MP3File(new File(path))), null),
+                                    pl.getHead().getEntry().getId());
+        }
+        catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException
+                | IOException e)
+        {
+            e.printStackTrace();
+            System.exit(3);
+        }
+        
+        System.out.println(pl);
     }
 }
