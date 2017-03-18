@@ -38,6 +38,7 @@ public class Album
 		return this.artist.get();
 	}
 	
+
 	
 	public boolean equals(Object o)
 	{
@@ -55,6 +56,7 @@ public class Album
 		int hash = 3;
 		hash = 7 * hash + this.name.get().hashCode();
 		return hash;
-	}
+  }
+
 
 }

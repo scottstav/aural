@@ -11,7 +11,7 @@ public class Mp3Test
     {
         try
         {
-            String filePath = "/home/daniel/Music/The Beatles/Abbey Road/01 Come Together.mp3";
+            String filePath = "/home/daniel/Music/Black Sabbath - Greatest Hits 2009 [MP3 @ 320] (oan)/01 - Black Sabbath - Paranoid.mp3";
             MP3File mp3 = new MP3File(new File(filePath));
             System.out.println(mp3);
             

@@ -65,7 +65,12 @@ public class SongEntry  {
 	            System.out.print("Showing year: ");
 	            System.out.println(tag.getFrameDataString("TYER"));
 	            String trackString = tag.getFrameDataString("TRCK");
-	            trackString = trackString.substring(0, trackString.indexOf('/'));
+	            try {
+	                trackString = trackString.substring(0, trackString.indexOf('/'));
+	            }
+	            catch (Exception e) {
+	                
+	            }
 	            setTrackId(Integer.parseInt(trackString));
                 System.out.print("Showing trackId: ");
                 //System.out.println(tag.getFrameDataString("TRCK"));

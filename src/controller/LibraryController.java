@@ -1,15 +1,9 @@
 package controller;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import launch.MasterController;
 import model.Album;
 import model.Artist;
@@ -47,6 +41,12 @@ public class LibraryController {
 		allAlbums = new ArrayList<Album>();
 
 		/*
+=======
+		MP3File file = new MP3File(data);
+		SongEntry song = new SongEntry(file);
+		System.out.println("created MP3");
+		fullLibrary.add(song);
+		library.add(song);
 		tracks.add(song.getTrackId());
 	    artists.add(new Artist(song.getArtist(), 0, 0));
         albums.add(new Album(song.getAlbum(), 0, 0));
@@ -91,8 +91,6 @@ public class LibraryController {
 
 	public void filterByArtist(Artist filter) 
 	{
-		System.out.println("filtering based on albums with artist: " + filter.getName() );
-
 		library.setAll(fullLibrary);
 		albums.setAll(allAlbums);
 		Set<Album> hs = new HashSet<>();
@@ -101,8 +99,6 @@ public class LibraryController {
 		albums.addAll(hs);
 		library.removeIf(p -> !(p.getArtist().equals(filter.getName())));
 		albums.removeIf(p -> !(p.getArtist().equals(filter.getName())));
-		
-
 	}
 	
 	public void filterByAlbum(Album filter) 
@@ -129,7 +125,6 @@ public class LibraryController {
 	}
 
 	public ObservableList<Artist> getArtists() {
-		// TODO Auto-generated method stub
 		return artists;
 	}
 	
@@ -139,7 +134,6 @@ public class LibraryController {
     }
 	
 	public ObservableList<Album> getAlbums() {
-		// TODO Auto-generated method stub
 		return albums;
 	}
 	

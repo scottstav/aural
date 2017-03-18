@@ -10,7 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import launch.MasterController;
 import model.Album;
-import model.Artist;
 
 /**
  * TableView that displays all albums under currently selected artist.
