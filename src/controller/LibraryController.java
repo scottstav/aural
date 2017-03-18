@@ -33,35 +33,13 @@ public class LibraryController {
 
 	public void initialize() 
 	{
-		// TODO Auto-generated method stub
 
 		fullLibrary = new ArrayList<SongEntry>(MasterController.getInstance().getGateway().getSongEntrys());
 		library = FXCollections.observableArrayList(fullLibrary);
 		albumset = new HashSet<>();
 		allAlbums = new ArrayList<Album>();
-
-		/*
-=======
-		MP3File file = new MP3File(data);
-		SongEntry song = new SongEntry(file);
-		System.out.println("created MP3");
-		fullLibrary.add(song);
-		library.add(song);
-		tracks.add(song.getTrackId());
-	    artists.add(new Artist(song.getArtist(), 0, 0));
-        albums.add(new Album(song.getAlbum(), 0, 0));
-		*/
 		updateArtists();
-		updateAlbums();
-
-		/*
-		if(!artists.contains(new Artist(song.getArtist(), 0, 0)))
-		    artists.add(new Artist(song.getArtist(), 0, 0));
-		if(!albums.contains(new Album(song.getAlbum(), 0, 0)))
-            albums.add(new Album(song.getAlbum(), 0, 0));
-        */
-		
-		
+		updateAlbums();	
 	}
 	
 	private void updateAlbums() {

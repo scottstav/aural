@@ -51,19 +51,9 @@ public class SongEntry  {
 	        {
 	        	// set member variables
 	            ID3v2Tag tag = new ID3v2Tag(new File(getLocation()), 0);
-	            System.out.print("Showing artist name: ");
-	            System.out.println(tag.getFrameDataString("TPE1"));
 	            setArtist(tag.getFrameDataString("TPE1"));
-	            System.out.print("Showing Album title: ");
-	            System.out.println(tag.getFrameDataString("TALB"));
 	            setAlbum(tag.getFrameDataString("TALB"));
-	            System.out.print("Showing song title: ");
-	            System.out.println(tag.getFrameDataString("TIT2"));
 	            setTitle(tag.getFrameDataString("TIT2"));
-	            System.out.print("Showing genre: ");
-	            System.out.println(tag.getFrameDataString("TCON"));
-	            System.out.print("Showing year: ");
-	            System.out.println(tag.getFrameDataString("TYER"));
 	            String trackString = tag.getFrameDataString("TRCK");
 	            try {
 	                trackString = trackString.substring(0, trackString.indexOf('/'));
@@ -72,29 +62,16 @@ public class SongEntry  {
 	                
 	            }
 	            setTrackId(Integer.parseInt(trackString));
-                System.out.print("Showing trackId: ");
                 //System.out.println(tag.getFrameDataString("TRCK"));
                 //System.out.println(trackString);
-                System.out.println(Integer.parseInt(trackString));
-                System.out.println("Again: " + trackId);
 	        }
 	        else if(song.id3v1Exists())
 	        {
 	        	// set member variables if V1
-	        	ID3v1Tag tag = new ID3v1Tag(new File(getLocation()));
-	            System.out.print("Showing artist name: ");
-	            System.out.println(tag.getArtist());
-	            setArtist(tag.getArtist());
-	            System.out.print("Showing Album title: ");
-	            System.out.println(tag.getAlbum());
-	            setAlbum(tag.getAlbum());
-	            System.out.print("Showing song title: ");
-	            System.out.println(tag.getTitle());
+	        	ID3v1Tag tag = new ID3v1Tag(new File(getLocation()));   
+	            setArtist(tag.getArtist());         
+	            setAlbum(tag.getAlbum());     
 	            setTitle(tag.getTitle());
-	            System.out.print("Showing genre: ");
-	            System.out.println(tag.getGenre());
-	            System.out.print("Showing year: ");
-	            System.out.println(tag.getYear());
 	        }
 	    }
 	    catch (Exception e)
