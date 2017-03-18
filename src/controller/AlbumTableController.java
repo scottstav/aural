@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import launch.MasterController;
 import model.Album;
 
