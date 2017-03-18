@@ -43,7 +43,7 @@ public class SidebarView extends VBox {
 		playlists = new ComboBox<Playlist>();
 		
 		// Set value so user knows what this ComboBox is for
-		playlists.setValue(new Playlist());
+		playlists.setValue(new Playlist(null));
 
 		radio = new Button("Radio");
 		radio.setOnAction(new EventHandler<ActionEvent>() {
