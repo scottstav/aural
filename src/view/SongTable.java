@@ -75,7 +75,20 @@ public class SongTable extends TableView<SongEntry> {
 		                // clicking on text part
 		                row = (TableRow) node.getParent();
 		            }
-		            MasterController.getInstance().getPlaybackController().playSong((SongEntry) row.getItem());;
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem());
+
+		            MasterController.getInstance().getPlaybackController().playSelection();
+
+		        } else if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+		            Node node = ((Node) event.getTarget()).getParent();
+		            TableRow row;
+		            if (node instanceof TableRow) {
+		                row = (TableRow) node;
+		            } else {
+		                // clicking on text part
+		                row = (TableRow) node.getParent();
+		            }
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem());;
 
 		        }
 		    }

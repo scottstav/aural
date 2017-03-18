@@ -1,9 +1,12 @@
 package view;
 
 import controller.PlaybackController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import launch.MasterController;
 
 public class PlaybackView extends HBox{
 	
@@ -16,8 +19,35 @@ public class PlaybackView extends HBox{
 		next = new Button("Next");
 		previous = new Button("Prev.");
 
+		setbuttons();
+		
 		this.getChildren().addAll(previous, play, next);
 		this.setSpacing(10);
 		this.setPadding(new Insets(0, 0, 0, 10));
+	}
+
+	private void setbuttons() {
+		play.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	// TO DO: alternate between play / pause actions 
+	            MasterController.getInstance().getPlaybackController().playSelection();
+
+		    }
+		});
+		
+		next.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+
+	            MasterController.getInstance().getPlaybackController().playSelection();
+
+		    }
+		});
+		previous.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+
+	            MasterController.getInstance().getPlaybackController().playSelection();
+
+		    }
+		});
 	}
 }

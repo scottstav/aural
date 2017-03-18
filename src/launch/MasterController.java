@@ -139,6 +139,20 @@ public class MasterController {
 	public Profile getProfile() {
 		return new Profile();
 	}
+	
+	/*
+	 * notifies all necessary controllers of the currently selected song/artist/album
+	 * 
+	 * menu controller, playback controller, and sidebar controller 
+	 * all need to know what is currently selected for different reasons
+	 * 
+	 */
+	public void setSelected(Object selected)
+	{
+		getPlaybackController();
+
+		playbackController.setSelected((SongEntry) selected);
+	}
 
 	/*
 	 *  communicates with the song database
@@ -156,6 +170,7 @@ public class MasterController {
 		if (playbackController == null)
 		{
 			playbackController = new PlaybackController();
+			playbackController.setSelected(libraryController.getSongs().get(0));
 		}
 		
 		return playbackController;

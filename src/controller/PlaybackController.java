@@ -9,7 +9,7 @@ import model.SongEntry;
 
 public class PlaybackController
 {
-	private SongEntry currentSong;
+	private SongEntry selectedSong;
 	private LinkedList<SongEntry> songList;
 	
 	private MediaPlayer mediaPlayer;
@@ -17,15 +17,16 @@ public class PlaybackController
 	
 	public PlaybackController()
 	{
-	
+		
 	}
 		
-	public void playSong(SongEntry song)
+	public void playSelection()
 	{
-		currentSong = song;
+	
 		play();
 	}
 	
+
 	public void nextSong()
 	{
 		
@@ -39,13 +40,17 @@ public class PlaybackController
 	private void play() 
 	{
 	
-		Media hit = new Media(new File(currentSong.getLocation()).toURI().toString());
+		Media hit = new Media(new File(selectedSong.getLocation()).toURI().toString());
 		if(!(mediaPlayer == null)) 
 		{
 			mediaPlayer.stop();
 		}
 		mediaPlayer = new MediaPlayer(hit);
 		mediaPlayer.play();
+	}
+
+	public void setSelected(SongEntry selected) {
+		selectedSong = selected;
 	}
 
 }
