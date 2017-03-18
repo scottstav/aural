@@ -1,9 +1,14 @@
 package controller;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import launch.MasterController;
 import model.Album;
 import model.Artist;
@@ -21,11 +26,7 @@ public class LibraryController {
 	private ObservableList<SongEntry> library = FXCollections.observableArrayList();
 	private ObservableList<Artist> artists = FXCollections.observableArrayList();
 	private ObservableList<Album> albums = FXCollections.observableArrayList();
-	private ObservableList<SongEntry> fullLibrary = FXCollections.observableArrayList();
-
-	FilteredList<SongEntry> filteredSongs;
-	FilteredList<Album> filteredAlbums;
-
+	private static ArrayList<SongEntry> fullLibrary;
 	
 	public LibraryController() {
 		this.initialize();
@@ -36,8 +37,8 @@ public class LibraryController {
 	{
 		// TODO Auto-generated method stub
 
-		fullLibrary = FXCollections.observableArrayList( MasterController.getInstance().getGateway().getSongEntrys());
-		library = fullLibrary;
+		fullLibrary = new ArrayList<SongEntry>(MasterController.getInstance().getGateway().getSongEntrys());
+		library = FXCollections.observableArrayList(fullLibrary);
 		
 		/*
 		tracks.add(song.getTrackId());
@@ -54,7 +55,6 @@ public class LibraryController {
             albums.add(new Album(song.getAlbum(), 0, 0));
         */
 		
-		filteredSongs = new FilteredList<>(fullLibrary, p -> true);
 		
 	}
 	
@@ -84,21 +84,9 @@ public class LibraryController {
 
 	public void filterByArtist(Artist filter) 
 	{
-		filteredSongs.setPredicate(p -> {
-            // If filter text is empty, display all songs.
-            if (filter == null) {
-                return true;
-            }
+		library.setAll(fullLibrary);
 
-            if (filter.getName().equals(p.getArtist())) {
-
-                return true; // Filter matches artist.
-            }
-
-            return false; // Does not match.
-        });
-		
-		library.setAll(filteredSongs);
+		library.removeIf(p -> !(p.getArtist().equals(filter.getName())));
 
 	}
 		
