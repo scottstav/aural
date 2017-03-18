@@ -2,6 +2,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import launch.MasterController;

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import controller.LibraryController;
+import controller.PlaybackController;
 import controller.PreferencesViewController;
 import controller.RadioController;
 import gateway.SongGateway;
@@ -36,8 +37,10 @@ public class MasterController {
 	
 	private Logger logger = LogManager.getLogger();
 
-	// keep current controller instance to compare when changing views
+	// Master needs to be aple to do play back stuff and edit the library
 	private LibraryController libraryController = null;
+	private PlaybackController playbackController = null;
+
 	
 	private SongGateway gateway = null;
 
@@ -48,23 +51,7 @@ public class MasterController {
 	private Profile profile;
 
 	private MasterController() {
-		
-		//libraryController = new LibraryController();
-		//gateway = new SongGateway();
-		
-		/*
-		// ### SCOTT TESTING STUFF HERE ###
-		/*try {
-			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/edvard-grieg-peer-gynt1-morning-mood.mp3"));
-			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/edvard-grieg-peer-gynt1-morning-mood.mp3"));
-			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/frederic-chopin-piano-sonata-2-op35-3-funeral-march.mp3"));
-			libraryController.addSong(new File("/Users/scottstav/projects/UI/project/mp3files/symphony.mp3"));
-
-		} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		//###################################
+	
 		
 	}
 
@@ -163,6 +150,15 @@ public class MasterController {
 		}
 		
 		return libraryController;
+	}
+	
+	public PlaybackController getPlaybackController() {
+		if (playbackController == null)
+		{
+			playbackController = new PlaybackController();
+		}
+		
+		return playbackController;
 	}
 	
 	/*
