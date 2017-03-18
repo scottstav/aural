@@ -6,21 +6,21 @@ public class Album
 {
 	
 	private int id;
-	public int artist_id;
+	public SimpleStringProperty artist = new SimpleStringProperty();
 	private SimpleStringProperty name = new SimpleStringProperty();
 	
 	public Album() 
 	{
 		this.name.set("");
-		this.artist_id = 0;
+		this.artist.set("");
 		this.id = 0;
 		
 	}
 	
-	public Album(String name, int artist_id, int id)
+	public Album(String name, String artist, int id)
 	{
 		this.name.set(name);
-		this.artist_id = artist_id;
+		this.artist.set(artist);
 		this.id = id;
 		
 	}
@@ -34,8 +34,8 @@ public class Album
 		return this.name.get();
 	}
 	
-	public int getArtistId(){
-		return this.artist_id;
+	public String getArtist(){
+		return this.artist.get();
 	}
 	
 

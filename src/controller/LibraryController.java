@@ -1,10 +1,9 @@
 package controller;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import launch.MasterController;
 import model.Album;
 import model.Artist;
@@ -22,11 +21,10 @@ public class LibraryController {
 	private ObservableList<SongEntry> library = FXCollections.observableArrayList();
 	private ObservableList<Artist> artists = FXCollections.observableArrayList();
 	private ObservableList<Album> albums = FXCollections.observableArrayList();
-	private ObservableList<SongEntry> fullLibrary = FXCollections.observableArrayList();
+	private static ArrayList<SongEntry> fullLibrary;
+	private static ArrayList<Album> allAlbums;
 
-	FilteredList<SongEntry> filteredSongs;
-	FilteredList<Album> filteredAlbums;
-
+	private static Set<Album>  albumset;
 	
 	public LibraryController() {
 		this.initialize();
@@ -37,9 +35,11 @@ public class LibraryController {
 	{
 		// TODO Auto-generated method stub
 
-		fullLibrary = FXCollections.observableArrayList( MasterController.getInstance().getGateway().getSongEntrys());
-		library = fullLibrary;
-		
+		fullLibrary = new ArrayList<SongEntry>(MasterController.getInstance().getGateway().getSongEntrys());
+		library = FXCollections.observableArrayList(fullLibrary);
+		albumset = new HashSet<>();
+		allAlbums = new ArrayList<Album>();
+
 		/*
 =======
 		MP3File file = new MP3File(data);
@@ -61,17 +61,17 @@ public class LibraryController {
             albums.add(new Album(song.getAlbum(), 0, 0));
         */
 		
-		filteredSongs = new FilteredList<>(fullLibrary, p -> true);
 		
 	}
 	
 	private void updateAlbums() {
+		albumset = new HashSet<>();
 		// put the albums in the album table based on the song table
-		Set<Album> albumset = new HashSet<>();
 		for(SongEntry song : library) 
 		{
-			Album album = new Album(song.getAlbum(), 0, 0);
+			Album album = new Album(song.getAlbum(), song.getArtist(), 0);
 			albumset.add(album);
+			allAlbums.add(album);
 		}
 		albums = FXCollections.observableArrayList(albumset);
 		
@@ -91,22 +91,20 @@ public class LibraryController {
 
 	public void filterByArtist(Artist filter) 
 	{
-
-		filteredSongs.setPredicate(p -> {
-            // If filter text is empty, display all songs.
-            if (filter == null) {
-                return true;
-            }
-
-            if (filter.getName().equals(p.getArtist())) {
-
-                return true; // Filter matches artist.
-            }
-
-            return false; // Does not match.
-        });
-		
-		library.setAll(filteredSongs);
+		library.setAll(fullLibrary);
+		albums.setAll(allAlbums);
+		Set<Album> hs = new HashSet<>();
+		hs.addAll(albums);
+		albums.clear();
+		albums.addAll(hs);
+		library.removeIf(p -> !(p.getArtist().equals(filter.getName())));
+		albums.removeIf(p -> !(p.getArtist().equals(filter.getName())));
+	}
+	
+	public void filterByAlbum(Album filter) 
+	{
+		library.setAll(fullLibrary);
+		library.removeIf(p -> !(p.getAlbum().equals(filter.getName())));	
 	}
 		
 	public ObservableList<Integer> getTracks() {
