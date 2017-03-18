@@ -60,8 +60,8 @@ public class SongGateway {
 		try {
 			// insert a record
 			// using a parameterized query with 6 parameters
-			String query = "insert into songs " + " (path, title, artist, album, length, track_number) "
-					+ " values(?, ?, ?, ?, ?, ?)";
+			String query = "insert into songs " + " (id, path, title, artist, album, length, track_number) "
+					+ " values(null, ?, ?, ?, ?, ?, ?)";
 			st = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 			// plug in the arguments for the 6 parameters
 			// order is based on when they occur in the SQL query string
@@ -82,6 +82,7 @@ public class SongGateway {
 				// returned keys don't have column names unfortunately
 				// so just ask for the value of the first column in the returned
 				// key set
+				a.setId(rs.getInt(1));
 			}
 
 		} catch (SQLException e) {
@@ -204,19 +205,14 @@ public class SongGateway {
 				try {
 					song = new SongEntry(new MP3File(new File(rs.getString("path"))));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (NoMPEGFramesException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ID3v2FormatException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (CorruptHeaderException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				songList.add(song);
@@ -260,7 +256,7 @@ public class SongGateway {
 
 		Class.forName("org.h2.Driver");
 		
-		String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (path varchar(255), title varchar(255),"
+		String createTableSQL = "CREATE TABLE IF NOT EXISTS songs (id int NOT NULL AUTO_INCREMENT, path varchar(255), title varchar(255),"
 				+ " artist varchar(255), album varchar(255), length long, track_number int)";
 
 		// this creates a database in the users home directory
