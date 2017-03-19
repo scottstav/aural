@@ -52,5 +52,10 @@ public class PlaybackController
 	public void setSelected(SongEntry selected) {
 		selectedSong = selected;
 	}
+	
+	public SongEntry getSelected()
+	{
+		return selectedSong;
+	}
 
 }

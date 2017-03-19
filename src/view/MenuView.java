@@ -17,6 +17,7 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import launch.MasterController;
 import model.Playlist;
+import model.PlaylistNode;
 
 public class MenuView extends MenuBar{
 	private Menu fileMenu;
@@ -98,7 +99,7 @@ public class MenuView extends MenuBar{
 		addToPlaylistMenuItem = new CustomMenuItem(playlists);
 		addToPlaylistMenuItem.setHideOnClick(false);
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-			MasterController.getInstance().getSidebarController().addPlaylist(newValue);
+			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode(MasterController.getInstance().getSelected(), null));
 	    });
 				
 		deleteItem.setOnAction(new EventHandler<ActionEvent>() {
