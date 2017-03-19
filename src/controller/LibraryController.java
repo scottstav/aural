@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import launch.MasterController;
 import model.Album;
 import model.Artist;
+import model.Playlist;
 import model.SongEntry;
 
 /**
@@ -84,6 +85,11 @@ public class LibraryController {
 	{
 		library.setAll(fullLibrary);
 		library.removeIf(p -> !(p.getAlbum().equals(filter.getName())));	
+	}
+	
+	public void filterByPlaylist(Playlist filter) 
+	{
+		library.setAll(filter.getSongs());	
 	}
 		
 	public ObservableList<Integer> getTracks() {
