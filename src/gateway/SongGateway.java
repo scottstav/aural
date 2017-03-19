@@ -122,7 +122,7 @@ public class SongGateway {
 			// plug in the arguments for the 6 parameters
 			// order is based on when they occur in the SQL query string
 			st.setString(1, a.getName());
-			st.setString(2, a.getSongs());
+			st.setString(2, a.getSongsForDB());
 			st.executeUpdate();
 
 			// get the generated key of the new record

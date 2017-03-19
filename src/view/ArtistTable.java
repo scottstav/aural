@@ -39,12 +39,12 @@ public class ArtistTable extends TableView<Artist> {
 		    public void handle(MouseEvent event) {
 		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 		            Node node = ((Node) event.getTarget()).getParent();
-		            TableRow row;
+		            TableRow<?> row;
 		            if (node instanceof TableRow) {
-		                row = (TableRow) node;
+		                row = (TableRow<?>) node;
 		            } else {
 		                // clicking on text part
-		                row = (TableRow) node.getParent();
+		                row = (TableRow<?>) node.getParent();
 		            }
 		            MasterController.getInstance().getLibraryController().filterByArtist((Artist) row.getItem());;
 

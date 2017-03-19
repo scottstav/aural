@@ -9,11 +9,14 @@ import controller.MenuController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import launch.MasterController;
+import model.Playlist;
 
 public class MenuView extends MenuBar{
 	private Menu fileMenu;
@@ -25,6 +28,7 @@ public class MenuView extends MenuBar{
 	private MenuItem deleteItem;
 	private MenuItem keymapItem;
 	private MenuItem preferencesItem;
+	private CustomMenuItem addToPlaylistMenuItem;
 
 	private Menu playbackMenu;
 	private MenuItem playItem;
@@ -88,6 +92,21 @@ public class MenuView extends MenuBar{
 		    }
 		});
 		
+		ComboBox<Playlist> playlists = new ComboBox<Playlist>(MasterController.getInstance().getSidebarController().getPlaylists());
+        playlists.setPromptText("add to playlist...");
+      
+		addToPlaylistMenuItem = new CustomMenuItem(playlists);
+		addToPlaylistMenuItem.setHideOnClick(false);
+		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+			MasterController.getInstance().getSidebarController().addPlaylist(newValue);
+	    });
+				
+		deleteItem.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		        Platform.exit();
+		    }
+		});
+		
 		keymapItem = new MenuItem("Keymap");
 		keymapItem.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
@@ -103,7 +122,7 @@ public class MenuView extends MenuBar{
 		    }
 		});
 		
-		editMenu.getItems().addAll(deleteItem, keymapItem, preferencesItem);
+		editMenu.getItems().addAll(deleteItem, keymapItem, preferencesItem, addToPlaylistMenuItem);
 
 		playbackMenu = new Menu("Playback");
 		playItem = new MenuItem("Play");
