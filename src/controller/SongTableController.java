@@ -14,5 +14,4 @@ public class SongTableController {
 	public ObservableList<SongEntry> getSongs() {
 		return MasterController.getInstance().getLibraryController().getSongs();
 	}
-
 }
