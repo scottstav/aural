@@ -29,18 +29,7 @@ public class Playlist {
 	}
 	
 	public String toString() {
-		String returnString = getName() + ":\n\n";
-		PlaylistNode node = head;
-		
-		while(node != null)
-		{
-		    returnString += node.getEntry().getArtist() + " " +
-		                    node.getEntry().getTitle() + " " +
-		                    node.getEntry().getAlbum() +  "\n";
-		    node = node.getNext();
-		}
-		
-		return returnString;
+		return name;
 	}
 	
 	public PlaylistNode getHead()
@@ -53,6 +42,26 @@ public class Playlist {
 	    PlaylistNode currentNode = head;
 	    head = head.getNext();
 	    return currentNode;
+	}
+	
+	/**
+	 * this method is for the database
+	 * 
+	 * it returns a string representing all the songs in the playlist
+	 * 
+	 * '#' is the delimiter
+	 * 
+	 * string structure: <song_id1>#<song_id2#and so on....
+	 * @return
+	 */
+	public String getSongs(){
+		return name;
+		
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 	
 	public void setHead(PlaylistNode head) {

@@ -53,7 +53,6 @@ public class ArtistTable extends TableView<Artist> {
 		});
 		this.setItems(controller.getArtists());
 
-
 		artist.setMinWidth(200);
 	    setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}

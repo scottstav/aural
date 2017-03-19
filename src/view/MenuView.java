@@ -72,6 +72,8 @@ public class MenuView extends MenuBar{
 		createPlaylistItem.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	logger.info("show playlist popup");
+		    	MasterController.getInstance().updateView(ViewType.CREATE_PLAYLIST, null);
+
 		    }
 		});
 		

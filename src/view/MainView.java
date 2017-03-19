@@ -6,6 +6,7 @@ import controller.PlaybackController;
 import controller.SidebarController;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import launch.MasterController;
 
 /**
  * MainView that houses all other views in the application. Application is a
@@ -28,9 +29,9 @@ public class MainView extends BorderPane {
 	public MainView() {
 
 		menuController = new MenuController();
-		playbackController = new PlaybackController();
-		sidebarController = new SidebarController();
-		libraryController = new LibraryController();		
+		playbackController = MasterController.getInstance().getPlaybackController();
+		sidebarController = MasterController.getInstance().getSidebarController();
+		libraryController = MasterController.getInstance().getLibraryController();	
 		libraryController.initialize();
 
 		// playback and menu (top)
