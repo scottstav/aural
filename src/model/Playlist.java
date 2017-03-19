@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import launch.MasterController;
+
 /**
  * Playlist is implemented as a linked list
  * @author Daniel Garcia
@@ -13,11 +15,13 @@ public class Playlist {
     private String name;
     private int id;
 	
-	public Playlist(String name) {
+	public Playlist(String name, int id) {
 	    if(name != null)
 	        this.name = name;
 	    else
 	        this.name = "";
+	    
+	    setId(id);
 	    
 	}
 	
@@ -57,9 +61,40 @@ public class Playlist {
 	 * string structure: <song_id1>#<song_id2#and so on....
 	 * @return
 	 */
-	public String getSongsForDB(){
-		return name;
+	public String getSongsForDB()
+	{
+		StringBuilder songs = new StringBuilder();
+		for(SongEntry song : getSongs())
+		{
+
+			songs.append(song.getId());
+			songs.append("#");
+		}
 		
+
+		return songs.toString();
+		
+	}
+	
+	public void setSongsForDB(String playlist_as_string)
+	{
+		System.out.println("playlists as string: " + playlist_as_string);
+
+		String[] song_ids = playlist_as_string.split("#");
+
+		for(String id : song_ids)
+		{
+			System.out.println(id);
+			
+			if(head == null)
+			{
+				setHead(new PlaylistNode(MasterController.getInstance().getLibraryController().getSongById(Integer.parseInt(id)), null));
+				continue;
+			}
+			
+			addToPlaylist(new PlaylistNode(MasterController.getInstance().getLibraryController().getSongById(Integer.parseInt(id)), null));
+			 
+		}
 	}
 	
 	public ArrayList<SongEntry> getSongs() {
@@ -88,6 +123,7 @@ public class Playlist {
 	}
 	
 	public void addToPlaylist(PlaylistNode node) {
+		
 		if(this.head == null)
 		{
 			this.setHead(node);;
@@ -95,6 +131,9 @@ public class Playlist {
 		{
 		    head.addNode(node);
 		}
+		
+		//update database
+		MasterController.getInstance().getGateway().alterPlaylist(this);
 	}
 
 }

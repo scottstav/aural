@@ -13,7 +13,7 @@ public class PlaylistTest
     public static void main(String[] args)
     {
         String path = "/home/daniel/Music/Radiohead - Kid A/01 Everything In Its Right Place.mp3";
-        Playlist pl = new Playlist("New playlist");
+        Playlist pl = new Playlist("New playlist", 0);
         try
         {
             pl.setHead(new PlaylistNode(new SongEntry(new MP3File(new File(path))), null));

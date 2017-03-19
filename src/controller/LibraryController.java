@@ -127,5 +127,17 @@ public class LibraryController {
         albums.clear();
     }
 	
+	public SongEntry getSongById(int id)
+	{
+		for(SongEntry song : library)
+		{
+			if(song.getId() == id)
+			{
+				return song;
+			}
+		}
+		return null;
+	}
+	
 
 }

@@ -111,6 +111,7 @@ public class SongTable extends TableView<SongEntry> {
 	            ComboBox<Playlist> playlists = new ComboBox<Playlist>(MasterController.getInstance().getSidebarController().getPlaylists());
 	            playlists.setPromptText("add to playlist...");
 	            playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+	            	System.out.println("left click on song id: " + row.getItem().getId());
 	    			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode((SongEntry) row.getItem(), null));
 	    	    });
 	            final CustomMenuItem addToPlaylistMenuItem = new CustomMenuItem(playlists );  
