@@ -1,15 +1,22 @@
 package view;
 
 import controller.SongTableController;
+import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 import launch.MasterController;
 import model.Artist;
+import model.Playlist;
+import model.PlaylistNode;
 import model.SongEntry;
 
 /**
@@ -68,12 +75,12 @@ public class SongTable extends TableView<SongEntry> {
 		    public void handle(MouseEvent event) {
 		        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 		            Node node = ((Node) event.getTarget()).getParent();
-		            TableRow row;
+		            TableRow<?> row;
 		            if (node instanceof TableRow) {
-		                row = (TableRow) node;
+		                row = (TableRow<?>) node;
 		            } else {
 		                // clicking on text part
-		                row = (TableRow) node.getParent();
+		                row = (TableRow<?>) node.getParent();
 		            }
 		            MasterController.getInstance().setSelected((SongEntry) row.getItem());
 
@@ -81,18 +88,41 @@ public class SongTable extends TableView<SongEntry> {
 
 		        } else if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
 		            Node node = ((Node) event.getTarget()).getParent();
-		            TableRow row;
+		            TableRow<?> row;
 		            if (node instanceof TableRow) {
-		                row = (TableRow) node;
+		                row = (TableRow<?>) node;
 		            } else {
 		                // clicking on text part
-		                row = (TableRow) node.getParent();
+		                row = (TableRow<?>) node.getParent();
 		            }
 		            MasterController.getInstance().setSelected((SongEntry) row.getItem());;
 
-		        }
+		        } 
 		    }
 		});
+		
+		this.setRowFactory(new Callback<TableView<SongEntry>, TableRow<SongEntry>>() {  
+
+	        @Override  
+	        
+	        public TableRow<SongEntry> call(TableView<SongEntry> tableView) {  
+	            final TableRow<SongEntry> row = new TableRow<>();  
+	            final ContextMenu contextMenu = new ContextMenu();  
+	            ComboBox<Playlist> playlists = new ComboBox<Playlist>(MasterController.getInstance().getSidebarController().getPlaylists());
+	            playlists.setPromptText("add to playlist...");
+	            playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+	    			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode((SongEntry) row.getItem(), null));
+	    	    });
+	            final CustomMenuItem addToPlaylistMenuItem = new CustomMenuItem(playlists );  
+	    		addToPlaylistMenuItem.setHideOnClick(false);
+
+
+	            contextMenu.getItems().add(addToPlaylistMenuItem);  
+	           // Set context menu on row, but use a binding to make it only show for non-empty rows:  
+	            row.contextMenuProperty().bind(Bindings.when(row.emptyProperty()).then((ContextMenu)null).otherwise(contextMenu));  
+	            return row ;  
+	        }  
+	    });  
 		
 		
 	}

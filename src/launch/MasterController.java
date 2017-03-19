@@ -83,6 +83,7 @@ public class MasterController {
 			
 		} else if (vType == ViewType.LIBRARY_VIEW) {
 			logger.info("library called");
+			libraryController.initialize();
 			LibraryView view = new LibraryView(libraryController);
 			rootPane.setCenter(view);
 
@@ -138,6 +139,10 @@ public class MasterController {
 	        stage.setScene(playlist);
 	        stage.show();
 
+		} else if (vType == ViewType.PLAYLIST_VIEW) {
+			libraryController.filterByPlaylist((Playlist) data);
+			LibraryView view = new LibraryView(libraryController);
+			rootPane.setCenter(view);
 		}
 		return true;
 	}
@@ -208,7 +213,8 @@ public class MasterController {
 		if (playbackController == null)
 		{
 			playbackController = new PlaybackController();
-			playbackController.setSelected(getLibraryController().getSongs().get(0));
+			if(!(getLibraryController().getSongs().isEmpty()))
+				playbackController.setSelected(getLibraryController().getSongs().get(0));
 		}
 		
 		return playbackController;
