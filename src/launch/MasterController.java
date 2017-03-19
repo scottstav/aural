@@ -10,14 +10,23 @@ import controller.LibraryController;
 import controller.PlaybackController;
 import controller.PreferencesViewController;
 import controller.RadioController;
+import controller.SidebarController;
 import gateway.SongGateway;
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Playlist;
 import model.Profile;
 import model.SongEntry;
 import view.LibraryView;
@@ -40,6 +49,7 @@ public class MasterController {
 	// Master needs to be aple to do play back stuff and edit the library
 	private LibraryController libraryController = null;
 	private PlaybackController playbackController = null;
+	private SidebarController sidebarController = null;
 
 	
 	private SongGateway gateway = null;
@@ -99,8 +109,36 @@ public class MasterController {
 	    	Scene pref = new Scene(new PreferencesView(new PreferencesViewController(profile)));
 	        stage.setScene(pref);
 	        stage.show();
-		}
+		}	else if (vType == ViewType.CREATE_PLAYLIST) {
+			Stage stage = new Stage();
+			VBox inputBox = new VBox();
+	        TextField playlistNameField = new TextField();
+	        // prompt for playlist name
+	        playlistNameField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+	            @Override
+	            public void handle(KeyEvent keyEvent) {
+	                if (keyEvent.getCode() == KeyCode.ENTER)  {
+	                    String name = playlistNameField.getText();	                    
+	                    // close prompt
+	                    stage.hide();
+	                    
+	                    //create playlist
+	                    Playlist playlist = new Playlist(name);
+	                    gateway.insertPlaylist(playlist);
+	                    MasterController.getInstance().getSidebarController().addPlaylist(playlist);
+	                    
+	                }
+	            }
+	        });	       
+	        Label label = new Label("playlist name: ");
+	        inputBox.getChildren().addAll(label, playlistNameField);
+	        inputBox.setAlignment(Pos.CENTER);
 
+	    	Scene playlist = new Scene(inputBox);
+	        stage.setScene(playlist);
+	        stage.show();
+
+		}
 		return true;
 	}
 
@@ -170,10 +208,19 @@ public class MasterController {
 		if (playbackController == null)
 		{
 			playbackController = new PlaybackController();
-			playbackController.setSelected(libraryController.getSongs().get(0));
+			playbackController.setSelected(getLibraryController().getSongs().get(0));
 		}
 		
 		return playbackController;
+	}
+	
+	public SidebarController getSidebarController() {
+		if (sidebarController == null)
+		{
+			sidebarController = new SidebarController();
+		}
+		
+		return sidebarController;
 	}
 	
 	/*
