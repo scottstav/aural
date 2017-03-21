@@ -50,7 +50,7 @@ public class MenuView extends MenuBar{
 		
 		quitItem = new MenuItem("Quit");
 		importItem = new MenuItem("Import Music");
-		createPlaylistItem = new MenuItem("Create PlayList");
+		createPlaylistItem = new MenuItem("Create Playlist");
 		fileMenu.getItems().addAll(quitItem, importItem, createPlaylistItem);
 
 		editMenu = new Menu("Edit");
