@@ -54,7 +54,7 @@ public class PlaybackController
 
 	public void nextSong()
 	{
-		if((songList.indexOf(selectedSong) - 1) > songList.size()-1)
+		if((songList.indexOf(selectedSong)) == songList.size() - 1)
 			return;
 		selectedSong = songList.get((songList.indexOf(selectedSong) + 1));
 		playSelection();
