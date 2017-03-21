@@ -76,8 +76,8 @@ public class MenuView extends MenuBar{
 		
 		playOrPauseItem = new MenuItem("Play");
 		playOrPauseItem.textProperty().bind(MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty());
-		nextTrackItem = new MenuItem("Next Track");
-		previousTrackItem = new MenuItem("Previous Track");
+		nextTrackItem = new MenuItem("Next");
+		previousTrackItem = new MenuItem("Previous");
 		shuffleItem = new MenuItem("Shuffle");
 		repeatItem = new MenuItem("Repeat");
 		playbackMenu.getItems().addAll(playOrPauseItem, nextTrackItem, previousTrackItem, shuffleItem, repeatItem);

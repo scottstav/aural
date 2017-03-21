@@ -2,14 +2,11 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import launch.MasterController;
 import model.SongEntry;
 
@@ -69,6 +66,18 @@ public class PlaybackController
 			return;
 		selectedSong = songList.get((songList.indexOf(selectedSong) - 1));
 		playSelection();
+
+	}
+	
+	public void shuffleSongs() 
+	{
+		System.out.println("shuffle requested");
+
+	}
+	
+	public void repeatSong() 
+	{
+		System.out.println("repeat requested");
 
 	}
 	
