@@ -1,5 +1,6 @@
 package controller;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,7 +55,20 @@ public class LibraryController {
 			allAlbums.add(album);
 		}
 		albums = FXCollections.observableArrayList(albumset);
-		
+		/*albums.sort(new Comparator<Album>() {
+
+            @Override
+            public int compare(Album arg0, Album arg1)
+            {
+                if(arg0.getName().compareTo(arg1.getName()) > 0)
+                    return 1;
+                else if(arg0.getName().compareTo(arg1.getName()) < 0)
+                    return -1;
+                else
+                    return 0;
+            }
+            
+        });*/
 	}
 
 	private void updateArtists() {
@@ -65,20 +79,37 @@ public class LibraryController {
 			Artist artist = new Artist(song.getArtist(), 0, 0);
 			artistset.add(artist);
 		}
+		artistset.add(new Artist("All Artists", 0, 0));
 		artists = FXCollections.observableArrayList(artistset);
-		
+		artists.sort(new Comparator<Artist>() {
+
+            @Override
+            public int compare(Artist arg0, Artist arg1)
+            {
+                if(arg0.getName().compareTo(arg1.getName()) > 0)
+                    return 1;
+                else if(arg0.getName().compareTo(arg1.getName()) < 0)
+                    return -1;
+                else
+                    return 0;
+            }
+		    
+		});
 	}
 
 	public void filterByArtist(Artist filter) 
-	{
-		library.setAll(fullLibrary);
-		albums.setAll(allAlbums);
-		Set<Album> hs = new HashSet<>();
-		hs.addAll(albums);
-		albums.clear();
-		albums.addAll(hs);
-		library.removeIf(p -> !(p.getArtist().equals(filter.getName())));
-		albums.removeIf(p -> !(p.getArtist().equals(filter.getName())));
+	{	
+	    library.setAll(fullLibrary);
+        albums.setAll(allAlbums);
+        Set<Album> hs = new HashSet<>();
+        hs.addAll(albums);
+        albums.clear();
+        albums.addAll(hs);
+		if(!filter.getName().equals("All Artists"))
+		{
+		    library.removeIf(p -> !(p.getArtist().equals(filter.getName())));
+		    albums.removeIf(p -> !(p.getArtist().equals(filter.getName())));
+		}
 	}
 	
 	public void filterByAlbum(Album filter) 
