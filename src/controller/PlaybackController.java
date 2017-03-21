@@ -1,19 +1,22 @@
 package controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
+import launch.MasterController;
 import model.SongEntry;
 
 public class PlaybackController
 {
 	private SongEntry selectedSong;
-	private LinkedList<SongEntry> songList;
+	private ArrayList<SongEntry> songList;
 	private final StringProperty playOrPause;
 	private final StringProperty nowPlaying;
 
@@ -25,6 +28,8 @@ public class PlaybackController
 	{
 		playOrPause = new SimpleStringProperty("Play");
 		nowPlaying = new SimpleStringProperty("");
+		songList = new ArrayList<SongEntry>();
+		songList.addAll(MasterController.getInstance().getLibraryController().getSongs());
 
 	}
 		
@@ -52,12 +57,15 @@ public class PlaybackController
 
 	public void nextSong()
 	{
-		
+		selectedSong = songList.get((songList.indexOf(selectedSong) + 1));
+		playSelection();
 	}
 	
 	public void previousSong() 
 	{
-		
+		selectedSong = songList.get((songList.indexOf(selectedSong) - 1));
+		playSelection();
+
 	}
 	
 	private void pause()
@@ -80,7 +88,14 @@ public class PlaybackController
 	}
 
 	public void setSelected(SongEntry selected) {
-		selectedSong = selected;
+		for(SongEntry entry : songList)
+		{
+			if(entry.equals(selected))
+			{
+				selectedSong = entry;
+				break;
+			}
+		}
 	}
 	
 	public SongEntry getSelected()

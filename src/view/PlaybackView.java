@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import launch.MasterController;
 
 public class PlaybackView extends VBox{
@@ -34,6 +36,7 @@ public class PlaybackView extends VBox{
 		nowPlaying.setAlignment(Pos.CENTER);
 		nowPlaying.setPadding(new Insets(0, 0, 0, 10));
 		nowPlaying.setPrefWidth(Double.MAX_VALUE);
+		nowPlaying.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
 		next = new Button("Next");
 		previous = new Button("Prev.");
 
