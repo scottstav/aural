@@ -121,6 +121,8 @@ public class LibraryController {
 	public void filterByPlaylist(Playlist filter) 
 	{
 		library.setAll(filter.getSongs());	
+		updateArtists();
+		updateAlbums();
 	}
 		
 	public ObservableList<Integer> getTracks() {

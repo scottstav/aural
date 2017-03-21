@@ -14,8 +14,16 @@ public class PlaybackView extends HBox{
 	private Button next;
 	private Button previous;
 	
+	private PlaybackController controller;
+	
 	public PlaybackView(PlaybackController playbackController){
+		controller = playbackController;
+
 		play = new Button("Play");
+		
+		// bind the text of the button to the status of media in the play controller
+		play.textProperty().bind(controller.getPlayOrPauseProperty());
+
 		next = new Button("Next");
 		previous = new Button("Prev.");
 
@@ -29,8 +37,17 @@ public class PlaybackView extends HBox{
 	private void setbuttons() {
 		play.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		    	// TO DO: alternate between play / pause actions 
-	            MasterController.getInstance().getPlaybackController().playSelection();
+		    	// TO DO: alternate between play / pause actions
+	            if(play.getText().equals("Play"))
+	            {
+	            	MasterController.getInstance().getPlaybackController().playSong();
+	            	//play.setText("Pause");
+	            }
+	            else
+	            {
+	            	MasterController.getInstance().getPlaybackController().pauseSong();
+	            	//play.setText("Play");
+	            }
 
 		    }
 		});
@@ -38,14 +55,14 @@ public class PlaybackView extends HBox{
 		next.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 
-	            MasterController.getInstance().getPlaybackController().playSelection();
+	            MasterController.getInstance().getPlaybackController().nextSong();
 
 		    }
 		});
 		previous.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 
-	            MasterController.getInstance().getPlaybackController().playSelection();
+	            MasterController.getInstance().getPlaybackController().previousSong();
 
 		    }
 		});

@@ -195,6 +195,13 @@ public class MasterController {
 
 		playbackController.setSelected((SongEntry) selected);
 	}
+	
+	public SongEntry getSelected()
+	{
+		getPlaybackController();
+
+		return playbackController.getSelected();
+	}
 
 	/*
 	 *  communicates with the song database

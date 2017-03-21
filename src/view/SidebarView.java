@@ -51,6 +51,7 @@ public class SidebarView extends VBox {
 		playlists.setItems(controller.getPlaylists());
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().updateView(ViewType.PLAYLIST_VIEW, newValue);
+			playlists.setPromptText("Select Playlist");
 	    });
 
 		radio = new Button("Radio");
