@@ -13,5 +13,7 @@ public class ScriptExecutor
     public void execute()
     {
         // #TODO Need to find a way to iterate through compiled objects and run each one.
+        for(ScriptObject object : scriptObjects)
+            object.execute();
     }
 }
