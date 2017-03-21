@@ -1,6 +1,7 @@
 package gateway;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
 import model.Playlist;
+import model.PlaylistNode;
 import model.SongEntry;
 
 /**
@@ -122,6 +124,8 @@ public class SongGateway {
 			// plug in the arguments for the 6 parameters
 			// order is based on when they occur in the SQL query string
 			st.setString(1, a.getName());
+			System.out.println("inserting : " + a.getSongsForDB());
+
 			st.setString(2, a.getSongsForDB());
 			st.executeUpdate();
 
@@ -199,6 +203,52 @@ public class SongGateway {
 				e2.printStackTrace();
 			}
 		}
+		
+	}
+	
+	public void alterPlaylist(Playlist e) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			String query = "UPDATE playlists " + "SET name = ?, " + "song_ids = ? WHERE id = ?";
+			st = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+			// plug in the arguments for the 3 parameters
+			// order is based on when they occur in the SQL query string
+			st.setString(1, e.getName());
+			st.setString(2, e.getSongsForDB());
+			st.setInt(3, e.getId());
+
+
+			st.executeUpdate();
+
+			// get the generated key of the new record
+			// jdbc returns a resultset of field data containing the new key(s)
+			rs = st.getGeneratedKeys();
+			// make sure you don't call getInt() on an empty result set
+			// next() also moves the result set to the first record
+			if (rs != null && rs.next()) {
+				// returned keys don't have column names unfortunately
+				// so just ask for the value of the first column in the returned
+				// key set
+			}
+
+		} catch (SQLException e1) {
+			// should log this exception since something happened during the
+			// query execution
+			e1.printStackTrace();
+		} finally {
+			// be sure to close things properly if they are open, regardless of
+			// exception
+			try {
+				if (rs != null)
+					rs.close();
+				if (st != null)
+					st.close();
+			} catch (SQLException e2) {
+				// should probably log this also
+				e2.printStackTrace();
+			}
+		}		
 	}
 
 	public void deleteRecord(int id) {
@@ -267,6 +317,7 @@ public class SongGateway {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				song.setId(rs.getInt("id"));
 				songList.add(song);
 			}
 
@@ -315,7 +366,8 @@ public class SongGateway {
 
 			while (rs.next()) {
 				Playlist pl = null;
-				pl = new Playlist(rs.getString("name"));
+				pl = new Playlist(rs.getString("name"), rs.getInt("id"));
+				pl.setSongsForDB(rs.getString("song_ids"));
 				playlists.add(pl);
 			}
 
@@ -383,6 +435,5 @@ public class SongGateway {
 		stmt = conn.createStatement();
 	}
       
-   
-  
+
 }

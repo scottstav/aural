@@ -124,7 +124,7 @@ public class MasterController {
 	                    stage.hide();
 	                    
 	                    //create playlist
-	                    Playlist playlist = new Playlist(name);
+	                    Playlist playlist = new Playlist(name, 0);
 	                    gateway.insertPlaylist(playlist);
 	                    MasterController.getInstance().getSidebarController().addPlaylist(playlist);
 	                    
