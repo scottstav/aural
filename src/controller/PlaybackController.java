@@ -38,7 +38,10 @@ public class PlaybackController
 	public void playSong() 
 	{
 		playOrPause.set("Pause");
-		play();
+		if(mediaPlayer == null)
+			playSelection();
+		else 
+			mediaPlayer.play();
 	}
 	
 
@@ -79,6 +82,7 @@ public class PlaybackController
 		return selectedSong;
 	}
 	
+	// updates the view
 	public StringProperty getPlayOrPauseProperty()
 	{
 		return playOrPause;

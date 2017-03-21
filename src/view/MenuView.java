@@ -24,8 +24,7 @@ public class MenuView extends MenuBar{
 	private CustomMenuItem addToPlaylistMenuItem;
 
 	private Menu playbackMenu;
-	private MenuItem playItem;
-	private MenuItem pauseItem;
+	private MenuItem playOrPauseItem;
 	private MenuItem nextTrackItem;
 	private MenuItem previousTrackItem;
 	private MenuItem shuffleItem;
@@ -75,13 +74,13 @@ public class MenuView extends MenuBar{
 
 		playbackMenu = new Menu("Playback");
 		
-		playItem = new MenuItem("Play");
-		pauseItem = new MenuItem("Pause");
+		playOrPauseItem = new MenuItem("Play");
+		playOrPauseItem.textProperty().bind(MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty());
 		nextTrackItem = new MenuItem("Next Track");
 		previousTrackItem = new MenuItem("Previous Track");
 		shuffleItem = new MenuItem("Shuffle");
 		repeatItem = new MenuItem("Repeat");
-		playbackMenu.getItems().addAll(playItem, pauseItem, nextTrackItem, previousTrackItem, shuffleItem, repeatItem);
+		playbackMenu.getItems().addAll(playOrPauseItem, nextTrackItem, previousTrackItem, shuffleItem, repeatItem);
 
 		scriptsMenu = new Menu("Scripts");
 		

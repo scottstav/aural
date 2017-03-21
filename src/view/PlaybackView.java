@@ -40,7 +40,7 @@ public class PlaybackView extends HBox{
 		    	// TO DO: alternate between play / pause actions
 	            if(play.getText().equals("Play"))
 	            {
-	            	MasterController.getInstance().getPlaybackController().playSelection();
+	            	MasterController.getInstance().getPlaybackController().playSong();
 	            	//play.setText("Pause");
 	            }
 	            else
@@ -55,14 +55,14 @@ public class PlaybackView extends HBox{
 		next.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 
-	            MasterController.getInstance().getPlaybackController().playSelection();
+	            MasterController.getInstance().getPlaybackController().nextSong();
 
 		    }
 		});
 		previous.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 
-	            MasterController.getInstance().getPlaybackController().playSelection();
+	            MasterController.getInstance().getPlaybackController().previousSong();
 
 		    }
 		});

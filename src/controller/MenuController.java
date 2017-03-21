@@ -39,7 +39,12 @@ public class MenuController implements EventHandler<ActionEvent> {
         }
         else if(text.equals("Play"))
         {
-            MasterController.getInstance().getPlaybackController().playSelection();
+            MasterController.getInstance().getPlaybackController().playSong();
+        }
+        else if(text.equals("Pause"))
+        {
+            MasterController.getInstance().getPlaybackController().pauseSong();
+
         }
         else if(text.equals("Preferences"))
         {
