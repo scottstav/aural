@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import model.SongEntry;
 
 public class PlaybackController
@@ -37,8 +38,25 @@ public class PlaybackController
 		
 	}
 	
+	private void pause()
+	{
+		mediaPlayer.pause();
+	}
+	
 	private void play() 
 	{
+		
+		if(mediaPlayer != null && mediaPlayer.getStatus().equals(Status.PLAYING)) 
+		{
+			mediaPlayer.pause();
+			return;
+		}
+		
+		if(mediaPlayer != null && mediaPlayer.getStatus().equals(Status.PAUSED)) 
+		{
+			mediaPlayer.play();
+			return;
+		}
 	
 		Media hit = new Media(new File(selectedSong.getLocation()).toURI().toString());
 		if(!(mediaPlayer == null)) 

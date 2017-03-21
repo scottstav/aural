@@ -100,6 +100,7 @@ public class MenuView extends MenuBar{
 		addToPlaylistMenuItem.setHideOnClick(false);
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode(MasterController.getInstance().getSelected(), null));
+	        
 	    });
 				
 		deleteItem.setOnAction(new EventHandler<ActionEvent>() {

@@ -1,7 +1,6 @@
 package gateway;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -20,7 +19,6 @@ import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
 import model.Playlist;
-import model.PlaylistNode;
 import model.SongEntry;
 
 /**
