@@ -31,6 +31,10 @@ public class PlaybackView extends HBox{
 		    @Override public void handle(ActionEvent e) {
 		    	// TO DO: alternate between play / pause actions 
 	            MasterController.getInstance().getPlaybackController().playSelection();
+	            if(play.getText().equals("Play"))
+	            	play.setText("Pause");
+	            else
+	            	play.setText("Play");
 
 		    }
 		});
