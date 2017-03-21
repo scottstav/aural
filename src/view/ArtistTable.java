@@ -33,7 +33,9 @@ public class ArtistTable extends TableView<Artist> {
 	private void createColumns() {
 		artist = new TableColumn<Artist, String>("Artist");
 		getColumns().add(artist);
+		artist.setSortType(TableColumn.SortType.ASCENDING);
 		artist.setCellValueFactory(new PropertyValueFactory<Artist,String>("name"));
+		this.getSortOrder().add(artist);
 		this.setOnMousePressed(new EventHandler<MouseEvent>() {
 		    @Override 
 		    public void handle(MouseEvent event) {

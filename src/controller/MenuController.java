@@ -1,21 +1,58 @@
 package controller;
 
+import java.io.File;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MenuController {
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.MenuItem;
+import javafx.stage.FileChooser;
+import launch.MasterController;
+import view.ViewType;
+
+public class MenuController implements EventHandler<ActionEvent> {
 
 	private static final Logger logger = LogManager.getLogger();
-
-    public MenuController() {
-		// currently unused
-
+	private FileChooser fileChooser;
+	
+	public MenuController()
+	{
+	    fileChooser = new FileChooser();
 	}
 
-	public void initialize() {
-		logger.info("Controller init has been called");
-
-	}
-
-
+    @Override
+    public void handle(ActionEvent arg0)
+    {
+        MenuItem menuItem = (MenuItem) arg0.getSource();
+        String text = menuItem.getText();
+        
+        if(text.equals("Import Music"))
+        {
+            fileChooser.setTitle("Select music files");
+            List<File> selected_songs = fileChooser.showOpenMultipleDialog(MasterController.getInstance().getPrimaryStage());
+            for(File file : selected_songs)
+                MasterController.getInstance().updateView(ViewType.IMPORT_MUSIC, file);
+        }
+        else if(text.equals("Play"))
+        {
+            MasterController.getInstance().getPlaybackController().playSelection();
+        }
+        else if(text.equals("Preferences"))
+        {
+            MasterController.getInstance().updateView(ViewType.PREFERENCES_VIEW, null);
+        }
+        else if(text.equals("Create Playlist"))
+        {
+            logger.info("show playlist popup");
+            MasterController.getInstance().updateView(ViewType.CREATE_PLAYLIST, null);
+        }
+        else
+        {
+            Platform.exit();
+        }
+    }
 }

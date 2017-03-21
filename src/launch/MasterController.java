@@ -97,7 +97,6 @@ public class MasterController {
 				libraryController.initialize();
 
 			} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
