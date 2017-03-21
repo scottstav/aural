@@ -12,8 +12,6 @@ public class SongTableController {
 	}
 
 	public ObservableList<SongEntry> getSongs() {
-		// TODO Auto-generated method stub
 		return MasterController.getInstance().getLibraryController().getSongs();
 	}
-
 }

@@ -13,7 +13,7 @@ public class Album
 	{
 		this.name.set("");
 		this.artist.set("");
-		this.id = 0;
+		this.setId(0);
 		
 	}
 	
@@ -21,7 +21,7 @@ public class Album
 	{
 		this.name.set(name);
 		this.artist.set(artist);
-		this.id = id;
+		this.setId(id);
 		
 	}
 	
@@ -43,7 +43,7 @@ public class Album
 	public boolean equals(Object o)
 	{
 		Album album = (Album)o;
-		if(album.getName().equals(this.name.get())){
+		if(album.getName().equals(name.get()) || album.getId() == getId()){
 			return true;
 		}
 
@@ -54,9 +54,25 @@ public class Album
 	public int hashCode() 
 	{
 		int hash = 3;
-		hash = 7 * hash + this.name.get().hashCode();
+		hash = 7 * hash + name.get().hashCode();
 		return hash;
   }
+
+    /**
+     * @return the id
+     */
+    public int getId()
+    {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
 
 }
