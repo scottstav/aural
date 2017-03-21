@@ -3,6 +3,8 @@ package controller;
 import java.io.File;
 import java.util.LinkedList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
@@ -12,18 +14,30 @@ public class PlaybackController
 {
 	private SongEntry selectedSong;
 	private LinkedList<SongEntry> songList;
-	
+	private final StringProperty playOrPause;
 	private MediaPlayer mediaPlayer;
 	
 	
 	public PlaybackController()
 	{
-		
+		playOrPause = new SimpleStringProperty("Play");
 	}
 		
 	public void playSelection()
 	{
+		playOrPause.set("Pause");
+		play();
+	}
 	
+	public void pauseSong() 
+	{
+		playOrPause.set("Play");
+		pause();
+	}
+	
+	public void playSong() 
+	{
+		playOrPause.set("Pause");
 		play();
 	}
 	
@@ -46,17 +60,6 @@ public class PlaybackController
 	private void play() 
 	{
 		
-		if(mediaPlayer != null && mediaPlayer.getStatus().equals(Status.PLAYING)) 
-		{
-			mediaPlayer.pause();
-			return;
-		}
-		
-		if(mediaPlayer != null && mediaPlayer.getStatus().equals(Status.PAUSED)) 
-		{
-			mediaPlayer.play();
-			return;
-		}
 	
 		Media hit = new Media(new File(selectedSong.getLocation()).toURI().toString());
 		if(!(mediaPlayer == null)) 
@@ -74,6 +77,11 @@ public class PlaybackController
 	public SongEntry getSelected()
 	{
 		return selectedSong;
+	}
+	
+	public StringProperty getPlayOrPauseProperty()
+	{
+		return playOrPause;
 	}
 
 }
