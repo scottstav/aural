@@ -78,13 +78,18 @@ public class Playlist {
 	
 	public void setSongsForDB(String playlist_as_string)
 	{
-		System.out.println("playlists as string: " + playlist_as_string);
+	    playlist_as_string = playlist_as_string.trim();
+		System.out.println("playlists as string: " + playlist_as_string + ";");
 
-		String[] song_ids = playlist_as_string.split("#");
+		String[] song_ids;
+		if(playlist_as_string.isEmpty())
+		    song_ids = new String[0];
+		else
+		    song_ids = playlist_as_string.split("#");
 
 		for(String id : song_ids)
 		{
-			System.out.println(id);
+			System.out.println("Id: " + id);
 			
 			if(head == null)
 			{
