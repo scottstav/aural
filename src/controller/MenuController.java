@@ -44,7 +44,22 @@ public class MenuController implements EventHandler<ActionEvent> {
         else if(text.equals("Pause"))
         {
             MasterController.getInstance().getPlaybackController().pauseSong();
-
+        }
+        else if(text.equals("Next"))
+        {
+            MasterController.getInstance().getPlaybackController().nextSong();
+        }
+        else if(text.equals("Previous"))
+        {
+            MasterController.getInstance().getPlaybackController().previousSong();
+        }
+        else if(text.equals("Shuffle"))
+        {
+            MasterController.getInstance().getPlaybackController().shuffleSongs();
+        }
+        else if(text.equals("Repeat"))
+        {
+            MasterController.getInstance().getPlaybackController().repeatSong();
         }
         else if(text.equals("Preferences"))
         {

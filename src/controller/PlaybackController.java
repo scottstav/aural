@@ -1,32 +1,39 @@
 package controller;
 
 import java.io.File;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
+import launch.MasterController;
 import model.SongEntry;
 
 public class PlaybackController
 {
 	private SongEntry selectedSong;
-	private LinkedList<SongEntry> songList;
+	private ArrayList<SongEntry> songList;
 	private final StringProperty playOrPause;
+	private final StringProperty nowPlaying;
+
+	
 	private MediaPlayer mediaPlayer;
 	
 	
 	public PlaybackController()
 	{
 		playOrPause = new SimpleStringProperty("Play");
+		nowPlaying = new SimpleStringProperty("");
+		songList = new ArrayList<SongEntry>();
+		songList.addAll(MasterController.getInstance().getLibraryController().getSongs());
+
 	}
 		
 	public void playSelection()
 	{
 		playOrPause.set("Pause");
-		play();
+		playNewSong();
 	}
 	
 	public void pauseSong() 
@@ -47,12 +54,31 @@ public class PlaybackController
 
 	public void nextSong()
 	{
-		
+		if((songList.indexOf(selectedSong) - 1) > songList.size()-1)
+			return;
+		selectedSong = songList.get((songList.indexOf(selectedSong) + 1));
+		playSelection();
 	}
 	
 	public void previousSong() 
 	{
-		
+		if((songList.indexOf(selectedSong) - 1) < 0)
+			return;
+		selectedSong = songList.get((songList.indexOf(selectedSong) - 1));
+		playSelection();
+
+	}
+	
+	public void shuffleSongs() 
+	{
+		System.out.println("shuffle requested");
+
+	}
+	
+	public void repeatSong() 
+	{
+		System.out.println("repeat requested");
+
 	}
 	
 	private void pause()
@@ -60,7 +86,7 @@ public class PlaybackController
 		mediaPlayer.pause();
 	}
 	
-	private void play() 
+	private void playNewSong() 
 	{
 		
 	
@@ -69,12 +95,20 @@ public class PlaybackController
 		{
 			mediaPlayer.stop();
 		}
+		this.nowPlaying.set(selectedSong.toString());
 		mediaPlayer = new MediaPlayer(hit);
 		mediaPlayer.play();
 	}
 
 	public void setSelected(SongEntry selected) {
-		selectedSong = selected;
+		for(SongEntry entry : songList)
+		{
+			if(entry.equals(selected))
+			{
+				selectedSong = entry;
+				break;
+			}
+		}
 	}
 	
 	public SongEntry getSelected()
@@ -86,6 +120,11 @@ public class PlaybackController
 	public StringProperty getPlayOrPauseProperty()
 	{
 		return playOrPause;
+	}
+	
+	public StringProperty getNowPlayingProperty()
+	{
+		return nowPlaying;
 	}
 
 }
