@@ -15,18 +15,23 @@ public class PlaybackController
 	private SongEntry selectedSong;
 	private LinkedList<SongEntry> songList;
 	private final StringProperty playOrPause;
+	private final StringProperty nowPlaying;
+
+	
 	private MediaPlayer mediaPlayer;
 	
 	
 	public PlaybackController()
 	{
 		playOrPause = new SimpleStringProperty("Play");
+		nowPlaying = new SimpleStringProperty("");
+
 	}
 		
 	public void playSelection()
 	{
 		playOrPause.set("Pause");
-		play();
+		playNewSong();
 	}
 	
 	public void pauseSong() 
@@ -60,7 +65,7 @@ public class PlaybackController
 		mediaPlayer.pause();
 	}
 	
-	private void play() 
+	private void playNewSong() 
 	{
 		
 	
@@ -69,6 +74,7 @@ public class PlaybackController
 		{
 			mediaPlayer.stop();
 		}
+		this.nowPlaying.set(selectedSong.toString());
 		mediaPlayer = new MediaPlayer(hit);
 		mediaPlayer.play();
 	}
@@ -86,6 +92,11 @@ public class PlaybackController
 	public StringProperty getPlayOrPauseProperty()
 	{
 		return playOrPause;
+	}
+	
+	public StringProperty getNowPlayingProperty()
+	{
+		return nowPlaying;
 	}
 
 }
