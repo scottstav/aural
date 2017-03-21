@@ -9,6 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import launch.MasterController;
 import model.Playlist;
+import model.PlaylistNode;
 
 public class MenuView extends MenuBar{
 	private Menu fileMenu;
@@ -23,8 +24,7 @@ public class MenuView extends MenuBar{
 	private CustomMenuItem addToPlaylistMenuItem;
 
 	private Menu playbackMenu;
-	private MenuItem playItem;
-	private MenuItem pauseItem;
+	private MenuItem playOrPauseItem;
 	private MenuItem nextTrackItem;
 	private MenuItem previousTrackItem;
 	private MenuItem shuffleItem;
@@ -50,7 +50,7 @@ public class MenuView extends MenuBar{
 		
 		quitItem = new MenuItem("Quit");
 		importItem = new MenuItem("Import Music");
-		createPlaylistItem = new MenuItem("Create PlayList");
+		createPlaylistItem = new MenuItem("Create Playlist");
 		fileMenu.getItems().addAll(quitItem, importItem, createPlaylistItem);
 
 		editMenu = new Menu("Edit");
@@ -63,7 +63,8 @@ public class MenuView extends MenuBar{
 		addToPlaylistMenuItem = new CustomMenuItem(playlists);
 		addToPlaylistMenuItem.setHideOnClick(false);
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-			MasterController.getInstance().getSidebarController().addPlaylist(newValue);
+			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode(MasterController.getInstance().getSelected(), null));
+	        
 	    });
 		
 		keymapItem = new MenuItem("Keymap");
@@ -73,13 +74,13 @@ public class MenuView extends MenuBar{
 
 		playbackMenu = new Menu("Playback");
 		
-		playItem = new MenuItem("Play");
-		pauseItem = new MenuItem("Pause");
+		playOrPauseItem = new MenuItem("Play");
+		playOrPauseItem.textProperty().bind(MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty());
 		nextTrackItem = new MenuItem("Next Track");
 		previousTrackItem = new MenuItem("Previous Track");
 		shuffleItem = new MenuItem("Shuffle");
 		repeatItem = new MenuItem("Repeat");
-		playbackMenu.getItems().addAll(playItem, pauseItem, nextTrackItem, previousTrackItem, shuffleItem, repeatItem);
+		playbackMenu.getItems().addAll(playOrPauseItem, nextTrackItem, previousTrackItem, shuffleItem, repeatItem);
 
 		scriptsMenu = new Menu("Scripts");
 		
