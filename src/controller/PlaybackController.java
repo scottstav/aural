@@ -94,9 +94,7 @@ public class PlaybackController
 	}
 	
 	private void playNewSong() 
-	{
-		
-	
+	{	
 		Media hit = new Media(new File(selectedSong.getLocation()).toURI().toString());
 		if(!(mediaPlayer == null)) 
 		{
@@ -104,6 +102,16 @@ public class PlaybackController
 		}
 		this.nowPlaying.set(selectedSong.toString());
 		mediaPlayer = new MediaPlayer(hit);
+		
+		// play the next song when this one ends
+		mediaPlayer.setOnEndOfMedia(new Runnable() {
+
+	        @Override
+	        public void run() {
+	            // play if you want
+	            nextSong();
+	        }
+	    });
 		mediaPlayer.play();
 	}
 

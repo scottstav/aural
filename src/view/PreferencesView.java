@@ -40,6 +40,7 @@ public class PreferencesView extends HBox
         createAndPlaceView();
         setStyle("-fx-border-style: solid inside;" + "-fx-border-width: 10;"
                 + "-fx-border-color: lightblue;");
+        this.preferencesViewControler = preferencesViewController;
     }
 
     private void createAndPlaceView()
