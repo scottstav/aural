@@ -29,6 +29,13 @@ public class PlaybackController
 		songList.addAll(MasterController.getInstance().getLibraryController().getSongs());
 
 	}
+	
+	public void update() 
+	{
+		songList.clear();
+		songList.addAll(MasterController.getInstance().getLibraryController().getSongs());
+
+	}
 		
 	public void playSelection()
 	{
