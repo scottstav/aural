@@ -38,7 +38,7 @@ public class LibraryController {
 	{
 
 		fullLibrary = new ArrayList<SongEntry>(MasterController.getInstance().getGateway().getSongEntrys());
-		library = FXCollections.observableArrayList(fullLibrary);
+		library.setAll(fullLibrary);
 		albumset = new HashSet<>();
 		allAlbums = new ArrayList<Album>();
 		updateArtists();

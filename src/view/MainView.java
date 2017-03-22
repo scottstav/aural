@@ -33,6 +33,7 @@ public class MainView extends BorderPane {
 		sidebarController = MasterController.getInstance().getSidebarController();
 		libraryController = MasterController.getInstance().getLibraryController();	
 		libraryController.initialize();
+		playbackController.update();
 
 		// playback and menu (top)
 		topBox = new VBox();

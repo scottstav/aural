@@ -85,6 +85,7 @@ public class MasterController {
 			logger.info("library called");
 			libraryController.initialize();
 			LibraryView view = new LibraryView(libraryController);
+			playbackController.update();
 			rootPane.setCenter(view);
 
 		} else if (vType == ViewType.IMPORT_MUSIC) {
@@ -95,6 +96,7 @@ public class MasterController {
 				SongEntry song = new SongEntry(file);
 				gateway.insertStuff(song);
 				libraryController.initialize();
+				playbackController.update();
 
 			} catch (NoMPEGFramesException | ID3v2FormatException | CorruptHeaderException | IOException e1) {
 				e1.printStackTrace();
@@ -140,6 +142,7 @@ public class MasterController {
 
 		} else if (vType == ViewType.PLAYLIST_VIEW) {
 			libraryController.filterByPlaylist((Playlist) data);
+			playbackController.update();
 			LibraryView view = new LibraryView(libraryController);
 			rootPane.setCenter(view);
 		}
