@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
@@ -27,7 +26,6 @@ public class SidebarView extends VBox {
 	private Button personalLibrary;
 	private ListView<Playlist> playlists;
 	private Button radio;
-	private Button addToPlaylist;
 	private Label playlistsLabel;
 	private HBox seperator1;
 	private HBox seperator2;

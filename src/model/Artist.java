@@ -11,7 +11,7 @@ public class Artist {
 	public Artist() 
 	{
 		this.name.set("");
-		this.id = 0;
+		this.setId(0);
 		this.album_id = 0;
 		
 	}
@@ -20,7 +20,7 @@ public class Artist {
 	{
 		this();
 		this.name.set(name);
-		this.id = id;
+		this.setId(id);
 		this.album_id = album_id;
 		
 	}
@@ -53,6 +53,14 @@ public class Artist {
 	
 	public String toString() {
 		return getName();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
