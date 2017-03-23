@@ -40,6 +40,8 @@ public class SidebarView extends VBox {
 		seperator1.setPrefHeight(50);
 		seperator2 = new HBox();
 		seperator2.setPrefHeight(50);
+		setStyle("-fx-border-style: solid inside;" + "-fx-border-width: 2;"
+                + "-fx-border-color: lightgray;");
 
 		
 		createAndPlaceElements();
