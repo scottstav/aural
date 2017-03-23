@@ -3,9 +3,15 @@ package view;
 import controller.SidebarController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import launch.MasterController;
 import model.Playlist;
 
@@ -18,14 +24,25 @@ import model.Playlist;
  */
 public class SidebarView extends VBox {
 	private Button personalLibrary;
-	private ComboBox<Playlist> playlists;
+	private ListView<Playlist> playlists;
 	private Button radio;
-	private Button addToPlaylist;
+	private Label playlistsLabel;
+	private HBox seperator1;
+	private HBox seperator2;
+
+
 
 	private SidebarController controller;
 
 	public SidebarView(SidebarController sidebarController) {
 		this.controller = sidebarController;
+		seperator1 = new HBox();
+		seperator1.setPrefHeight(50);
+		seperator2 = new HBox();
+		seperator2.setPrefHeight(50);
+		setStyle("-fx-border-style: solid inside;" + "-fx-border-width: 2;"
+                + "-fx-border-color: lightgray;");
+
 		
 		createAndPlaceElements();
 		//playlists.getItems().addAll(MasterController.getInstance().getGateway().getPlaylists());
@@ -37,23 +54,29 @@ public class SidebarView extends VBox {
 	 */
 	private void createAndPlaceElements()
 	{
+		
 		personalLibrary = new Button("PersonaLibrary");
 		personalLibrary.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	MasterController.getInstance().updateView(ViewType.LIBRARY_VIEW, null);
 		    }
 		});
+		personalLibrary.setAlignment(Pos.TOP_CENTER);
 		
 			
 		// Set value so user knows what this ComboBox is for
-		playlists = new ComboBox<Playlist>();
-		playlists.setPromptText("Select Playlist");
+		playlists = new ListView<Playlist>();
 		playlists.setItems(controller.getPlaylists());
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().updateView(ViewType.PLAYLIST_VIEW, newValue);
-			playlists.setPromptText("Select Playlist");
 	    });
-
+		
+		playlistsLabel = new Label("Playlists");
+		playlistsLabel.setPadding(new Insets(0, 0, 0, 10));
+		playlistsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+		
+		playlistsLabel.setAlignment(Pos.CENTER);
+		
 		radio = new Button("Radio");
 		radio.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
@@ -61,8 +84,10 @@ public class SidebarView extends VBox {
 		    }
 		});
 		
+		radio.setAlignment(Pos.BOTTOM_CENTER);
 
-		getChildren().addAll(personalLibrary, playlists, radio);
+
+		getChildren().addAll(personalLibrary, seperator1, playlistsLabel, playlists, seperator2, radio);
 	}
 	
 	

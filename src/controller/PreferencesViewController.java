@@ -9,6 +9,14 @@ public class PreferencesViewController
 	
     public PreferencesViewController(Profile val)
     {
-    	this.profile = val;
+    	this.setProfile(val);
     }
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
 }

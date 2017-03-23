@@ -4,34 +4,50 @@ import controller.PlaybackController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import launch.MasterController;
 
-public class PlaybackView extends HBox{
+public class PlaybackView extends VBox{
 	
 	private Button play;
 	private Button next;
 	private Button previous;
+	private Label nowPlaying;
+
 	
 	private PlaybackController controller;
 	
 	public PlaybackView(PlaybackController playbackController){
 		controller = playbackController;
 
+		HBox buttons = new HBox();
 		play = new Button("Play");
+		nowPlaying = new Label("");
 		
 		// bind the text of the button to the status of media in the play controller
 		play.textProperty().bind(controller.getPlayOrPauseProperty());
-
+		nowPlaying.textProperty().bind(controller.getNowPlayingProperty());
+		nowPlaying.setAlignment(Pos.CENTER);
+		nowPlaying.setPadding(new Insets(0, 0, 0, 10));
+		nowPlaying.setPrefWidth(Double.MAX_VALUE);
+		nowPlaying.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
 		next = new Button("Next");
 		previous = new Button("Prev.");
 
 		setbuttons();
+		buttons.getChildren().addAll(previous, play, next);
+		buttons.setSpacing(10);
+		buttons.setPadding(new Insets(0, 0, 0, 10));
+		buttons.setAlignment(Pos.CENTER);
 		
-		this.getChildren().addAll(previous, play, next);
-		this.setSpacing(10);
-		this.setPadding(new Insets(0, 0, 0, 10));
+		this.getChildren().addAll(nowPlaying, buttons);
+
 	}
 
 	private void setbuttons() {
