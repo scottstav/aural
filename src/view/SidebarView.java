@@ -53,21 +53,21 @@ public class SidebarView extends VBox {
 	private void createAndPlaceElements()
 	{
 		
-		personalLibrary = new Button("PersonaLibrary");
-		personalLibrary.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e) {
-		    	MasterController.getInstance().updateView(ViewType.LIBRARY_VIEW, null);
-		    }
-		});
-		personalLibrary.setAlignment(Pos.TOP_CENTER);
-		
-			
 		// Set value so user knows what this ComboBox is for
 		playlists = new ListView<Playlist>();
 		playlists.setItems(controller.getPlaylists());
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().updateView(ViewType.PLAYLIST_VIEW, newValue);
-	    });
+		});
+		
+		personalLibrary = new Button("PersonaLibrary");
+		personalLibrary.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	MasterController.getInstance().updateView(ViewType.LIBRARY_VIEW, null);
+		    	playlists.getSelectionModel().clearSelection();
+		    }
+		});
+		personalLibrary.setAlignment(Pos.TOP_CENTER);
 		
 		playlistsLabel = new Label("Playlists");
 		playlistsLabel.setPadding(new Insets(0, 0, 0, 10));
