@@ -113,8 +113,11 @@ public class SongTable extends TableView<SongEntry> {
 	            //playlists.getItems().add(null);
 	            playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 	            	System.out.println("left click on song id: " + row.getItem().getId());
-	            	if(newValue != null)
+	            	if(newValue != null) {
 	            	    MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode((SongEntry) row.getItem(), null));
+	            	    playlists.getSelectionModel().clearSelection();
+
+	            	}
 	    	    });
 	            final CustomMenuItem addToPlaylistMenuItem = new CustomMenuItem(playlists );  
 	    		addToPlaylistMenuItem.setHideOnClick(false);

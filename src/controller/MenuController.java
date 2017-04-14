@@ -49,6 +49,10 @@ public class MenuController implements EventHandler<ActionEvent> {
         {
             MasterController.getInstance().getPlaybackController().nextSong();
         }
+        else if(text.equals("Help"))
+        {
+            MasterController.getInstance().updateView(ViewType.HELP , null);
+        }
         else if(text.equals("Previous"))
         {
             MasterController.getInstance().getPlaybackController().previousSong();

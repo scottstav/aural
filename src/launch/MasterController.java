@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import model.Playlist;
 import model.Profile;
 import model.SongEntry;
+import view.HelpView;
 import view.LibraryView;
 import view.PreferencesView;
 import view.RadioView;
@@ -145,6 +146,10 @@ public class MasterController {
 			playbackController.update();
 			LibraryView view = new LibraryView(libraryController);
 			rootPane.setCenter(view);
+		} else if (vType == ViewType.HELP) {
+			HelpView view = new HelpView();
+			rootPane.setCenter(view);
+			
 		}
 		return true;
 	}
