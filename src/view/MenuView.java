@@ -16,6 +16,7 @@ public class MenuView extends MenuBar{
 	private MenuItem quitItem;
 	private MenuItem importItem;
 	private MenuItem createPlaylistItem;
+	private MenuItem helpMenuItem;
 
 	private Menu editMenu;
 	private MenuItem deleteItem;
@@ -46,12 +47,15 @@ public class MenuView extends MenuBar{
 		
 		this.controller = c;
 		
+		
+		
 		fileMenu = new Menu("File");
 		
 		quitItem = new MenuItem("Quit");
 		importItem = new MenuItem("Import Music");
 		createPlaylistItem = new MenuItem("Create Playlist");
-		fileMenu.getItems().addAll(quitItem, importItem, createPlaylistItem);
+		helpMenuItem = new MenuItem("Help");
+		fileMenu.getItems().addAll(helpMenuItem, importItem, createPlaylistItem, quitItem);
 
 		editMenu = new Menu("Edit");
 		
