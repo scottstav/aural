@@ -1,12 +1,15 @@
 package view;
 
 import controller.AlbumTableController;
+import controller.ScreenReader;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import launch.MasterController;
 import model.Album;
@@ -52,6 +55,23 @@ public class AlbumTable extends TableView<Album> {
 		    }
 		});
 		this.setItems(controller.getAlbums());
+		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if(event.getCode().equals(KeyCode.SPACE) && event.isControlDown())
+                {
+                    ScreenReader sr = new ScreenReader(getSelectionModel().getSelectedItem(), "Album");
+                    sr.readInfo();
+                }
+                else if(event.getCode().equals(KeyCode.SPACE))
+                {
+                    MasterController.getInstance().getLibraryController().filterByAlbum((Album) getSelectionModel().getSelectedItem());;
+                }
+                
+            }
+		});
 		album.setMinWidth(200);
 		setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -28,6 +29,9 @@ public class PlaybackView extends VBox{
 
 		HBox buttons = new HBox();
 		play = new Button("Play");
+		play.setAccessibleRole(AccessibleRole.BUTTON);
+		play.setAccessibleText("Play");
+		play.setAccessibleHelp("Plays currently selected song");
 		nowPlaying = new Label("");
 		
 		// bind the text of the button to the status of media in the play controller
@@ -38,7 +42,13 @@ public class PlaybackView extends VBox{
 		nowPlaying.setPrefWidth(Double.MAX_VALUE);
 		nowPlaying.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
 		next = new Button("Next");
+		next.setAccessibleRole(AccessibleRole.BUTTON);
+		next.setAccessibleText("Next");
+		next.setAccessibleHelp("Plays the next song");
 		previous = new Button("Prev.");
+		previous.setAccessibleRole(AccessibleRole.BUTTON);
+		previous.setAccessibleText("Previous");
+		previous.setAccessibleHelp("Plays the previous song");
 
 		setbuttons();
 		buttons.getChildren().addAll(previous, play, next);

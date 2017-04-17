@@ -1,6 +1,8 @@
 package view;
 
 import controller.MenuController;
+import controller.ScreenReader;
+import javafx.scene.AccessibleRole;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
@@ -36,6 +38,9 @@ public class MenuView extends MenuBar{
 	private MenuItem executeScriptsItem;
 	private MenuItem selectDefaultItem;
 	
+	private Menu screenReader;
+	private MenuItem readMenuItemsItem;
+	
 	private MenuController controller;
 	
 	FileChooser fileChooser;
@@ -43,11 +48,15 @@ public class MenuView extends MenuBar{
 	public MenuView(MenuController c) {
 
 		
+	    this.setAccessibleRole(AccessibleRole.MENU_BAR);
+	    this.setAccessibleHelp("A Menu Bar containing all basic file operations");
+	    this.setAccessibleText("Menu Bar");
 		fileChooser  = new FileChooser();
 		
 		this.controller = c;
 		
 		fileMenu = new Menu("File");
+		
 		
 		quitItem = new MenuItem("Quit");
 		quitItem.setAccelerator(KeyCombination.keyCombination("CTRL+Q"));
@@ -103,8 +112,13 @@ public class MenuView extends MenuBar{
 		selectDefaultItem = new MenuItem("Select Default Scripts");
 		selectDefaultItem.setAccelerator(KeyCombination.keyCombination("CTRL+J"));
 		scriptsMenu.getItems().addAll(importScriptsItem, executeScriptsItem, selectDefaultItem);
-
-		this.getMenus().addAll(fileMenu, editMenu, playbackMenu, scriptsMenu);
+		
+		screenReader = new Menu("Screen Reader");
+		readMenuItemsItem = new MenuItem("Read Menu Items");
+		readMenuItemsItem.setAccelerator(KeyCombination.keyCombination("CTRL+L"));
+		screenReader.getItems().add(readMenuItemsItem);
+		
+		this.getMenus().addAll(fileMenu, editMenu, playbackMenu, scriptsMenu, screenReader);
 		registerControllers();
 	}
 	
@@ -113,5 +127,17 @@ public class MenuView extends MenuBar{
 	    for(Menu m : getMenus())
 	        for(MenuItem mi : m.getItems())
 	            mi.setOnAction(controller);
+	}
+	
+	public void readMenuItems()
+	{
+	    for(Menu m : getMenus())
+            for(MenuItem mi : m.getItems())
+            {
+                if(mi.getAccelerator() == null)
+                    continue;
+                ScreenReader sr = new ScreenReader(mi, "MenuItem");
+                sr.readInfo();
+            }
 	}
 }

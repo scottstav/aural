@@ -35,6 +35,7 @@ import model.Profile;
 import model.SongEntry;
 import view.KeyMapView;
 import view.LibraryView;
+import view.MenuView;
 import view.PreferencesView;
 import view.RadioView;
 import view.ViewType;
@@ -50,6 +51,8 @@ public class MasterController {
 	private static MasterController instance = null;
 	
 	private Logger logger = LogManager.getLogger();
+	
+	private boolean screenReaderEnabled = true;
 
 	// Master needs to be aple to do play back stuff and edit the library
 	private LibraryController libraryController = null;
@@ -283,9 +286,18 @@ public class MasterController {
 	    return ((MenuBar) ((VBox)rootPane.getTop()).getChildren().get(0)).getMenus();
 	}
 	
+	public MenuView getMenuView()
+	{
+	    return ((MenuView) ((VBox)rootPane.getTop()).getChildren().get(0));
+	}
+	
 	public ViewType getCurrentViewType()
 	{
 	    return currentView;
 	}
 	
+	public boolean isScreenReaderEnabled()
+	{
+	    return screenReaderEnabled;
+	}
 }

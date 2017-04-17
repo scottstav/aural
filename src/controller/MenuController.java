@@ -74,6 +74,10 @@ public class MenuController implements EventHandler<ActionEvent> {
         {
             MasterController.getInstance().updateView(ViewType.KEYMAP_VIEW, null);
         }
+        else if(text.equals("Read Menu Items"))
+        {
+            MasterController.getInstance().getMenuView().readMenuItems();
+        }
         else
         {
             Platform.exit();

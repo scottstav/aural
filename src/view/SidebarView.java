@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -56,6 +57,9 @@ public class SidebarView extends VBox {
 	{
 		
 		personalLibrary = new Button("PersonaLibrary");
+		personalLibrary.setAccessibleRole(AccessibleRole.BUTTON);
+		personalLibrary.setAccessibleHelp("Display a view of all songs contained within the personal library");
+		personalLibrary.setAccessibleText("Personal Library");
 		personalLibrary.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	MasterController.getInstance().updateView(ViewType.LIBRARY_VIEW, null);
@@ -67,17 +71,26 @@ public class SidebarView extends VBox {
 		// Set value so user knows what this ComboBox is for
 		playlists = new ListView<Playlist>();
 		playlists.setItems(controller.getPlaylists());
+		playlists.setAccessibleRole(AccessibleRole.LIST_VIEW);
+		playlists.setAccessibleText("Playlists");
+		playlists.setAccessibleHelp("A list of playlists");
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().updateView(ViewType.PLAYLIST_VIEW, newValue);
 	    });
 		
 		playlistsLabel = new Label("Playlists");
+		playlistsLabel.setAccessibleRole(AccessibleRole.TEXT);
+		playlistsLabel.setAccessibleHelp("Label displaying playlists");
+		playlistsLabel.setAccessibleText("Playlists");
 		playlistsLabel.setPadding(new Insets(0, 0, 0, 10));
 		playlistsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
 		
 		playlistsLabel.setAlignment(Pos.CENTER);
 		
 		radio = new Button("Radio");
+		radio.setAccessibleRole(AccessibleRole.BUTTON);
+		radio.setAccessibleHelp("Displays all radio stations");
+		radio.setAccessibleText("Radio");
 		radio.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	MasterController.getInstance().updateView(ViewType.RADIO_VIEW, null);
