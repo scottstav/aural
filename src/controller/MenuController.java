@@ -74,6 +74,14 @@ public class MenuController implements EventHandler<ActionEvent> {
             logger.info("show playlist popup");
             MasterController.getInstance().updateView(ViewType.CREATE_PLAYLIST, null);
         }
+        else if(text.equals("Keymap"))
+        {
+            MasterController.getInstance().updateView(ViewType.KEYMAP_VIEW, null);
+        }
+        else if(text.equals("Read Menu Items"))
+        {
+            MasterController.getInstance().getMenuView().readMenuItems();
+        }
         else
         {
             Platform.exit();

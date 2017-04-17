@@ -2,10 +2,12 @@ package launch;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import controller.KeyMapViewController;
 import controller.LibraryController;
 import controller.PlaybackController;
 import controller.PreferencesViewController;
@@ -20,6 +22,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -29,8 +33,10 @@ import javafx.stage.Stage;
 import model.Playlist;
 import model.Profile;
 import model.SongEntry;
+import view.KeyMapView;
 import view.HelpView;
 import view.LibraryView;
+import view.MenuView;
 import view.PreferencesView;
 import view.RadioView;
 import view.ViewType;
@@ -46,11 +52,14 @@ public class MasterController {
 	private static MasterController instance = null;
 	
 	private Logger logger = LogManager.getLogger();
+	
+	private boolean screenReaderEnabled = true;
 
 	// Master needs to be aple to do play back stuff and edit the library
 	private LibraryController libraryController = null;
 	private PlaybackController playbackController = null;
 	private SidebarController sidebarController = null;
+	private KeyMapViewController keyMapViewController = null;
 
 	
 	private SongGateway gateway = null;
@@ -59,11 +68,13 @@ public class MasterController {
 
 	private Stage primaryStage;
 	
-	private Profile profile;
+	private Profile profile = null;
+	
+	private ViewType currentView;
 
 	private MasterController() {
 	
-		
+		currentView = ViewType.LIBRARY_VIEW;
 	}
 
 	/**
@@ -75,7 +86,11 @@ public class MasterController {
 	 * @return
 	 */
 	public boolean updateView(ViewType vType, Object data) {
-		
+	    if(currentView == ViewType.KEYMAP_VIEW)
+	    {
+	        getKeyMapViewController().update();
+	    }
+		currentView = vType;
 
 		// load view appropriate to the give vType
 		if (vType == ViewType.RADIO_VIEW) {
@@ -146,6 +161,11 @@ public class MasterController {
 			playbackController.update();
 			LibraryView view = new LibraryView(libraryController);
 			rootPane.setCenter(view);
+			
+		} else if (vType == ViewType.KEYMAP_VIEW) {
+		    rootPane.setCenter(new KeyMapView(getKeyMapViewController()));
+		    ((KeyMapView)rootPane.getCenter()).getController().setView((KeyMapView)rootPane.getCenter());
+		    
 		} else if (vType == ViewType.HELP) {
 			HelpView view = new HelpView();
 			rootPane.setCenter(view);
@@ -187,7 +207,13 @@ public class MasterController {
 	 *  get the saved profile object
 	 */
 	public Profile getProfile() {
-		return new Profile();
+	    if(profile == null)
+	    {
+	        profile = new Profile();
+	        getKeyMapViewController().initialize();
+	        getKeyMapViewController().update();
+	    }
+		return profile;
 	}
 	
 	/*
@@ -255,6 +281,30 @@ public class MasterController {
 		return gateway;
 	}
 	
+	public KeyMapViewController getKeyMapViewController() {
+	    if (keyMapViewController == null) {
+	        keyMapViewController = new KeyMapViewController();
+	    }
+	    return keyMapViewController;
+	}
 	
+	public List<Menu> getMenus()
+	{
+	    return ((MenuBar) ((VBox)rootPane.getTop()).getChildren().get(0)).getMenus();
+	}
 	
+	public MenuView getMenuView()
+	{
+	    return ((MenuView) ((VBox)rootPane.getTop()).getChildren().get(0));
+	}
+	
+	public ViewType getCurrentViewType()
+	{
+	    return currentView;
+	}
+	
+	public boolean isScreenReaderEnabled()
+	{
+	    return screenReaderEnabled;
+	}
 }

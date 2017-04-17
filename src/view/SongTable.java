@@ -1,8 +1,12 @@
 package view;
 
+import controller.ScreenReader;
 import controller.SongTableController;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.AccessibleRole;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -11,6 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import launch.MasterController;
@@ -50,6 +56,9 @@ public class SongTable extends TableView<SongEntry> {
 		 * TableColumn<SongEntry, String>("Length");
 		 */
 
+	    this.setAccessibleRole(AccessibleRole.TABLE_VIEW);
+	    this.setAccessibleHelp("A table of songs that can be played");
+	    this.setAccessibleText("Song Table");
 		trackId = new TableColumn<SongEntry, Integer>("Track");
 		title = new TableColumn<SongEntry, String>("Title");
 		artist = new TableColumn<SongEntry, Artist>("Artist");
@@ -101,12 +110,53 @@ public class SongTable extends TableView<SongEntry> {
 		    }
 		});
 		
+		this.setOnKeyPressed(new EventHandler<KeyEvent> () {
+		    @Override
+		    public void handle(KeyEvent event)
+		    {
+		        //System.out.println(getSelectionModel().getSelectedItem());
+		        if(event.getCode() == KeyCode.SPACE && event.isControlDown())
+                {
+                    ScreenReader sr = new ScreenReader(getSelectionModel().getSelectedItem(), "SongEntry");
+                    sr.readInfo();
+                }
+		        else if(event.getCode().equals(KeyCode.SPACE))
+		        {
+		            if(MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty().equals("Pause"))
+		            {
+		                MasterController.getInstance().getPlaybackController().
+                        setSelected(getSelectionModel().getSelectedItem());
+		                MasterController.getInstance().getPlaybackController().playSelection();
+		            }
+		            else if (MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty().equals("Play") &&
+		                     !MasterController.getInstance().getPlaybackController().getNowPlayingProperty().equals(""))
+		            {
+		                MasterController.getInstance().getPlaybackController().pauseSong();
+		            }
+		            else
+		            {
+		                MasterController.getInstance().getPlaybackController().
+                        setSelected(getSelectionModel().getSelectedItem());
+                        MasterController.getInstance().getPlaybackController().playSelection();
+		            }
+		        }
+		        else if(event.getCode() == KeyCode.LEFT && event.isControlDown())
+		        {
+		            MasterController.getInstance().getPlaybackController().previousSong();
+		        }
+		        else if(event.getCode() == KeyCode.RIGHT && event.isControlDown())
+		        {
+		            MasterController.getInstance().getPlaybackController().nextSong();
+		        }
+		    }
+		});
+		
 		this.setRowFactory(new Callback<TableView<SongEntry>, TableRow<SongEntry>>() {  
 
 	        @Override  
 	        
 	        public TableRow<SongEntry> call(TableView<SongEntry> tableView) {  
-	            final TableRow<SongEntry> row = new TableRow<>();  
+	            final TableRow<SongEntry> row = new TableRow<>();
 	            final ContextMenu contextMenu = new ContextMenu();  
 	            ComboBox<Playlist> playlists = new ComboBox<Playlist>(MasterController.getInstance().getSidebarController().getPlaylists());
 	            playlists.setPromptText("add to playlist...");
@@ -128,8 +178,6 @@ public class SongTable extends TableView<SongEntry> {
 	            row.contextMenuProperty().bind(Bindings.when(row.emptyProperty()).then((ContextMenu)null).otherwise(contextMenu));  
 	            return row ;  
 	        }  
-	    });  
-		
-		
+	    });
 	}
 }

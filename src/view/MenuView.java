@@ -1,11 +1,14 @@
 package view;
 
 import controller.MenuController;
+import controller.ScreenReader;
+import javafx.scene.AccessibleRole;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.FileChooser;
 import launch.MasterController;
 import model.Playlist;
@@ -36,6 +39,9 @@ public class MenuView extends MenuBar{
 	private MenuItem executeScriptsItem;
 	private MenuItem selectDefaultItem;
 	
+	private Menu screenReader;
+	private MenuItem readMenuItemsItem;
+	
 	private MenuController controller;
 	
 	FileChooser fileChooser;
@@ -43,6 +49,9 @@ public class MenuView extends MenuBar{
 	public MenuView(MenuController c) {
 
 		
+	    this.setAccessibleRole(AccessibleRole.MENU_BAR);
+	    this.setAccessibleHelp("A Menu Bar containing all basic file operations");
+	    this.setAccessibleText("Menu Bar");
 		fileChooser  = new FileChooser();
 		
 		this.controller = c;
@@ -51,15 +60,20 @@ public class MenuView extends MenuBar{
 		
 		fileMenu = new Menu("File");
 		
+		
 		quitItem = new MenuItem("Quit");
+		quitItem.setAccelerator(KeyCombination.keyCombination("CTRL+Q"));
 		importItem = new MenuItem("Import Music");
+		importItem.setAccelerator(KeyCombination.keyCombination("CTRL+I"));
 		createPlaylistItem = new MenuItem("Create Playlist");
+		createPlaylistItem.setAccelerator(KeyCombination.keyCombination("CTRL+P"));
 		helpMenuItem = new MenuItem("Help");
 		fileMenu.getItems().addAll(helpMenuItem, importItem, createPlaylistItem, quitItem);
 
 		editMenu = new Menu("Edit");
 		
 		deleteItem = new MenuItem("Delete Selected Item(s)");
+		deleteItem.setAccelerator(KeyCombination.keyCombination("CTRL+D"));
 		
 		ComboBox<Playlist> playlists = new ComboBox<Playlist>(MasterController.getInstance().getSidebarController().getPlaylists());
         playlists.setPromptText("add to playlist...");
@@ -73,7 +87,9 @@ public class MenuView extends MenuBar{
 	    });
 		
 		keymapItem = new MenuItem("Keymap");
+		keymapItem.setAccelerator(KeyCombination.keyCombination("CTRL+K"));
 		preferencesItem = new MenuItem("Preferences");
+		preferencesItem.setAccelerator(KeyCombination.keyCombination("CTRL+U"));
 		
 		editMenu.getItems().addAll(deleteItem, keymapItem, preferencesItem, addToPlaylistMenuItem);
 
@@ -81,20 +97,33 @@ public class MenuView extends MenuBar{
 		
 		playOrPauseItem = new MenuItem("Play");
 		playOrPauseItem.textProperty().bind(MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty());
+		playOrPauseItem.setAccelerator(KeyCombination.keyCombination("SPACE"));
 		nextTrackItem = new MenuItem("Next");
+		nextTrackItem.setAccelerator(KeyCombination.keyCombination("CTRL+RIGHT"));
 		previousTrackItem = new MenuItem("Previous");
+		previousTrackItem.setAccelerator(KeyCombination.keyCombination("CTRL+LEFT"));
 		shuffleItem = new MenuItem("Shuffle");
+		shuffleItem.setAccelerator(KeyCombination.keyCombination("S"));
 		repeatItem = new MenuItem("Repeat");
+		repeatItem.setAccelerator(KeyCombination.keyCombination("R"));
 		playbackMenu.getItems().addAll(playOrPauseItem, nextTrackItem, previousTrackItem, shuffleItem, repeatItem);
 
 		scriptsMenu = new Menu("Scripts");
 		
 		importScriptsItem = new MenuItem("Import Scripts");
+		importScriptsItem.setAccelerator(KeyCombination.keyCombination("CTRL+S"));
 		executeScriptsItem = new MenuItem("Execute Scripts");
+		executeScriptsItem.setAccelerator(KeyCombination.keyCombination("CTRL+E"));
 		selectDefaultItem = new MenuItem("Select Default Scripts");
+		selectDefaultItem.setAccelerator(KeyCombination.keyCombination("CTRL+J"));
 		scriptsMenu.getItems().addAll(importScriptsItem, executeScriptsItem, selectDefaultItem);
-
-		this.getMenus().addAll(fileMenu, editMenu, playbackMenu, scriptsMenu);
+		
+		screenReader = new Menu("Screen Reader");
+		readMenuItemsItem = new MenuItem("Read Menu Items");
+		readMenuItemsItem.setAccelerator(KeyCombination.keyCombination("CTRL+L"));
+		screenReader.getItems().add(readMenuItemsItem);
+		
+		this.getMenus().addAll(fileMenu, editMenu, playbackMenu, scriptsMenu, screenReader);
 		registerControllers();
 	}
 	
@@ -103,5 +132,17 @@ public class MenuView extends MenuBar{
 	    for(Menu m : getMenus())
 	        for(MenuItem mi : m.getItems())
 	            mi.setOnAction(controller);
+	}
+	
+	public void readMenuItems()
+	{
+	    for(Menu m : getMenus())
+            for(MenuItem mi : m.getItems())
+            {
+                if(mi.getAccelerator() == null)
+                    continue;
+                ScreenReader sr = new ScreenReader(mi, "MenuItem");
+                sr.readInfo();
+            }
 	}
 }

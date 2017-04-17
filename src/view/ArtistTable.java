@@ -1,12 +1,15 @@
 package view;
 
 import controller.ArtistTableController;
+import controller.ScreenReader;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import launch.MasterController;
 import model.Artist;
@@ -52,6 +55,22 @@ public class ArtistTable extends TableView<Artist> {
 
 		        }
 		    }
+		});
+		this.setOnKeyPressed(new EventHandler<KeyEvent> () {
+
+            @Override
+            public void handle(KeyEvent event)
+            {
+                if(event.getCode().equals(KeyCode.SPACE) && event.isControlDown())
+                {
+                    ScreenReader sr = new ScreenReader(getSelectionModel().getSelectedItem(), "Artist");
+                    sr.readInfo();
+                }
+                else if(event.getCode().equals(KeyCode.SPACE))
+                {
+                    MasterController.getInstance().getLibraryController().filterByArtist((Artist) getSelectionModel().getSelectedItem());;
+                }
+            }
 		});
 		this.setItems(controller.getArtists());
 
