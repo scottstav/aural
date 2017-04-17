@@ -19,6 +19,7 @@ public class MenuView extends MenuBar{
 	private MenuItem quitItem;
 	private MenuItem importItem;
 	private MenuItem createPlaylistItem;
+	private MenuItem helpMenuItem;
 
 	private Menu editMenu;
 	private MenuItem deleteItem;
@@ -55,6 +56,8 @@ public class MenuView extends MenuBar{
 		
 		this.controller = c;
 		
+		
+		
 		fileMenu = new Menu("File");
 		
 		
@@ -64,7 +67,8 @@ public class MenuView extends MenuBar{
 		importItem.setAccelerator(KeyCombination.keyCombination("CTRL+I"));
 		createPlaylistItem = new MenuItem("Create Playlist");
 		createPlaylistItem.setAccelerator(KeyCombination.keyCombination("CTRL+P"));
-		fileMenu.getItems().addAll(quitItem, importItem, createPlaylistItem);
+		helpMenuItem = new MenuItem("Help");
+		fileMenu.getItems().addAll(helpMenuItem, importItem, createPlaylistItem, quitItem);
 
 		editMenu = new Menu("Edit");
 		
@@ -78,7 +82,8 @@ public class MenuView extends MenuBar{
 		addToPlaylistMenuItem.setHideOnClick(false);
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode(MasterController.getInstance().getSelected(), null));
-	        
+    	    playlists.getSelectionModel().clearSelection();
+
 	    });
 		
 		keymapItem = new MenuItem("Keymap");

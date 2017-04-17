@@ -56,18 +56,6 @@ public class SidebarView extends VBox {
 	private void createAndPlaceElements()
 	{
 		
-		personalLibrary = new Button("PersonaLibrary");
-		personalLibrary.setAccessibleRole(AccessibleRole.BUTTON);
-		personalLibrary.setAccessibleHelp("Display a view of all songs contained within the personal library");
-		personalLibrary.setAccessibleText("Personal Library");
-		personalLibrary.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e) {
-		    	MasterController.getInstance().updateView(ViewType.LIBRARY_VIEW, null);
-		    }
-		});
-		personalLibrary.setAlignment(Pos.TOP_CENTER);
-		
-			
 		// Set value so user knows what this ComboBox is for
 		playlists = new ListView<Playlist>();
 		playlists.setItems(controller.getPlaylists());
@@ -76,8 +64,21 @@ public class SidebarView extends VBox {
 		playlists.setAccessibleHelp("A list of playlists");
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().updateView(ViewType.PLAYLIST_VIEW, newValue);
-	    });
+		});
+
+		personalLibrary = new Button("PersonaLibrary");
+		personalLibrary.setAccessibleRole(AccessibleRole.BUTTON);
+		personalLibrary.setAccessibleHelp("Display a view of all songs contained within the personal library");
+		personalLibrary.setAccessibleText("Personal Library");
+		personalLibrary.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	MasterController.getInstance().updateView(ViewType.LIBRARY_VIEW, null);
+		    	playlists.getSelectionModel().clearSelection();
+		    }
+		});
+		personalLibrary.setAlignment(Pos.TOP_CENTER);
 		
+
 		playlistsLabel = new Label("Playlists");
 		playlistsLabel.setAccessibleRole(AccessibleRole.TEXT);
 		playlistsLabel.setAccessibleHelp("Label displaying playlists");

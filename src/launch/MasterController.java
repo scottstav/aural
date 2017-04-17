@@ -34,6 +34,7 @@ import model.Playlist;
 import model.Profile;
 import model.SongEntry;
 import view.KeyMapView;
+import view.HelpView;
 import view.LibraryView;
 import view.MenuView;
 import view.PreferencesView;
@@ -160,9 +161,15 @@ public class MasterController {
 			playbackController.update();
 			LibraryView view = new LibraryView(libraryController);
 			rootPane.setCenter(view);
+			
 		} else if (vType == ViewType.KEYMAP_VIEW) {
 		    rootPane.setCenter(new KeyMapView(getKeyMapViewController()));
 		    ((KeyMapView)rootPane.getCenter()).getController().setView((KeyMapView)rootPane.getCenter());
+		    
+		} else if (vType == ViewType.HELP) {
+			HelpView view = new HelpView();
+			rootPane.setCenter(view);
+			
 		}
 		return true;
 	}
