@@ -89,7 +89,6 @@ public class Playlist {
 
 		for(String id : song_ids)
 		{
-			System.out.println("Id: " + id);
 			
 			if(head == null)
 			{

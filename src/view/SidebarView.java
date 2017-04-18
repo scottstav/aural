@@ -1,5 +1,6 @@
 package view;
 
+import controller.ScreenReader;
 import controller.SidebarController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -64,7 +65,13 @@ public class SidebarView extends VBox {
 		playlists.setAccessibleHelp("A list of playlists");
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().updateView(ViewType.PLAYLIST_VIEW, newValue);
+			if(MasterController.getInstance().isScreenReaderEnabled()) 
+			{
+				ScreenReader sr = new ScreenReader(newValue, "Playlist");
+				sr.readInfo();
+			}
 		});
+	
 
 		personalLibrary = new Button("PersonaLibrary");
 		personalLibrary.setAccessibleRole(AccessibleRole.BUTTON);

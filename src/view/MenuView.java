@@ -42,6 +42,7 @@ public class MenuView extends MenuBar{
 	
 	private Menu screenReader;
 	private MenuItem readMenuItemsItem;
+	private MenuItem toggleMenuItem;
 	
 	private MenuController controller;
 	
@@ -122,8 +123,9 @@ public class MenuView extends MenuBar{
 		
 		screenReader = new Menu("Screen Reader");
 		readMenuItemsItem = new MenuItem("Read Menu Items");
+		toggleMenuItem = new MenuItem("Toggle Screen Reader");
 		readMenuItemsItem.setAccelerator(KeyCombination.keyCombination("CTRL+L"));
-		screenReader.getItems().add(readMenuItemsItem);
+		screenReader.getItems().addAll(readMenuItemsItem, toggleMenuItem);
 		
 		this.getMenus().addAll(fileMenu, editMenu, playbackMenu, scriptsMenu, screenReader);
 		registerControllers();

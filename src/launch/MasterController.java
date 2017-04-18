@@ -59,7 +59,7 @@ public class MasterController {
 	
 	private Logger logger = LogManager.getLogger();
 	
-	private boolean screenReaderEnabled = true;
+	private boolean screenReaderEnabled = false;
 
 	// Master needs to be aple to do play back stuff and edit the library
 	private LibraryController libraryController = null;
@@ -232,7 +232,11 @@ public class MasterController {
 	public void setSelected(Object selected)
 	{
 		getPlaybackController();
-
+		if(isScreenReaderEnabled()) 
+		{
+			ScreenReader sr = new ScreenReader(selected, "SongEntry");
+			sr.readInfo();
+		}
 		playbackController.setSelected((SongEntry) selected);
 	}
 	
@@ -312,6 +316,11 @@ public class MasterController {
 	public boolean isScreenReaderEnabled()
 	{
 	    return screenReaderEnabled;
+	}
+	
+	public void toggleScreenReader() 
+	{
+		screenReaderEnabled = !screenReaderEnabled;
 	}
 
 	public void readScreen(Node newNode) {
