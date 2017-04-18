@@ -81,10 +81,18 @@ public class MenuController implements EventHandler<ActionEvent> {
         else if(text.equals("Read Menu Items"))
         {
             MasterController.getInstance().getMenuView().readMenuItems();
+        } 
+        else if (text.equals("Toggle Screen Reader"))
+        {
+            MasterController.getInstance().toggleScreenReader();
         }
-        else
+        else if (text.equals("Quit"))
         {
             Platform.exit();
+        }
+        else 
+        {
+        	logger.info("unimplemented button");
         }
     }
 }
