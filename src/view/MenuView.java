@@ -51,6 +51,7 @@ public class MenuView extends MenuBar{
 		
 	    this.setAccessibleRole(AccessibleRole.MENU_BAR);
 	    this.setAccessibleHelp("A Menu Bar containing all basic file operations");
+	    
 	    this.setAccessibleText("Menu Bar");
 		fileChooser  = new FileChooser();
 		
@@ -77,12 +78,12 @@ public class MenuView extends MenuBar{
 		
 		ComboBox<Playlist> playlists = new ComboBox<Playlist>(MasterController.getInstance().getSidebarController().getPlaylists());
         playlists.setPromptText("add to playlist...");
+        
       
 		addToPlaylistMenuItem = new CustomMenuItem(playlists);
 		addToPlaylistMenuItem.setHideOnClick(false);
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode(MasterController.getInstance().getSelected(), null));
-    	    playlists.getSelectionModel().clearSelection();
 
 	    });
 		
