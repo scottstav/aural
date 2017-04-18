@@ -232,7 +232,11 @@ public class MasterController {
 	public void setSelected(Object selected)
 	{
 		getPlaybackController();
-
+		if(isScreenReaderEnabled()) 
+		{
+			ScreenReader sr = new ScreenReader(selected, "SongEntry");
+			sr.readInfo();
+		}
 		playbackController.setSelected((SongEntry) selected);
 	}
 	

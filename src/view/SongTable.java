@@ -110,6 +110,13 @@ public class SongTable extends TableView<SongEntry> {
 		    }
 		});
 		
+		this.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		        MasterController.getInstance().setSelected(newSelection);
+		    }
+		});
+
+		
 		this.setOnKeyPressed(new EventHandler<KeyEvent> () {
 		    @Override
 		    public void handle(KeyEvent event)

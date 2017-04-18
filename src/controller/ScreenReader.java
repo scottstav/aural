@@ -5,7 +5,9 @@ import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableView;
 import launch.MasterController;
 import model.Album;
 import model.Artist;
@@ -53,6 +55,21 @@ public class ScreenReader
         {
             Album al = (Album) obj;
             text = al.getName();
+            
+        } 
+        else if (sourceType.equals("Table"))			// telll us what table we are looking at
+        {
+        	TableView table = (TableView) obj;
+        	text = table.getAccessibleText();
+        }
+        else if (sourceType.equals("List"))				// tell us what list we are looking at
+        {
+        	ListView list = (ListView) obj;
+        	text = list.getAccessibleText();
+        }
+        else
+        {
+        	Button butt = (Button) obj;
         }
             
         VoiceManager manager = VoiceManager.getInstance();
