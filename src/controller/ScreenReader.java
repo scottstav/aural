@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import launch.MasterController;
 import model.Album;
 import model.Artist;
+import model.Playlist;
 import model.SongEntry;
 
 public class ScreenReader
@@ -66,6 +67,11 @@ public class ScreenReader
         {
         	ListView list = (ListView) obj;
         	text = list.getAccessibleText();
+        }
+        else if (sourceType.equals("Playlist"))
+        {
+        	Playlist pl = (Playlist) obj;
+        	text = pl.getName();
         }
         else
         {
