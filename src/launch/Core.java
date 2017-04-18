@@ -54,6 +54,9 @@ public class Core extends Application {
 		mainView = new MainView();
 		mainScene = new Scene(mainView, 1000, 1000);
 		
+		mainScene.focusOwnerProperty().addListener((prop, oldNode, newNode)
+				-> MasterController.getInstance().readScreen(newNode));
+		
 		MasterController.getInstance().setRootPane((BorderPane) mainView);
 		MasterController.getInstance().setPrimaryStage(primaryStage);
 
