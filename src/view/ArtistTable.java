@@ -2,6 +2,7 @@ package view;
 
 import controller.ArtistTableController;
 import controller.ScreenReader;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -63,8 +64,17 @@ public class ArtistTable extends TableView<Artist> {
             {
                 if(event.getCode().equals(KeyCode.SPACE) && event.isControlDown())
                 {
-                    ScreenReader sr = new ScreenReader(getSelectionModel().getSelectedItem(), "Artist");
-                    sr.readInfo();
+                    Task<Integer> task = new Task<Integer>() {
+                        @Override protected Integer call() throws Exception {
+                            ScreenReader sr = new ScreenReader(getSelectionModel().getSelectedItem(), "Artist");
+                            sr.readInfo();
+                            return 0;
+                        }
+                    };
+                    
+                    Thread th = new Thread(task);
+                    th.setDaemon(true);
+                    th.start();
                 }
                 else if(event.getCode().equals(KeyCode.SPACE))
                 {

@@ -12,6 +12,7 @@ import controller.LibraryController;
 import controller.PlaybackController;
 import controller.PreferencesViewController;
 import controller.RadioController;
+import controller.ScreenReader;
 import controller.SidebarController;
 import gateway.SongGateway;
 import helliker.id3.CorruptHeaderException;
@@ -20,10 +21,15 @@ import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -306,5 +312,21 @@ public class MasterController {
 	public boolean isScreenReaderEnabled()
 	{
 	    return screenReaderEnabled;
+	}
+
+	public void readScreen(Node newNode) {
+		// TODO Auto-generated method stub
+		if(!isScreenReaderEnabled())
+			return;
+		ScreenReader sr = null;
+		if(newNode instanceof Button)
+			sr = new ScreenReader( newNode, "Button");
+		else if (newNode instanceof ListView)
+			sr = new ScreenReader(newNode, "List");
+		else if (newNode instanceof TableView)
+			sr = new ScreenReader(newNode, "Table");
+			
+        sr.readInfo();
+		
 	}
 }
