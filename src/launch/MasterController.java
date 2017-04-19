@@ -140,6 +140,7 @@ public class MasterController {
 			Stage stage = new Stage();
 			VBox inputBox = new VBox();
 	        TextField playlistNameField = new TextField();
+	        
 	        // prompt for playlist name
 	        playlistNameField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	            @Override
@@ -328,7 +329,8 @@ public class MasterController {
 
 	public void readScreen(Node newNode) {
 		// TODO Auto-generated method stub
-		if(!isScreenReaderEnabled())
+		logger.info("focus changed");
+		if(!isScreenReaderEnabled())	
 			return;
 		ScreenReader sr = null;
 		if(newNode instanceof Button)
@@ -336,7 +338,7 @@ public class MasterController {
 		else if (newNode instanceof ListView)
 			sr = new ScreenReader(newNode, "List");
 		else if (newNode instanceof TableView)
-			sr = new ScreenReader(newNode, "Table");
+			sr = new ScreenReader(newNode, "Table");			
 			
         sr.readInfo();
 		

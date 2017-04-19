@@ -75,6 +75,8 @@ public class ScreenReader
         }
         else
         {
+        	if(obj == null)
+        		System.out.println("null");
         	Button butt = (Button) obj;
         }
             
