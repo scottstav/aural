@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.MenuItemBuilder;
 import launch.MasterController;
 import model.KeyMap;
 import view.KeyMapView;
