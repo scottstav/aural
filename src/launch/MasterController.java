@@ -46,6 +46,7 @@ import view.HelpView;
 import view.KeyMapView;
 import view.LibraryView;
 import view.MenuView;
+import view.PlaybackView;
 import view.PreferencesView;
 import view.RadioView;
 import view.ViewType;
@@ -72,6 +73,7 @@ public class MasterController {
 	private SidebarController sidebarController = null;
 	private KeyMapViewController keyMapViewController = null;
 	private ScreenReader screenReader = null;
+	private PlaybackView playbackView = null;
 	
 	private Thread readerThread;
 	private Task<Integer> readerTask;
@@ -407,6 +409,11 @@ public class MasterController {
 	public boolean isFirstRun()
 	{
 		return firstRun;
+	}
+	
+	public PlaybackView getPlayBackView()
+	{
+	    return (PlaybackView) ((VBox) (getRootPane()).getTop()).getChildren().get(1);
 	}
 
 	public void firstRun() {
