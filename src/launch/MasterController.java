@@ -60,6 +60,8 @@ public class MasterController {
 	private Logger logger = LogManager.getLogger();
 	
 	private boolean screenReaderEnabled = false;
+	private boolean firstRun = false;
+
 
 	// Master needs to be aple to do play back stuff and edit the library
 	private LibraryController libraryController = null;
@@ -80,6 +82,7 @@ public class MasterController {
 
 	private MasterController() {
 	
+		
 		currentView = ViewType.LIBRARY_VIEW;
 	}
 
@@ -337,5 +340,15 @@ public class MasterController {
 			
         sr.readInfo();
 		
+	}
+
+	public boolean isFirstRun()
+	{
+		return firstRun;
+	}
+
+	public void firstRun() {
+		// TODO Auto-generated method stub
+		this.firstRun = true;
 	}
 }
