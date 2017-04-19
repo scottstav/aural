@@ -1,13 +1,13 @@
 package controller;
 
 import com.sun.speech.freetts.Voice;
-
 import com.sun.speech.freetts.VoiceManager;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import launch.MasterController;
 import model.Album;
 import model.Artist;
@@ -18,17 +18,28 @@ public class ScreenReader
 {
     private Object obj;
     private String sourceType;
+    private Voice kevin;
+    private VoiceManager manager;
+    
+    private boolean isReading = false;
     
     public ScreenReader(Object obj, String sourceType)
     {
         this.obj = obj;
         this.sourceType = sourceType;
+        manager = VoiceManager.getInstance();
+        kevin = manager.getVoice("kevin");
+        kevin.setDurationStretch((float) 1.2);
+        kevin.allocate();
     }
     
     public void readInfo()
     {
         if(!MasterController.getInstance().isScreenReaderEnabled() || obj == null)
             return;
+        if(isReading)
+        
+        isReading = true;
         
         String text = "";
         if(sourceType.equals("Button"))
@@ -73,17 +84,33 @@ public class ScreenReader
         	Playlist pl = (Playlist) obj;
         	text = pl.getName();
         }
-        else
+        else if (sourceType.equals("TextField"))
         {
-        	Button butt = (Button) obj;
+            text = "Type in the name of a new playlist";
         }
             
-        VoiceManager manager = VoiceManager.getInstance();
-        Voice kevin = manager.getVoice("kevin");
-        kevin.setDurationStretch((float) 1.2);
-        kevin.allocate();
         kevin.speak( text );
         kevin.deallocate();
-        
+        isReading = false;
+    }
+    
+    public void setObject(Object obj)
+    {
+        this.obj = obj;
+    }
+    
+    public Object getObject()
+    {
+        return this.obj;
+    }
+    
+    public void setSourceType(String sourceType)
+    {
+        this.sourceType = sourceType;
+    }
+    
+    public String getSourceType()
+    {
+        return this.sourceType;
     }
 }

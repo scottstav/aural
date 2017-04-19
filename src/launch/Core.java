@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import view.MainView;
+import view.ViewType;
 
 /**
  * Launches the application
@@ -59,7 +60,10 @@ public class Core extends Application {
 		
 		MasterController.getInstance().setRootPane((BorderPane) mainView);
 		MasterController.getInstance().setPrimaryStage(primaryStage);
-
+		if(MasterController.getInstance().isFirstRun())
+		{
+			MasterController.getInstance().updateView(ViewType.HELP, null);
+		}
 
 		// Setting the stage and showing it
 		primaryStage.setTitle("Aural");

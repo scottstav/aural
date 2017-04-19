@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
+import launch.MasterController;
 import model.Playlist;
 import model.SongEntry;
 
@@ -412,6 +414,19 @@ public class SongGateway {
 		Statement stmt = null;
 
 		Class.forName("org.h2.Driver");
+		conn = DriverManager.getConnection("jdbc:h2:~/.aural");
+
+		DatabaseMetaData dbm = conn.getMetaData();
+		// check if "employee" table is there
+		ResultSet tables = dbm.getTables(null, null, "SONGS", null);
+		if (tables.next()) {
+		  logger.info(tables.getString(3));
+		} 
+		else 
+		{
+			MasterController.getInstance().firstRun();
+		}
+	
 		
 		String createSongTableSQL = "CREATE TABLE IF NOT EXISTS songs (id int NOT NULL AUTO_INCREMENT, path varchar(255), title varchar(255),"
 				+ " artist varchar(255), album varchar(255), length long, track_number int)";
@@ -421,7 +436,6 @@ public class SongGateway {
 		// if it already exists, it does nothing
 		// looks like ~/.aural.mv.db
 		try {
-			conn = DriverManager.getConnection("jdbc:h2:~/.aural");
 			// create the songs table here
 			stmt = conn.createStatement();
 			stmt.execute(createSongTableSQL);
