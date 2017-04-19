@@ -137,23 +137,7 @@ public class SongTable extends TableView<SongEntry> {
                 }
 		        else if(event.getCode().equals(KeyCode.SPACE))
 		        {
-		            if(MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty().equals("Pause"))
-		            {
-		                MasterController.getInstance().getPlaybackController().
-                        setSelected(getSelectionModel().getSelectedItem());
-		                MasterController.getInstance().getPlaybackController().playSelection();
-		            }
-		            else if (MasterController.getInstance().getPlaybackController().getPlayOrPauseProperty().equals("Play") &&
-		                     !MasterController.getInstance().getPlaybackController().getNowPlayingProperty().equals(""))
-		            {
-		                MasterController.getInstance().getPlaybackController().pauseSong();
-		            }
-		            else
-		            {
-		                MasterController.getInstance().getPlaybackController().
-                        setSelected(getSelectionModel().getSelectedItem());
-                        MasterController.getInstance().getPlaybackController().playSelection();
-		            }
+		            MasterController.getInstance().getPlayBackView().getButtons()[1].fire();
 		        }
 		        else if(event.getCode() == KeyCode.LEFT && event.isControlDown())
 		        {

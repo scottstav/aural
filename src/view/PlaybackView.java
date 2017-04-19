@@ -93,4 +93,10 @@ public class PlaybackView extends VBox{
 		    }
 		});
 	}
+	
+	public Button[] getButtons()
+	{
+	    Button[] buttons = {previous, play, next};
+	    return buttons;
+	}
 }
