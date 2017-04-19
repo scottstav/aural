@@ -92,7 +92,7 @@ public class SongTable extends TableView<SongEntry> {
 		                // clicking on text part
 		                row = (TableRow<?>) node.getParent();
 		            }
-		            MasterController.getInstance().setSelected((SongEntry) row.getItem());
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem(), "SongEntry");
 
 		            MasterController.getInstance().getPlaybackController().playSelection();
 
@@ -105,7 +105,7 @@ public class SongTable extends TableView<SongEntry> {
 		                // clicking on text part
 		                row = (TableRow<?>) node.getParent();
 		            }
-		            MasterController.getInstance().setSelected((SongEntry) row.getItem());;
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem(), "SongEntry");;
 
 		        } 
 		    }
@@ -113,7 +113,7 @@ public class SongTable extends TableView<SongEntry> {
 		
 		this.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
-		        MasterController.getInstance().setSelected(newSelection);
+		        MasterController.getInstance().setSelected(newSelection, "SongEntry");
 		    }
 		});
 

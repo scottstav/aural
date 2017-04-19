@@ -19,6 +19,7 @@ import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
 import helliker.id3.NoMPEGFramesException;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -28,7 +29,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -39,8 +39,8 @@ import javafx.stage.Stage;
 import model.Playlist;
 import model.Profile;
 import model.SongEntry;
-import view.KeyMapView;
 import view.HelpView;
+import view.KeyMapView;
 import view.LibraryView;
 import view.MenuView;
 import view.PreferencesView;
@@ -66,6 +66,10 @@ public class MasterController {
 	private PlaybackController playbackController = null;
 	private SidebarController sidebarController = null;
 	private KeyMapViewController keyMapViewController = null;
+	private ScreenReader screenReader = null;
+	
+	private Thread readerThread;
+	private Task<Integer> readerTask;
 
 	
 	private SongGateway gateway = null;
@@ -81,6 +85,7 @@ public class MasterController {
 	private MasterController() {
 	
 		currentView = ViewType.LIBRARY_VIEW;
+		
 	}
 
 	/**
@@ -159,6 +164,8 @@ public class MasterController {
 	        inputBox.setAlignment(Pos.CENTER);
 
 	    	Scene playlist = new Scene(inputBox);
+	    	playlist.focusOwnerProperty().addListener((prop, oldNode, newNode)
+	                -> MasterController.getInstance().readScreen(newNode));
 	        stage.setScene(playlist);
 	        stage.show();
 
@@ -229,13 +236,13 @@ public class MasterController {
 	 * all need to know what is currently selected for different reasons
 	 * 
 	 */
-	public void setSelected(Object selected)
+	public void setSelected(Object selected, String sourceType)
 	{
 		getPlaybackController();
-		if(isScreenReaderEnabled()) 
+		if(isScreenReaderEnabled())
 		{
-			ScreenReader sr = new ScreenReader(selected, "SongEntry");
-			sr.readInfo();
+		    screenReader.setObject(selected);
+		    screenReader.setSourceType("Button");
 		}
 		playbackController.setSelected((SongEntry) selected);
 	}
@@ -313,6 +320,19 @@ public class MasterController {
 	    return currentView;
 	}
 	
+	public ScreenReader getScreenReader(Object obj, String sourceType)
+	{
+	    if(screenReader == null)
+	        screenReader = new ScreenReader(obj, sourceType);
+	    else
+	    {
+	        screenReader.setObject(obj);
+	        screenReader.setSourceType(sourceType);
+	    }
+	    
+	    return screenReader;
+	}
+	
 	public boolean isScreenReaderEnabled()
 	{
 	    return screenReaderEnabled;
@@ -321,21 +341,49 @@ public class MasterController {
 	public void toggleScreenReader() 
 	{
 		screenReaderEnabled = !screenReaderEnabled;
+		if(screenReader == null)
+		    screenReader = new ScreenReader(null, "");
+		System.out.println("screenReaderEnabled = " + screenReaderEnabled);
 	}
 
 	public void readScreen(Node newNode) {
-		// TODO Auto-generated method stub
-		if(!isScreenReaderEnabled())
-			return;
-		ScreenReader sr = null;
-		if(newNode instanceof Button)
-			sr = new ScreenReader( newNode, "Button");
-		else if (newNode instanceof ListView)
-			sr = new ScreenReader(newNode, "List");
-		else if (newNode instanceof TableView)
-			sr = new ScreenReader(newNode, "Table");
-			
-        sr.readInfo();
-		
+		readerTask = new Task<Integer>() {
+            @Override
+            protected Integer call() throws Exception
+            {
+                ScreenReader r = new ScreenReader(null, "");
+                System.out.println("Started Running");
+                if(!isScreenReaderEnabled())
+                    return 1;
+                if(newNode instanceof Button)
+                {
+                    r.setObject(newNode);
+                    r.setSourceType("Button");
+                }
+                else if (newNode instanceof ListView)
+                {
+                    r.setObject(newNode);
+                    r.setSourceType("List");
+                }
+                else if (newNode instanceof TableView)
+                {
+                    r.setObject(newNode);
+                    r.setSourceType("Table");
+                }
+                else if (newNode instanceof TextField)
+                {
+                    r.setObject(newNode);
+                    r.setSourceType("TextField");
+                }
+
+                r.readInfo();
+                
+                return 0;
+            }
+        };
+		readerThread = new Thread(readerTask);
+        readerThread.setDaemon(true);
+		readerThread.start();
+		System.out.println("Started Thread");
 	}
 }
