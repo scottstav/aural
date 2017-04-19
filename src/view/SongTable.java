@@ -5,6 +5,7 @@ import controller.SongTableController;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.AccessibleRole;
 import javafx.scene.Node;
@@ -91,7 +92,7 @@ public class SongTable extends TableView<SongEntry> {
 		                // clicking on text part
 		                row = (TableRow<?>) node.getParent();
 		            }
-		            MasterController.getInstance().setSelected((SongEntry) row.getItem());
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem(), "SongEntry");
 
 		            MasterController.getInstance().getPlaybackController().playSelection();
 
@@ -104,7 +105,7 @@ public class SongTable extends TableView<SongEntry> {
 		                // clicking on text part
 		                row = (TableRow<?>) node.getParent();
 		            }
-		            MasterController.getInstance().setSelected((SongEntry) row.getItem());;
+		            MasterController.getInstance().setSelected((SongEntry) row.getItem(), "SongEntry");;
 
 		        } 
 		    }
@@ -112,7 +113,7 @@ public class SongTable extends TableView<SongEntry> {
 		
 		this.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null) {
-		        MasterController.getInstance().setSelected(newSelection);
+		        MasterController.getInstance().setSelected(newSelection, "SongEntry");
 		    }
 		});
 
@@ -124,8 +125,17 @@ public class SongTable extends TableView<SongEntry> {
 		        //System.out.println(getSelectionModel().getSelectedItem());
 		        if(event.getCode() == KeyCode.SPACE && event.isControlDown())
                 {
-                    ScreenReader sr = new ScreenReader(getSelectionModel().getSelectedItem(), "SongEntry");
-                    sr.readInfo();
+		            Task<Integer> task = new Task<Integer>() {
+                        @Override protected Integer call() throws Exception {
+                            ScreenReader sr = new ScreenReader(getSelectionModel().getSelectedItem(), "SongEntry");
+                            sr.readInfo();
+                            return 0;
+                        }
+                    };
+                    
+                    Thread th = new Thread(task);
+                    th.setDaemon(true);
+                    th.start();
                 }
 		        else if(event.getCode().equals(KeyCode.SPACE))
 		        {

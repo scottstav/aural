@@ -2,6 +2,7 @@ package view;
 
 import controller.MenuController;
 import controller.ScreenReader;
+import javafx.concurrent.Task;
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.CustomMenuItem;
@@ -139,13 +140,24 @@ public class MenuView extends MenuBar{
 	
 	public void readMenuItems()
 	{
-	    for(Menu m : getMenus())
-            for(MenuItem mi : m.getItems())
-            {
-                if(mi.getAccelerator() == null)
-                    continue;
-                ScreenReader sr = new ScreenReader(mi, "MenuItem");
-                sr.readInfo();
-            }
+	    Task<Integer> task = new Task<Integer>() {
+	        @Override protected Integer call() throws Exception {
+	            for(Menu m : getMenus())
+	            {
+	                for(MenuItem mi : m.getItems())
+	                {
+	                    if(mi.getAccelerator() == null)
+	                        continue;
+	                    ScreenReader sr = new ScreenReader(mi, "MenuItem");
+	                    sr.readInfo();
+	                }
+	            }
+	            return 0;
+	        }
+	    };
+	    
+	    Thread th = new Thread(task);
+	    th.setDaemon(true);
+	    th.start();
 	}
 }
