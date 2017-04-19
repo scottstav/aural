@@ -83,6 +83,7 @@ public class MenuView extends MenuBar{
         
       
 		addToPlaylistMenuItem = new CustomMenuItem(playlists);
+		addToPlaylistMenuItem.setAccelerator(KeyCombination.keyCombination("CTRL+A"));
 		addToPlaylistMenuItem.setHideOnClick(false);
 		playlists.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
 			MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode(MasterController.getInstance().getSelected(), null));

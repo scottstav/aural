@@ -241,8 +241,7 @@ public class MasterController {
 		getPlaybackController();
 		if(isScreenReaderEnabled())
 		{
-		    screenReader.setObject(selected);
-		    screenReader.setSourceType("Button");
+		    screenReader = new ScreenReader(selected, sourceType);
 		}
 		playbackController.setSelected((SongEntry) selected);
 	}

@@ -165,6 +165,12 @@ public class SongTable extends TableView<SongEntry> {
 		        {
 		            MasterController.getInstance().getPlaybackController().nextSong();
 		        }
+		        else if(event.getCode() == KeyCode.A && event.isControlDown())
+		        {
+		            ComboBox<Playlist> playlists = new ComboBox<Playlist>(MasterController.getInstance().getSidebarController().getPlaylists());
+		            playlists.setPromptText("add to playlist...");
+		            //MasterController.getInstance().getSidebarController().getPlaylistById(newValue.getId()).addToPlaylist(new PlaylistNode(MasterController.getInstance().getSelected(), null));
+		        }
 		    }
 		});
 		

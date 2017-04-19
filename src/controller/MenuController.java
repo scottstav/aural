@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import launch.MasterController;
@@ -30,7 +32,11 @@ public class MenuController implements EventHandler<ActionEvent> {
         MenuItem menuItem = (MenuItem) arg0.getSource();
         String text = menuItem.getText();
         
-        if(text.equals("Import Music"))
+        if(text == null)
+        {
+            
+        }
+        else if(text.equals("Import Music"))
         {
             fileChooser.setTitle("Select music files");
             List<File> selected_songs = fileChooser.showOpenMultipleDialog(MasterController.getInstance().getPrimaryStage());
