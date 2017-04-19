@@ -82,6 +82,15 @@ public class ArtistTable extends TableView<Artist> {
                 }
             }
 		});
+		
+		this.setAccessibleText("Artist Table");
+		
+		this.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		    if (newSelection != null) {
+		        MasterController.getInstance().setSelected(newSelection, "Artist");
+		    }
+		});
+		
 		this.setItems(controller.getArtists());
 
 		artist.setMinWidth(200);

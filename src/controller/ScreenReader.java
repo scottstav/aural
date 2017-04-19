@@ -58,6 +58,7 @@ public class ScreenReader
             SongEntry e = (SongEntry) obj;
             text = e.getTitle() + " by " + e.getArtist();
         }
+    
         else if(sourceType.equals("Artist"))
         {
             Artist a = (Artist) obj;
