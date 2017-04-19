@@ -355,7 +355,7 @@ public class MasterController {
 		{
 		    VoiceManager manager = VoiceManager.getInstance();
 		    Voice kevin = manager.getVoice("kevin");
-		    kevin.setDurationStretch((float) 2);
+		    kevin.setDurationStretch((float) 1.2);
 	        kevin.allocate();
 		    kevin.speak("Screen Reader activated. Tab will take you to the next item, space interacts with an item, control L lists Screen Reader Help");
 		    kevin.deallocate();
