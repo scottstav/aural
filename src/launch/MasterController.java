@@ -60,6 +60,8 @@ public class MasterController {
 	private Logger logger = LogManager.getLogger();
 	
 	private boolean screenReaderEnabled = false;
+	private boolean firstRun = false;
+
 
 	// Master needs to be aple to do play back stuff and edit the library
 	private LibraryController libraryController = null;
@@ -84,6 +86,7 @@ public class MasterController {
 
 	private MasterController() {
 	
+		
 		currentView = ViewType.LIBRARY_VIEW;
 		
 	}
@@ -142,6 +145,7 @@ public class MasterController {
 			Stage stage = new Stage();
 			VBox inputBox = new VBox();
 	        TextField playlistNameField = new TextField();
+	        
 	        // prompt for playlist name
 	        playlistNameField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	            @Override
@@ -239,6 +243,7 @@ public class MasterController {
 	public void setSelected(Object selected, String sourceType)
 	{
 		getPlaybackController();
+		screenReader = new ScreenReader(selected, sourceType);
 		if(isScreenReaderEnabled())
 		{
 		    screenReader = new ScreenReader(selected, sourceType);
@@ -346,6 +351,7 @@ public class MasterController {
 	}
 
 	public void readScreen(Node newNode) {
+
 		readerTask = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception
@@ -384,5 +390,15 @@ public class MasterController {
         readerThread.setDaemon(true);
 		readerThread.start();
 		System.out.println("Started Thread");
+	}
+
+	public boolean isFirstRun()
+	{
+		return firstRun;
+	}
+
+	public void firstRun() {
+		// TODO Auto-generated method stub
+		this.firstRun = true;
 	}
 }

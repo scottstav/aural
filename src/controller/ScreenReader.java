@@ -87,10 +87,6 @@ public class ScreenReader
         {
             text = "Type in the name of a new playlist";
         }
-        else
-        {
-        	Button butt = (Button) obj;
-        }
             
         kevin.speak( text );
         kevin.deallocate();
