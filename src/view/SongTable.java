@@ -3,8 +3,6 @@ package view;
 import controller.ScreenReader;
 import controller.SongTableController;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.AccessibleRole;

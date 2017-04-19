@@ -9,8 +9,6 @@ import org.apache.logging.log4j.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import launch.MasterController;
